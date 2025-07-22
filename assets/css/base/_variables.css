@@ -1,0 +1,43 @@
+/* CSS custom properties */
+:root {
+    /* Colors */
+    --blue: #004EE0;
+    --darkblue: #042E7B;
+    --lightblue: #1883FF;
+    --background: rgba(233, 245, 255, 0.450);
+    --body: #e7f4ff;
+    --green: #079844;
+    --yellow: #F3CF31;
+    --red: #F62F32;
+    --glass: #c3d9fda2;
+
+    /* Gradients */
+    --gradient: linear-gradient(135deg, #1883FF, #042e7bc1);
+    --gradient2: linear-gradient(135deg, #0061ff, #1aa0ff);
+    --text-gradient: linear-gradient(135deg, #101010, #353535);
+
+    /* Text Colors */
+    --light: #ccccccaa;
+    --lighter: #e6e6e6;
+    --lightest: #fafafa;
+    --dark: #353535;
+    --darker: #1a1a1a;
+    --darkest: #101010;
+
+    /* Shadows */
+    --shadow: 0 4px 10px rgba(24, 131, 255, 0.10);
+    --light-shadow: 0 2px 20px rgba(24, 131, 255, 0.25);
+    --dark-shadow: 0 6px 20px rgba(22, 53, 110, 0.25);
+    --blue-shadow: 0 4px 12px rgba(0, 78, 224, 0.3);
+    --red-shadow: 0 4px 12px rgba(246, 47, 50, 0.3);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+
+    /* Fonts */
+    --heading: 'Raleway', sans-serif;
+    --paragraph: 'Poppins', sans-serif;
+    --prize: 'Montserrat', sans-serif;
+
+    /* Font Size */
+    --heading-sz: 35px;
+    --subheading-sz: 25px; 
+}

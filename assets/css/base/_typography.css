@@ -1,0 +1,157 @@
+/* Form Header */
+.form-header {
+  text-align: left;
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  margin-bottom: 33px;
+}
+
+.form-header h2 {
+  font-size: 2rem;
+  color: var(--glass);
+  margin-bottom: 10px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.form-header p {
+  color: #666;
+  font-size: 0.95rem;
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+
+/* Main Logo Text */
+.logo-text {
+  font-family: var(--heading);
+  font-size: 23px;
+  font-weight: 700;
+  background: var(--gradient2);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.logo-container:hover .logo-text {
+  background-position: 100% 0;
+  cursor: pointer;
+}
+
+/* Slider title part */
+.feature-title {
+  position: relative;
+  text-align: center;
+}
+
+.feature-title h2 {
+  font-family: var(--heading);
+  font-size: var(--heading-sz);
+  font-weight: 600px;
+  text-shadow: 0 2px 4px rgba(0, 120, 240, 0.15);
+  background: var(--text-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-top: 200px;
+  margin-bottom: 2px;
+}
+
+/* Title line */
+.title-line {
+  width: 130px;
+  height: 4px;
+  background: var(--gradient2);
+  margin: 12px auto 48px;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.title-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent
+  );
+  animation: shine 3s ease infinite;
+}
+
+/* Slider Section */
+/* Product Name */
+.slide .slide-name {
+  margin-bottom: 25px;
+  font-family: var(--paragraph);
+  font-weight: 600;
+  font-size: 50px;
+  line-height: 1.1px;
+  color: var(--darker);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Product Price */
+.slide .slide-price {
+  position: relative;
+  margin: 35px 0;
+  font-family: var(--prize);
+  font-size: 25px;
+  font-weight: 600;
+  background: var(--gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.slide .slide-price::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 2px;
+  left: 0;
+  bottom: -10px;
+  border-radius: 30px;
+  background: linear-gradient(90deg, var(--blue), transparent);
+}
+
+/* All section titles */
+.section-title {
+  position: relative;
+  text-align: center;
+}
+
+.section-title h2 {
+  font-family: var(--heading);
+  font-size: var(--heading-sz);
+  font-weight: 600px;
+  text-shadow: 0 2px 4px rgba(0, 120, 240, 0.15);
+  background: var(--text-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-top: 30px;
+  margin-bottom: 2px;
+}
+
+/* Animation */
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+
+  20%,
+  100% {
+    left: 100%;
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+}

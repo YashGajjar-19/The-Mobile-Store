@@ -1,0 +1,115 @@
+/* Alert System - Matched to Site Aesthetics */
+.alert,
+.form-alert {
+  padding: 1rem 1.25rem;
+  margin: 0 0 10px 0;
+  border-radius: 12px;
+  font-family: var(--paragraph);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  backdrop-filter: blur(8px);
+  border: 1px solid transparent;
+  box-shadow: var(--glass-shadow);
+  transition: all 0.3s ease;
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+/* Alert Icons */
+.alert-icon {
+  margin-right: 0.75rem;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* Success Alert - Using your green */
+.alert-success,
+.form-alert.alert-success {
+  background-color: rgba(7, 152, 68, 0.15);
+  color: var(--green);
+  border-color: rgba(7, 152, 68, 0.3);
+}
+
+.alert-success .alert-icon,
+.form-alert.alert-success .alert-icon {
+  color: var(--green);
+}
+
+/* Error Alert - Using your red */
+.alert-error,
+.form-alert.alert-error {
+  background-color: rgba(246, 47, 50, 0.15);
+  color: var(--red);
+  border-color: rgba(246, 47, 50, 0.3);
+}
+
+.alert-error .alert-icon,
+.form-alert.alert-error .alert-icon {
+  color: var(--red);
+}
+
+/* Close Button - Matched to your design */
+.alert-close {
+  margin-left: auto;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: inherit;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+  padding: 0 0 0 0.75rem;
+  flex-shrink: 0;
+}
+
+.alert-close:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Form-specific alerts - More subtle */
+.form-alert {
+  margin: 0 0 1.25rem 0;
+  padding: 0.85rem 1.15rem;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(5px);
+}
+
+/* Animation - Smooth entry */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Alert container for floating alerts */
+.alert-container {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  width: 320px;
+  z-index: 1000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .alert,
+  .form-alert {
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .alert-container {
+    width: 90%;
+    left: 5%;
+    right: 5%;
+    top: 15px;
+  }
+}

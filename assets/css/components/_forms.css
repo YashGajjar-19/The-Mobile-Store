@@ -1,0 +1,226 @@
+/* Input fields, selects */
+
+/* Auth Forms */
+.form-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--body);
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.form-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, va 0%, transparent 70%);
+    transform: rotate(30deg);
+    z-index: 0;
+}
+
+/* Form Labels */
+.form-label {
+    font-family: var(--prize);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--dark);
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    width: fit-content;
+}
+
+.form-label::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--blue);
+    border-radius: 50%;
+    opacity: 0.9;
+}
+
+.form-label::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient);
+    transition: width 0.3s ease;
+}
+
+.form-group:focus-within .form-group::after {
+    width: 100%;
+}
+
+.form-label.required::after {
+    content: '*';
+    color: var(--red);
+    /* Red */
+    margin-left: 0.25rem;
+    font-size: 0.85em;
+}
+
+.form-group--floating .form-label {
+    position: absolute;
+    left: 3.5rem;
+    top: 1rem;
+    background: var(--body);
+    padding: 0 0.5rem;
+    transition: all 0.2s ease;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.form-group--floating .form-input:not(:placeholder-shown)+.form-label,
+.form-group--floating .form-input+.form-group__label {
+    top: -0.5rem;
+    left: 1rem;
+    font-size: 0.8rem;
+    color: var(--blue);
+    background: var(--glass);
+}
+
+/* Inputs */
+.form-input {
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.form-input ion-icon {
+    position: absolute;
+    left: 15px;
+    top: 26%;
+    color: var(--darkest);
+    font-size: 1.2rem;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.form-input input {
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    border: 1px solid var(--glass);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.05),
+        inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.form-input input:focus {
+    border-color: var(--blue);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: var(--dark-shadow);
+    outline: none;
+}
+
+.form-input input:focus+ion-icon {
+    color: var(--blue);
+}
+
+.password-input {
+    position: absolute;
+    right: 55px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #000000;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+.password-input:hover {
+    color: var(--blue);
+}
+
+/* Form options styling in Login Form */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 15px;
+}
+
+.remember-me {
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--darkest);
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.forgot-password {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.forgot-password:hover {
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+.form-footer {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #666;
+}
+
+.form-footer a {
+    color: var(--blue);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.form-footer a:hover {
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+/* Terms checkbox styling in Register Form */
+.form-terms {
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-terms a {
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.form-terms a:hover {
+    text-decoration: underline;
+}
