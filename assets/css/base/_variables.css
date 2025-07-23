@@ -5,27 +5,26 @@
     --darkblue: #042E7B;
     --lightblue: #1883FF;
     --background: rgba(233, 245, 255, 0.450);
-    --body: #e7f4ff;
+    --body: #FAFAFA;
     --green: #079844;
     --yellow: #F3CF31;
     --red: #F62F32;
-    --glass: #c3d9fda2;
+    --glass: #ddeaffa2;
 
     /* Gradients */
-    --gradient: linear-gradient(135deg, #1883FF, #042e7bc1);
-    --gradient2: linear-gradient(135deg, #0061ff, #1aa0ff);
+    --gradient: linear-gradient(115deg, #2255FF, #00AAFF);
     --text-gradient: linear-gradient(135deg, #101010, #353535);
 
     /* Text Colors */
-    --light: #ccccccaa;
-    --lighter: #e6e6e6;
+    --light: #ededed;
+    --lighter: #f5f5f5;
     --lightest: #fafafa;
     --dark: #353535;
     --darker: #1a1a1a;
     --darkest: #101010;
 
     /* Shadows */
-    --shadow: 0 4px 10px rgba(24, 131, 255, 0.10);
+    --shadow: 0 4px 10px rgba(24, 131, 255, 0.15);
     --light-shadow: 0 2px 20px rgba(24, 131, 255, 0.25);
     --dark-shadow: 0 6px 20px rgba(22, 53, 110, 0.25);
     --blue-shadow: 0 4px 12px rgba(0, 78, 224, 0.3);

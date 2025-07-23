@@ -59,7 +59,7 @@
     transition: width 0.3s ease;
 }
 
-.form-group:focus-within .form-group::after {
+.form-group:focus-within .form-label::after {
     width: 100%;
 }
 

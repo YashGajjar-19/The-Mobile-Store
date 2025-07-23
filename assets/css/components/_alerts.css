@@ -97,19 +97,3 @@
   width: 320px;
   z-index: 1000;
 }
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .alert,
-  .form-alert {
-    padding: 0.85rem 1rem;
-    font-size: 0.9rem;
-  }
-
-  .alert-container {
-    width: 90%;
-    left: 5%;
-    right: 5%;
-    top: 15px;
-  }
-}
