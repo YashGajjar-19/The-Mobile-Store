@@ -8,7 +8,7 @@
     align-items: center;
     min-height: 100vh;
     background: var(--body);
-    padding: 2rem;
+    padding: 2.1rem;
     overflow: hidden;
 }
 
@@ -59,43 +59,18 @@
     transition: width 0.3s ease;
 }
 
-.form-group:focus-within .form-label::after {
-    width: 100%;
-}
-
 .form-label.required::after {
     content: '*';
     color: var(--red);
-    /* Red */
     margin-left: 0.25rem;
     font-size: 0.85em;
-}
-
-.form-group--floating .form-label {
-    position: absolute;
-    left: 3.5rem;
-    top: 1rem;
-    background: var(--body);
-    padding: 0 0.5rem;
-    transition: all 0.2s ease;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.form-group--floating .form-input:not(:placeholder-shown)+.form-label,
-.form-group--floating .form-input+.form-group__label {
-    top: -0.5rem;
-    left: 1rem;
-    font-size: 0.8rem;
-    color: var(--blue);
-    background: var(--glass);
 }
 
 /* Inputs */
 .form-input {
     font-family: 'Poppins', sans-serif;
     position: relative;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .form-input ion-icon {

@@ -21,30 +21,12 @@
                 <p>Join The Mobile Store community</p>
             </div>
 
-            <?php if (isset($_SESSION['error'])): ?>
-                <div class="alert alert-error">
-                    <ion-icon name="warning-outline" class="alert-icon"></ion-icon>
-                    <?= $_SESSION['error'] ?>
-                    <button class="alert-close" onclick="this.parentElement.remove()">&times;</button>
-                </div>
-                <?php unset($_SESSION['error']); ?>
-            <?php endif; ?>
-
-            <?php if (isset($_SESSION['success'])): ?>
-                <div class="alert alert-success">
-                    <ion-icon name="checkmark-outline" class="alert-icon"></ion-icon>
-                    <?= $_SESSION['success'] ?>
-                    <button class="alert-close" onclick="this.parentElement.remove()">&times;</button>
-                </div>
-                <?php unset($_SESSION['success']); ?>
-            <?php endif; ?>
-
             <form method="POST" class="auth-form">
                 <div class="form-group">
                     <label for="fullname" class="form-label">Full Name</label>
                     <div class="form-input">
                         <ion-icon name="person-outline"></ion-icon>
-                        <input type="text" id="fullname" name="fullname" required placeholder="Your full name" value="<?= isset($_POST['fullname']) ? htmlspecialchars($_POST['fullname']) : '' ?>">
+                        <input type="text" id="fullname" name="fullname" required placeholder="Your full name">
                     </div>
                 </div>
 
@@ -52,7 +34,7 @@
                     <label for="email" class="form-label">Email</label>
                     <div class="form-input">
                         <ion-icon name="mail-outline"></ion-icon>
-                        <input type="email" id="email" name="email" required placeholder="Your email address" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>">
+                        <input type="email" id="email" name="email" required placeholder="Your email address">
                     </div>
                 </div>
 
@@ -76,7 +58,7 @@
             </form>
 
             <div class="form-footer">
-                <p>Already have an account? <a href="login.php">Sign in</a></p>
+                <p>Already have an account? <a href="login.html">Sign in</a></p>
             </div>
         </div>
     </div>

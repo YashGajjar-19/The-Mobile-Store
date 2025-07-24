@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | The Mobile Store</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+
+<body>
+
+    <div class="admin-dashboard-container">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/images/logo.png" alt="The Mobile Store" class="sidebar-logo">
+                <h2 class="sidebar-title">Admin Panel</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#"><span class="material-symbols-rounded">dashboard</span>Dashboard</a>
+                    </li>
+                    <li><a href="#"><span class="material-symbols-rounded">inventory_2</span>Products</a></li>
+                    <li><a href="#"><span class="material-symbols-rounded">receipt_long</span>Orders</a></li>
+                    <li><a href="#"><span class="material-symbols-rounded">group</span>Customers</a></li>
+                    <li><a href="#"><span class="material-symbols-rounded">bar_chart</span>Analytics</a></li>
+                    <li><a href="#"><span class="material-symbols-rounded">settings</span>Settings</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="logout-btn">
+                    <span class="material-symbols-rounded">logout</span>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="admin-main-content">
+            <div class="main-header">
+                <h1>Dashboard Overview</h1>
+                <div class="header-actions">
+                    <button class="button"><span class="material-symbols-rounded">add</span>Add Product</button>
+                    <div class="user-profile">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Admin" class="profile-pic">
+                        <div class="user-info">
+                            <span class="user-name">John Doe</span>
+                            <span class="user-role">Administrator</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-cards">
+                <div class="dashboard-card">
+                    <div class="card-icon"><span class="material-symbols-rounded">account_balance_wallet</span></div>
+                    <div class="card-info">
+                        <span class="card-title">Total Revenue</span>
+                        <span class="card-value">&#8377;1,25,000</span>
+                        <span class="card-trend up">+12.5%</span>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon"><span class="material-symbols-rounded">shopping_bag</span></div>
+                    <div class="card-info">
+                        <span class="card-title">Orders</span>
+                        <span class="card-value">45</span>
+                        <span class="card-trend up">+5.2%</span>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon"><span class="material-symbols-rounded">group</span></div>
+                    <div class="card-info">
+                        <span class="card-title">Customers</span>
+                        <span class="card-value">1,200</span>
+                        <span class="card-trend down">-1.8%</span>
+                    </div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon"><span class="material-symbols-rounded">visibility</span></div>
+                    <div class="card-info">
+                        <span class="card-title">Visitors</span>
+                        <span class="card-value">15,789</span>
+                        <span class="card-trend up">+21%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <section class="recent-orders card">
+                    <h2>Recent Orders</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#12345</td>
+                                <td>Jane Cooper</td>
+                                <td><span class="status shipped">Shipped</span></td>
+                                <td>&#8377;1,74,999</td>
+                                <td>2024-07-24</td>
+                            </tr>
+                            <tr>
+                                <td>#12344</td>
+                                <td>Cody Fisher</td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td>&#8377;78,999</td>
+                                <td>2024-07-24</td>
+                            </tr>
+                            <tr>
+                                <td>#12343</td>
+                                <td>Esther Howard</td>
+                                <td><span class="status delivered">Delivered</span></td>
+                                <td>&#8377;1,14,999</td>
+                                <td>2024-07-23</td>
+                            </tr>
+                            <tr>
+                                <td>#12342</td>
+                                <td>Jenny Wilson</td>
+                                <td><span class="status delivered">Delivered</span></td>
+                                <td>&#8377;64,999</td>
+                                <td>2024-07-22</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section class="top-products card">
+                    <h2>Top Selling Products</h2>
+                    <ul>
+                        <li>
+                            <img src="../assets/images/products/Apple/iPhone 16 Pro/Black Titanium/1.webp"
+                                alt="iPhone 16 Pro">
+                            <div class="product-info">
+                                <span>iPhone 16 Pro</span>
+                                <span class="sales">150 units sold</span>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="../assets/images/products/Samsung/Z Fold 7/Blue Shadow/1.webp"
+                                alt="Galaxy Z Fold 7">
+                            <div class="product-info">
+                                <span>Galaxy Z Fold 7</span>
+                                <span class="sales">120 units sold</span>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="../assets/images/products/Google/Pixel 9A/Porcelain/1.webp" alt="Pixel 9A">
+                            <div class="product-info">
+                                <span>Google Pixel 9A</span>
+                                <span class="sales">95 units sold</span>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

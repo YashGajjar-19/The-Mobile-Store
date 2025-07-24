@@ -7,7 +7,7 @@
     width: 90%;
     max-width: 1200px;
     padding: 20px;
-    margin: 20px auto 50px auto;
+    margin: 20px auto;
     background: var(--background);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);

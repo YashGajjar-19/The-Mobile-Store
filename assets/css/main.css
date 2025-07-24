@@ -13,7 +13,7 @@
 @import url('components/_forms.css');
 
 /* Layouts */
-@import url('layout/_filter-panel.css');
+@import url('layout/_fliter-panel.css');
 @import url('layout/_footer.css');
 @import url('layout/_home.css');
 @import url('layout/_header.css');

@@ -5,7 +5,7 @@
   padding: 30px;
   border-radius: 20px;
   z-index: 1;
-  background: var(--body);
+  background: var(--background);
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: var(--light-shadow);
   backdrop-filter: blur(16px) saturate(180%);
@@ -158,4 +158,4 @@
   color: var(--darkest);
   margin: 0;
   white-space: nowrap;
-}
+} 
