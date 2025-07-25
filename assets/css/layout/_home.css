@@ -1,3 +1,66 @@
+/* Hero Section Styles */
+.hero-section {
+  position: relative;
+  background-color: var(--body);
+  color: var(--darkest);
+  padding: auto 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Columns */
+.hero-image-column,
+.hero-text-column {
+  flex: 1;
+  padding: 20px;
+}
+
+/* Image Styling */
+.hero-image-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Text Styling */
+.hero-text-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-headline {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: var(--darkest);
+}
+
+.hero-subheadline {
+  font-size: 1.2rem;
+  color: #666666;
+  margin-bottom: 30px;
+}
+
 /* Slider Wrapper */
 .slider-wrapper {
   position: relative;
@@ -97,11 +160,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(0, 113, 227, 0.05),
-    rgba(0, 168, 255, 0.05)
-  );
+  background: linear-gradient(135deg,
+      rgba(0, 113, 227, 0.05),
+      rgba(0, 168, 255, 0.05));
   z-index: -1;
 }
 

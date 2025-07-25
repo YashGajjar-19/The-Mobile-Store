@@ -18,51 +18,70 @@
 </head>
 
 <body>
-    <header class="header">
-        <a href="./index.html" class="logo-container">
-            <img class="logo-image" src="./assets/images/logo.png" alt="The Mobile Store">
-            <span class="logo-text">The Mobile Store</span>
-        </a>
+    <!-- Header Section -->
+    <section class="header-container">
+        <header class="header">
+            <a href="./index.html" class="logo-container">
+                <img class="logo-image" src="./assets/images/logo.png" alt="The Mobile Store">
+                <span class="logo-text">The Mobile Store</span>
+            </a>
 
-        <div class="nav-wrapper">
+            <!-- Navigation Bar -->
+            <div class="nav-wrapper">
+                <nav class="navbar">
+                    <a class="nav-icon">
+                        <span class="material-symbols-rounded">search</span>
+                    </a>
+                    <a href="#" class="nav-icon">
+                        <span class="material-symbols-rounded">home</span>
+                    </a>
+                    <a href="#" class="nav-icon">
+                        <span class="material-symbols-rounded">shopping_cart</span>
+                        <span class="cart-badge">3</span>
+                    </a>
+                    <a href="#" class="nav-icon">
+                        <span class="material-symbols-rounded">account_circle</span>
+                    </a>
+                </nav>
 
-            <nav class="navbar">
-                <a class="nav-icon">
-                    <span class="material-symbols-rounded">search</span>
-                </a>
-                <a href="#" class="nav-icon">
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn">
+                    <span class="material-symbols-rounded">
+                        menu
+                    </span>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="mobile-menu">
+                <a href="./index.php" class="mobile-nav-icon">
                     <span class="material-symbols-rounded">home</span>
+                    <span>Home</span>
                 </a>
-                <a href="#" class="nav-icon">
+                <a href="./cart/index.php" class="mobile-nav-icon">
                     <span class="material-symbols-rounded">shopping_cart</span>
+                    <span>Cart</span>
                     <span class="cart-badge">3</span>
                 </a>
-                <a href="#" class="nav-icon">
-                    <span class="material-symbols-rounded">account_circle</span>
-                </a>
-            </nav>
+            </div>
+        </header>
+    </section>
 
-            <button class="mobile-menu-btn">
-                <span class="material-symbols-rounded">
-                    menu
-                </span>
-            </button>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="hero-image-column">
+                <img src="./assets/3.png" alt="A modern smartphone with a sleek design" class="hero-image">
+            </div>
+
+            <div class="hero-text-column">
+                <h1 class="hero-headline">Welcome to the world of premium smart phones</h1>
+                <p class="hero-subheadline">Discover cutting-edge technology and elegant design, crafted for a seamless
+                    mobile experience.</p>
+                <button class="button" onclick="window.location.href='#products-section'">Explore More</button>
+            </div>
         </div>
-
-        <!-- Mobile Menu -->
-        <div class="mobile-menu">
-            <a href="./index.php" class="mobile-nav-icon">
-                <span class="material-symbols-rounded">home</span>
-                <span>Home</span>
-            </a>
-            <a href="./cart/index.php" class="mobile-nav-icon">
-                <span class="material-symbols-rounded">shopping_cart</span>
-                <span>Cart</span>
-                <span class="cart-badge">3</span>
-            </a>
-        </div>
-
-    </header>
+    </section>
 
     <!-- Featured Products -->
     <section class="feature-section">
@@ -89,7 +108,8 @@
 
                         <div class="slide-name">Galaxy Z Fold7</div>
                         <div class="slide-price">From &#8377;1,74,999</div>
-                        <button class="button" style="width: 25%; border-radius: 50px; font-size: 17px;">Buy Now</button>
+                        <button class="button" style="width: 25%; border-radius: 50px; font-size: 17px;">Buy
+                            Now</button>
                     </div>
                 </div>
 
@@ -104,7 +124,8 @@
                     <div class="slide-details">
                         <div class="slide-name">Galaxy Z Flip7</div>
                         <div class="slide-price">From &#8377;1,14,999</div>
-                        <button class="button" style="width: 25%; border-radius: 50px; font-size: 17px;">Buy Now</button>
+                        <button class="button" style="width: 25%; border-radius: 50px; font-size: 17px;">Buy
+                            Now</button>
                     </div>
                 </div>
 
@@ -119,7 +140,8 @@
                     <div class="slide-details">
                         <div class="slide-name">Pixel 9A</div>
                         <div class="slide-price">From &#8377;64,999</div>
-                        <button class="button" style="width: 25%; border-radius: 50px; font-size: 17px;">Buy Now</button>
+                        <button class="button" style="width: 25%; border-radius: 50px; font-size: 17px;">Buy
+                            Now</button>
                     </div>
                 </div>
 
@@ -135,7 +157,8 @@
                     <div class="slide-details">
                         <div class="slide-name">Galaxy S25 Ultra</div>
                         <div class="slide-price">From &#8377;1,17,999</div>
-                        <button class="button" style="width: 25%; border-radius: 50px; font-size: 17px;">Buy Now</button>
+                        <button class="button" style="width: 25%; border-radius: 50px; font-size: 17px;">Buy
+                            Now</button>
                     </div>
                 </div>
 
@@ -149,7 +172,8 @@
                     <div class="slide-details">
                         <div class="slide-name">Oneplus 13S</div>
                         <div class="slide-price">From &#8377;51,999</div>
-                        <button class="button" style="width: 25%; border-radius: 50px; font-size: 17px;">Buy Now</button>
+                        <button class="button" style="width: 25%; border-radius: 50px; font-size: 17px;">Buy
+                            Now</button>
                     </div>
                 </div>
 
@@ -223,7 +247,7 @@
             </div>
 
             <!-- Brand 10 -->
-            <div class="brand-card">
+            <div class="brand-card" id="products-section">
                 <img src="./assets/images/brands-logo/Motorola.svg" alt="Motorola">
             </div>
         </div>
@@ -232,7 +256,7 @@
     <!-- Products Section -->
     <section class="products-section">
         <!-- Title Part-->
-        <div class="section-title">
+        <div class="section-title" id="section-title">
             <h2>Browse Products</h2>
             <div class="title-line"></div>
         </div>
@@ -265,11 +289,11 @@
                 <button class="wishlist-btn">
                     <span class="material-symbols-rounded">favorite</span>
                 </button>
-            
+
                 <div class="product-image-container">
                     <img src="./assets/images/products/Apple/iPhone 16E/Black/1.webp" alt="Iphone 16 Pro">
                 </div>
-            
+
                 <div class="product-info-bottom">
                     <div class="product-price">From &#8377;78,999</div>
                     <button class="buy-button">Buy</button>
@@ -291,7 +315,7 @@
                     <img class="logo-image" src="./assets/images/logo.png" alt="The Mobile Store">
                     <span class="logo-text">The Mobile Store</span>
                 </div>
-                <p>Your one-stop shop for the latest mobile devices and accessories. We bring the future to your
+                <p>Your one-stop shop for the latest mobile devices. We bring the future to your
                     fingertips.
                 </p>
                 <div class="social-links">
@@ -327,7 +351,6 @@
                     <li><a href="./faq.html">FAQ</a></li>
                     <li><a href="./returns.html">Returns & Refunds</a></li>
                     <li><a href="./shipping.html">Shipping Information</a></li>
-                    <li><a href="./support.html">Support Center</a></li>
                 </ul>
             </div>
 

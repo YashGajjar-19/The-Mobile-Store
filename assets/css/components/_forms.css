@@ -24,9 +24,51 @@
     z-index: 0;
 }
 
+/* New styles for the two-column wrapper */
+.form-wrapper {
+    display: flex;
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    max-width: 900px;
+    width: 90%;
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+
+.form-wrapper:hover { 
+    box-shadow: var(--dark-shadow);
+}
+
+.form-image-column {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--blue), var(--secondary));
+    padding: 28px;
+}
+
+.form-image-column .login-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.form-content-column {
+    background: var(--background);
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 /* Form Labels */
 .form-label {
-    font-family: var(--prize);
+    font-family: var(--paragraph);
     font-weight: 600;
     font-size: 14px;
     color: var(--dark);
@@ -41,42 +83,28 @@
 .form-label::before {
     content: '';
     display: inline-block;
-    width: 6px;
-    height: 6px;
-    background: var(--blue);
+    margin-left: 6px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
+    background: var(--blue);
     opacity: 0.9;
-}
-
-.form-label::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--gradient);
-    transition: width 0.3s ease;
-}
-
-.form-label.required::after {
-    content: '*';
-    color: var(--red);
-    margin-left: 0.25rem;
-    font-size: 0.85em;
 }
 
 /* Inputs */
 .form-input {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--paragraph);
+    font-weight: 500;
     position: relative;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .form-input ion-icon {
     position: absolute;
     left: 15px;
-    top: 26%;
+    top: 45%;
+    transform: translateY(-60%);
+    line-height: 1;
     color: var(--darkest);
     font-size: 1.2rem;
     z-index: 1;
@@ -86,6 +114,7 @@
 .form-input input {
     width: 100%;
     padding: 15px 15px 15px 45px;
+    /* Keep padding to make space for the icon */
     border: 1px solid var(--glass);
     border-radius: 10px;
     font-size: 0.95rem;
@@ -105,8 +134,8 @@
     outline: none;
 }
 
-.form-input input:focus+ion-icon {
-    color: var(--blue);
+.form-input:focus-within ion-icon {
+    color: var(--dark);
 }
 
 .password-input {
@@ -128,17 +157,22 @@
 }
 
 /* Form options styling in Login Form */
-.form-options {
+.form-terms {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-family: var(--paragraph);
+    font-weight: 600;
     font-size: 14px;
-    margin-top: 12px;
-    margin-bottom: 15px;
+    margin-top: 15px;
+    margin-left: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .remember-me {
-    font-family: 'Montserrat', sans-serif;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -148,12 +182,13 @@
 }
 
 .forgot-password {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--paragraph);
     color: var(--blue);
     text-decoration: none;
     font-weight: 500;
     transition: all 0.2s ease;
     margin-top: 15px;
+    margin-right: 7px;
     margin-bottom: 5px;
 }
 
@@ -163,7 +198,8 @@
 }
 
 .form-footer {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--paragraph);
+    font-weight: 600;
     text-align: center;
     margin-top: 25px;
     font-size: 14px;
@@ -183,13 +219,24 @@
 }
 
 /* Terms checkbox styling in Register Form */
-.form-terms {
-    font-size: 14px;
-    font-family: 'Montserrat', sans-serif;
+.form-terms label {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--dark);
+    cursor: pointer;
+}
+
+.form-terms input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    accent-color: var(--blue);
 }
 
 .form-terms a {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--paragraph);
+    font-weight: 600;
     display: inline-block;
     color: var(--blue);
     text-decoration: none;

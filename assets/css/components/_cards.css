@@ -1,15 +1,11 @@
 /* Form Cards */
 .form-card {
+  font-family: 'Lexend', sans-serif;
   width: 100%;
   max-width: 450px;
-  padding: 30px;
+  padding: 18px;
   border-radius: 20px;
   z-index: 1;
-  background: var(--background);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: var(--light-shadow);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
   transform-style: preserve-3d;
   transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
@@ -28,10 +24,6 @@
   pointer-events: none;
 }
 
-.form-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--dark-shadow);
-}
 
 /* Shop By Brand Cards */
 .brand-card {
@@ -118,30 +110,6 @@
   filter: drop-shadow(0 0px 10px rgba(0, 0, 0, 0.1));
 }
 
-.product-badge {
-    margin-bottom: 5px;
-    color: var(--yellow);
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    font-family: var(--paragraph);
-    font-size: 0.7rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    z-index: 2;
-    box-shadow: none;
-    text-align: left;
-}
-
-.product-badge.new {
-    color: var(--green);
-}
-
-.product-badge.trending {
-    color: var(--red);
-}
-
 .product-info-bottom {
   display: flex;
   justify-content: space-between;
@@ -150,12 +118,3 @@
   margin-top: auto;
   padding: 0 5px;
 }
-
-.product-price {
-  font-family: var(--prize);
-  font-size: 0.98rem;
-  font-weight: 500;
-  color: var(--darkest);
-  margin: 0;
-  white-space: nowrap;
-} 

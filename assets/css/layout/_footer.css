@@ -2,7 +2,7 @@
 .footer {
     width: 100%;
     max-width: 1450px;
-    margin: 50px auto 20px auto;
+    margin: 50px auto 30px auto;
     padding: 30px 40px;
     background: var(--background);
     backdrop-filter: blur(16px) saturate(180%);
@@ -10,7 +10,6 @@
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 30px;
     box-shadow: var(--light-shadow);
-    
     font-family: var(--paragraph);
     color: var(--dark);
     text-align: center;
@@ -32,67 +31,9 @@
 }
 
 .footer-section {
-    flex: 1; /* Allow sections to grow */
-    min-width: 200px; /* Minimum width for sections before wrapping */
-    text-align: left; /* Align text left within sections */
-}
-
-.footer-section h3 {
-    font-family: var(--heading);
-    font-size: 1.2rem;
-    color: var(--darkblue);
-    margin-bottom: 20px;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.footer-section h3::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 40px;
-    height: 2px;
-    background: var(--blue);
-    border-radius: 2px;
-}
-
-.footer-section ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-section ul li {
-    margin-bottom: 10px;
-}
-
-.footer-section ul li a {
-    color: var(--dark);
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-}
-
-.footer-section ul li a:hover {
-    color: var(--blue);
-    text-decoration: underline;
-}
-
-.footer-contact p {
-    margin-bottom: 10px;
-    font-size: 0.95rem;
-}
-
-.footer-contact a {
-    color: var(--dark);
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.footer-contact a:hover {
-    color: var(--blue);
-    text-decoration: underline;
+    flex: 1;
+    min-width: 200px;
+    text-align: left;
 }
 
 .footer-logo-container {
