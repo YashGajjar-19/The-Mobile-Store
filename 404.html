@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | The Mobile Store</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+            font-family: var(--paragraph);
+            color: var(--darkest);
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 20px;
+            text-shadow: 4px 4px 8px rgba(0, 78, 224, 0.2);
+        }
+
+        .error-message {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--darker);
+        }
+
+        .error-subtext {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .home-button {
+            width: auto;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            text-decoration: none;
+        }
+
+        @media (max-width: 480px) {
+            .error-code {
+                font-size: 5rem;
+            }
+
+            .error-message {
+                font-size: 1.4rem;
+            }
+
+            .error-subtext {
+                font-size: 0.9rem;
+            }
+
+            .home-button {
+                width: 80%;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="error-container">
+            <div class="error-code">404</div>
+            <div class="error-message">Oops! Page Not Found</div>
+            <p class="error-subtext">The page you're looking for might have been removed, had its name changed, or is
+                temporarily unavailable.</p>
+            <a href="./index.html" class="button home-button">Go to Homepage</a>
+        </div>
+    </main>
+    <script src="./assets/js/main.js"></script>
+</body>
+
+</html>

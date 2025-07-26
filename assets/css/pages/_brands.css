@@ -12,3 +12,14 @@
     margin: 2rem auto;
     padding: 0 15px;
 }
+
+/* Responsive */
+@media (max-width: 480px) {
+    .brands-grid {
+        justify-content: space-evenly;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        width: 100%;
+        margin: 5px;
+    }
+}

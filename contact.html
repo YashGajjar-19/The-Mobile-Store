@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | The Mobile Store</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <style>
+        /* Specific styles for the contact page */
+        .contact-section {
+            padding: 20px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .contact-info-container {
+            display: flex;
+            gap: 20px;
+            justify-content: space-evenly;
+            text-align: center;
+        }
+
+        .contact-info-item {
+            flex: 1 1 calc(33% - 40px);
+            min-width: 280px;
+            /* Minimum width for items */
+            background-color: var(--background);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-info-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-info-item .icon {
+            font-size: 3rem;
+            color: var(--blue);
+        }
+
+        .contact-info-item h3 {
+            font-size: 1.5rem;
+            color: var(--darkest);
+            margin-bottom: 5px;
+        }
+
+        .contact-info-item p,
+        .contact-info-item a {
+            font-size: 1rem;
+            color: var(--dark);
+            text-decoration: none;
+        }
+
+        .contact-info-item a:hover {
+            color: var(--blue);
+        }
+
+        .contact-form-container {
+            background-color: var(--background);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-form-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            color: var(--darkest);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--darker);
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-grey);
+            border-radius: 8px;
+            font-family: var(--paragraph);
+            font-size: 1rem;
+            color: var(--dark);
+            box-sizing: border-box;
+            /* Include padding in width */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group textarea:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(0, 78, 224, 0.2);
+            outline: none;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-button-container {
+            text-align: center;
+        }
+
+        .submit-button {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 400px;
+            /* Fixed height for the map */
+            width: 100%;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.8rem;
+            color: var(--darkest);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .contact-info-item {
+                flex: 1 1 calc(50% - 30px);
+                /* 2 items per row on tablets */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-info-item {
+                flex: 1 1 100%;
+                /* 1 item per row on mobile */
+            }
+
+            .contact-form-container {
+                padding: 25px;
+            }
+
+            .contact-form-container h2 {
+                font-size: 1.7rem;
+            }
+
+            .submit-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="products-page-section">
+        <div class="section-title" style="margin-top: 50px;">
+            <h2>Contact Us</h2>
+            <div class="title-line" style="margin: 10px auto;"></div>
+        </div>
+
+        <div class="contact-section">
+            <div class="contact-info-container">
+                <div class="contact-info-item">
+                    <span class="material-symbols-rounded icon">location_on</span>
+                    <h3>Our Address</h3>
+                    <p>123 Mobile Street, Tech City, 12345, India</p>
+                </div>
+                <div class="contact-info-item">
+                    <span class="material-symbols-rounded icon">phone</span>
+                    <h3>Call Us</h3>
+                    <p><a href="tel:+911234567890">+91 1234567890</a></p>
+                </div>
+                <div class="contact-info-item">
+                    <span class="material-symbols-rounded icon">mail</span>
+                    <h3>Email Us</h3>
+                    <p><a href="mailto:info@themobilestore.com">info@themobilestore.com</a></p>
+                </div>
+            </div>
+
+            <div class="contact-form-container">
+                <h2>Send Us a Message</h2>
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="Subject of your message" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Your message here..." required></textarea>
+                    </div>
+                    <div class="submit-button-container">
+                        <button type="submit" class="button submit-button">Send Message</button>
+                    </div>
+                </form>
+            </div>
+
+            <h2> Our Location </h2>
+            <div class="map-container">
+                <!-- Replace with your actual Google Maps embed code -->
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3688.083707768407!2d70.0528243149603!3d22.47704198522369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39571512c2a2d48d%3A0x6b8d9c1e7a6f2b1d!2sJamnagar%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1678901234567!5m2!1sen!2sin"
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </main>
+    <script src="./assets/js/main.js"></script>
+</body>
+
+</html>

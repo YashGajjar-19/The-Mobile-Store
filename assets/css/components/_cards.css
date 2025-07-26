@@ -44,8 +44,8 @@
 }
 
 .brand-card img {
-  max-width: 110px;
-  max-height: 100px;
+  max-width: 130px;
+  max-height: 140px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -117,4 +117,19 @@
   width: 100%;
   margin-top: auto;
   padding: 0 5px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .brand-card {
+    width: 90%;
+    justify-self: center;
+    padding: 20px;
+    margin: 3px;
+  }
+
+  .brand-card img {
+    max-width: 100%;
+    max-height: 100%;
+  }
 }

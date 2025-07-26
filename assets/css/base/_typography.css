@@ -258,3 +258,40 @@
   color: var(--blue);
   text-decoration: underline;
 }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .title-line {
+    width: 100px;
+    height: 3px;
+    margin-bottom: 30px;
+  }
+
+  .feature-title h2 { 
+    margin-top: 25px;
+    font-size: 1.6rem;
+  }
+
+  .slide .slide-name {
+    text-align: left; 
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  .slide .slide-price {
+    text-align: left;
+    font-size: 1.2rem;
+    margin: 20px 0;
+  }
+
+  .slide  .slide-price::after {
+    width: 100px;
+    bottom: -6px;
+  }
+
+  .section-title h2 {
+    font-size: 1.6rem;
+    margin-top: 30px;
+  }
+
+}
