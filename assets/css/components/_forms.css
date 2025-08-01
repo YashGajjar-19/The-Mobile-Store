@@ -4,8 +4,8 @@
 .form-container {
     display: flex;
     justify-content: center;
-    position: relative;
     align-items: center;
+    position: relative;
     min-height: 100vh;
     background: var(--body);
     padding: 2.1rem;
@@ -37,7 +37,7 @@
     transition: all 0.5s ease;
 }
 
-.form-wrapper:hover { 
+.form-wrapper:hover {
     box-shadow: var(--dark-shadow);
 }
 
@@ -245,4 +245,40 @@
 
 .form-terms a:hover {
     text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .form-container {
+        padding: 1rem;
+    }
+
+    .form-wrapper {
+        max-width: 100%;
+        margin-top: 0;
+    }
+
+    .form-image-column {
+        display: none;
+    }
+
+    .form-content-column {
+        width: 100%;
+        padding: 8px 5px;
+    }
+
+    .form-input input {
+        padding: 15px 15px 15px 45px;
+    }
+
+    .form-submit .button{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .form-terms { 
+        font-size: 0.8rem;
+    }
 }

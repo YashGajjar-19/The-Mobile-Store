@@ -12,7 +12,11 @@
     --glass: #ddeaffa2;
 
     /* Gradients */
-    --gradient: linear-gradient(115deg, #2255FF, #00AAFF);
+    --gradient: linear-gradient(115deg, #1f75ff, #00AAFF);
+    --gradient2: linear-gradient(325deg,
+            #1f75ff 0%,
+            #00AAFF 55%,
+            #1f75ff 90%);
     --text-gradient: linear-gradient(135deg, #101010, #353535);
 
     /* Text Colors */
@@ -38,5 +42,5 @@
 
     /* Font Size */
     --heading-sz: 35px;
-    --subheading-sz: 25px; 
+    --subheading-sz: 25px;
 }

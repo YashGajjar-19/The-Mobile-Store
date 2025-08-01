@@ -29,7 +29,7 @@
 .brand-card {
   background: var(--body);
   border-radius: 12px;
-  padding: 22px;
+  padding: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,12 +44,11 @@
 }
 
 .brand-card img {
-  max-width: 130px;
-  max-height: 140px;
+  max-width: 120px;
+  max-height: 120px;
   width: auto;
   height: auto;
   object-fit: contain;
-  transition: filter 0.3s ease;
 }
 
 .brand-card:hover img {
@@ -131,5 +130,26 @@
   .brand-card img {
     max-width: 100%;
     max-height: 100%;
+  }
+
+  /* Product Cards */
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-card {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .product-image-container {
+    padding-top: 80%;
+  }
+
+  .product-info-bottom {
+    width: 100%;
+    justify-content: space-between;
+    padding: auto;
   }
 }

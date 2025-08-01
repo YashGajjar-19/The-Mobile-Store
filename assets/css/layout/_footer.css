@@ -96,3 +96,8 @@
     font-size: 0.85rem;
     color: var(--dark);
 }
+
+/* Responsive */
+@media(max-width: 480px) { 
+    
+}

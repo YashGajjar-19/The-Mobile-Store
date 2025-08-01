@@ -11,7 +11,7 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
     <!-- Style Sheets -->
     <link rel="stylesheet" href="./assets/css/main.css">
@@ -19,13 +19,12 @@
 
 <body>
     <!-- Header Section -->
-    <section class="header-container">
+    <section class="header-container" id="header-section">
         <header class="header">
             <a href="./index.html" class="logo-container">
                 <img class="logo-image" src="./assets/images/logo.png" alt="The Mobile Store">
                 <span class="logo-text">The Mobile Store</span>
             </a>
-
             <!-- Navigation Bar -->
             <div class="nav-wrapper">
                 <nav class="navbar">
@@ -272,7 +271,7 @@
 
                 <div class="product-info-bottom">
                     <div class="product-price">From &#8377;1,74,999</div>
-                    <button class="buy-button">Buy</button>
+                    <button class="button buy-button">Buy</button>
                 </div>
             </div>
 
@@ -291,7 +290,26 @@
 
                 <div class="product-info-bottom">
                     <div class="product-price">From &#8377;78,999</div>
-                    <button class="buy-button">Buy</button>
+                    <button class="button buy-button">Buy</button>
+                </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="product-card">
+                    <div class="product-badge trending">Hot</div>
+                    <button class="wishlist-btn">
+                        <span class="material-symbols-rounded">favorite</span>
+                    </button>
+                <h3 class="product-title">Pixel 9</h3>
+                <p class="product-tagline">The ultimate Pixel experience.</p>
+
+                <div class="product-image-container">
+                    <img src="./assets/images/products/Google/Pixel 9/Obsidian/1.webp" alt="Pixel 9">
+                </div>
+
+                <div class="product-info-bottom">
+                    <div class="product-price">From &#8377;74,999</div>
+                    <button class="button buy-button">Buy</button>
                 </div>
             </div>
         </div>
@@ -301,8 +319,6 @@
     </section>
 
     <!-- Footer Section -->
-    <!-- </section>
-
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
@@ -350,7 +366,9 @@
             </div>
 
             <div class="footer-section footer-contact">
-                <h3>Contact Us</h3>
+                <a href="./contact.html">
+                    <h3>Contact Us</h3>
+                </a>
                 <p>123 Mobile Street, Tech City, 12345</p>
                 <p>Email: <a href="#">info@themobilestore.com</a></p>
                 <p>Phone: <a href="#">+91 1234567890</a></p>
@@ -360,7 +378,7 @@
         <div class="footer-bottom">
             &copy; 2025 The Mobile Store. All rights reserved.
         </div>
-    </footer> -->
+    </footer>
 
     <script src="./assets/js/main.js"></script>
 </body>

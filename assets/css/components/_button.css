@@ -1,11 +1,11 @@
 /* Button styles */
-
 .button {
   width: 100%;
-  padding: 17px;
+  padding: 14px;
   border: none;
-  border-radius: 12px;
-  background: var(--gradient);
+  border-radius: 0.55rem;
+  background-image: var(--gradient2);
+  background-size: 250% auto;
   color: white;
   font-family: var(--prize);
   font-weight: 600;
@@ -16,15 +16,21 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
-  box-shadow: 0 4px 15px rgba(0, 97, 255, 0.3),
-    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0px 0px 20px rgba(71, 184, 255, 0.5),
+    0px 5px 5px -1px rgba(58, 125, 233, 0.25),
+    inset 4px 4px 8px rgba(175, 230, 255, 0.5),
+    inset -4px -4px 8px rgba(19, 95, 216, 0.35);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+  transition: 0.8s;
+  text-align: center;
 }
 
 .button:hover {
   transform: translateY(-2px);
   box-shadow: 0 7px 20px rgba(0, 97, 255, 0.25);
+  background-position: right top;
 }
 
 .button::after {
@@ -64,18 +70,24 @@
   left: 100%;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: linear;
+  }
+}
+
 /* Wishlist Button */
 .wishlist-btn {
   position: absolute;
-  top: 11px;
-  right: 12px;
+  top: 12px;
+  right: 17px;
   background: transparent;
   border-radius: 50%;
   width: 32px;
   height: 32px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -122,79 +134,23 @@
 .browse-more-btn {
   width: 230px;
   font-size: 1.3rem;
-  padding: 22px 15px;
-  border-radius: 50px;
-  box-shadow: var(--blue-shadow);
-  text-align: center;
+  padding: 17px 10px;
+  border-radius: 3rem;
   text-decoration: none;
 }
 
-.browse-more-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 78, 224, 0.4);
-}
-
 .buy-button {
-  padding: 5px 15px;
-  border: none;
-  border-radius: 50px;
-  background: var(--gradient);
-  color: white;
-  font-family: var(--paragraph);
-  font-weight: 500;
+  margin: 0;
+  width: auto;  
+  max-width: fit-content;
+  top: 3px;
+  padding: 5px 17px;
+  border-radius: 3rem;
   font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  box-shadow: var(--shadow);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  width: auto;
   flex-shrink: 0;
-}
-
-.buy-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 7px 20px rgba(0, 97, 255, 0.25);
-}
-
-.buy-button::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.2),
-      transparent);
-  transition: 0.5s;
-}
-
-.buy-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.2),
-      transparent);
-  transition: 0.5s;
-  z-index: -1;
-}
-
-.buy-button:hover::after {
-  left: 100%;
-}
-
-.buy-button:hover::before {
-  left: 100%;
+  font-weight: 500;
+  text-align: center;
+  z-index: initial;
 }
 
 /* Logout Button Styling */
@@ -259,5 +215,24 @@
     font-size: 0.7rem;
     bottom: 62px;
     left: 70%;
+  }
+
+  .buy-button {
+    width: auto;
+    max-width: fit-content;
+    padding: auto;
+    font-size: 0.5rem;
+    left: 11px;
+    top: auto;
+  }
+
+  .wishlist-btn {
+    width: 20px;
+    height: 20px;
+    right: 12px;
+  }
+
+  .wishlist-btn .material-symbols-rounded {
+    font-size: 11px;
   }
 }
