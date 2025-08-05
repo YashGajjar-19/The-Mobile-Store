@@ -89,6 +89,28 @@
     box-shadow: var(--blue-shadow);
 }
 
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: var(--dark);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: var(--blue);
+    text-decoration: underline;
+}
+
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     padding-top: 20px;
@@ -98,6 +120,4 @@
 }
 
 /* Responsive */
-@media(max-width: 480px) { 
-    
-}
+@media(max-width: 480px) {}

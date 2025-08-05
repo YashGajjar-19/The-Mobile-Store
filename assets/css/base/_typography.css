@@ -1,4 +1,6 @@
-/* Form Header */
+/* Form */
+
+/* Form header('Welcome' part) */
 .form-header {
   text-align: left;
   font-family: var(--heading);
@@ -17,6 +19,7 @@
   color: transparent;
 }
 
+/* Form subheading */
 .form-header p {
   color: var(--dark);
   font-size: 0.92rem;
@@ -24,7 +27,34 @@
   margin-bottom: 10px;
 }
 
-/* Main Logo Text */
+/* Form labels */
+.form-label {
+  font-family: var(--paragraph);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--dark);
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  width: fit-content;
+}
+
+.form-label::before {
+  content: '';
+  display: inline-block;
+  margin-left: 6px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--blue);
+  opacity: 0.9;
+}
+
+/* Header */
+
+/* Header logo text */
 .logo-text {
   font-family: var(--heading);
   font-size: 23px;
@@ -40,7 +70,9 @@
   cursor: pointer;
 }
 
-/* Slider title part */
+/* Sliders Title */
+
+/* title part */
 .feature-title {
   position: relative;
   text-align: center;
@@ -83,7 +115,7 @@
   animation: shine 5s ease infinite;
 }
 
-/* Slider Section */
+/* Sliders(inside) */
 
 /* Product Name */
 .slide .slide-name {
@@ -151,7 +183,9 @@
   }
 }
 
-/* Product Card */
+/* Product cards */
+
+/* Product name */
 .product-title {
   font-family: var(--paragraph);
   font-size: 1.1rem;
@@ -162,6 +196,7 @@
   text-align: left;
 }
 
+/* Product tagline */
 .product-tagline {
   font-family: var(--paragraph);
   font-size: 0.8rem;
@@ -171,6 +206,7 @@
   text-align: left;
 }
 
+/* Badge(Hot, New, Trending..) */
 .product-badge {
   margin-bottom: 0.37rem;
   color: var(--yellow);
@@ -195,6 +231,7 @@
   color: var(--red);
 }
 
+/* Price */
 .product-price {
   margin-top: auto;
   font-size: 1rem;
@@ -222,28 +259,6 @@
   border-radius: 2px;
 }
 
-.footer-section ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-section ul li {
-  margin-bottom: 10px;
-}
-
-.footer-section ul li a {
-  color: var(--dark);
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: all 0.3s ease;
-}
-
-.footer-section ul li a:hover {
-  color: var(--blue);
-  text-decoration: underline;
-}
-
 .footer-section p {
   line-height: 1.4;
 }
@@ -265,7 +280,38 @@
   text-decoration: underline;
 }
 
-/* Responsive */
+/* Dashboard */
+
+/* Recent orders section */
+.recent-orders h3 {
+  margin-top: 0;
+  color: var(--dark);
+  font-family: var(--heading);
+  font-size: 1.1rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--glass);
+}
+
+/* Cards (Total, users, products..) */
+.card h3 {
+  margin-top: 0;
+  color: var(--dark);
+  font-family: var(--heading);
+  font-size: 1.1rem;
+}
+
+.card p {
+  font-size: 2.5em;
+  font-weight: 700;
+  font-family: var(--prize);
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 10px 0 0;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 480px) {
   .title-line {
     width: 100px;

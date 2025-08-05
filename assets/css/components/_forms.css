@@ -1,6 +1,6 @@
 /* Input fields, selects */
 
-/* Auth Forms */
+/* Main Container */
 .form-container {
     display: flex;
     justify-content: center;
@@ -24,7 +24,7 @@
     z-index: 0;
 }
 
-/* New styles for the two-column wrapper */
+/* Styles for the two-column wrapper */
 .form-wrapper {
     display: flex;
     background: #fff;
@@ -41,6 +41,7 @@
     box-shadow: var(--dark-shadow);
 }
 
+/* Image part */
 .form-image-column {
     flex: 1;
     display: flex;
@@ -57,6 +58,7 @@
     object-fit: cover;
 }
 
+/* Content(form) part */
 .form-content-column {
     background: var(--background);
     flex: 1;
@@ -64,31 +66,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-/* Form Labels */
-.form-label {
-    font-family: var(--paragraph);
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--dark);
-    margin-bottom: 7px;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    position: relative;
-    width: fit-content;
-}
-
-.form-label::before {
-    content: '';
-    display: inline-block;
-    margin-left: 6px;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--blue);
-    opacity: 0.9;
 }
 
 /* Inputs */
@@ -114,7 +91,6 @@
 .form-input input {
     width: 100%;
     padding: 15px 15px 15px 45px;
-    /* Keep padding to make space for the icon */
     border: 1px solid var(--glass);
     border-radius: 10px;
     font-size: 0.95rem;
@@ -138,6 +114,7 @@
     color: var(--dark);
 }
 
+/* Password inputs */
 .password-input {
     position: absolute;
     right: 55px;
@@ -156,7 +133,7 @@
     color: var(--blue);
 }
 
-/* Form options styling in Login Form */
+/* Form options styling in login form */
 .form-terms {
     display: flex;
     justify-content: space-between;
@@ -197,28 +174,7 @@
     text-decoration: underline;
 }
 
-.form-footer {
-    font-family: var(--paragraph);
-    font-weight: 600;
-    text-align: center;
-    margin-top: 25px;
-    font-size: 14px;
-    color: #666;
-}
-
-.form-footer a {
-    color: var(--blue);
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.form-footer a:hover {
-    color: var(--blue);
-    text-decoration: underline;
-}
-
-/* Terms checkbox styling in Register Form */
+/* Terms styling in register form */
 .form-terms label {
     display: flex;
     align-items: center;
@@ -247,7 +203,29 @@
     text-decoration: underline;
 }
 
-/* Responsive */
+/* Form footer */
+.form-footer {
+    font-family: var(--paragraph);
+    font-weight: 600;
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #666;
+}
+
+.form-footer a {
+    color: var(--blue);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.form-footer a:hover {
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 480px) {
     .form-container {
         padding: 1rem;
@@ -271,14 +249,14 @@
         padding: 15px 15px 15px 45px;
     }
 
-    .form-submit .button{
+    .form-submit .button {
         width: 100%;
         display: flex;
         justify-content: center;
         margin-top: 20px;
     }
 
-    .form-terms { 
+    .form-terms {
         font-size: 0.8rem;
     }
 }

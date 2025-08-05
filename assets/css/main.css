@@ -1,23 +1,23 @@
-/* Import other CSS components */
+/* 1. SETTINGS */
+@import url('settings/_variables.css');
 
-/* Base */
+/* 2. BASE */
 @import url('base/_reset.css');
-@import url('base/_variables.css');
 @import url('base/_typography.css');
 
-/* Components */
+/* 3. LAYOUT */
+@import url('layout/_header.css');
+@import url('layout/_footer.css');
+
+/* 4. COMPONENTS */
 @import url('components/_alerts.css');
-@import url('components/_button.css');
+@import url('components/_buttons.css');
 @import url('components/_cards.css');
 @import url('components/_forms.css');
+@import url('components/_filter.css');
 
-/* Layouts */
-@import url('layout/_fliter-panel.css');
-@import url('layout/_footer.css');
-@import url('layout/_home.css');
-@import url('layout/_header.css');
-
-/* Pages */
-@import url('pages/_brands.css');
-@import url('pages/_dashboard.css');
+/* 5. PAGES */
+@import url('pages/_home.css');
 @import url('pages/_products.css');
+@import url('pages/_dashboard.css');
+@import url('pages/_brands.css');

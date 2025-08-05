@@ -1,10 +1,6 @@
 /* assets/css/pages/_dashboard.css */
 
-/* General Styles */
-body {
-  background-color: var(--body);
-}
-
+/* Main container */
 .dashboard-container {
   display: flex;
   background-color: var(--body);
@@ -102,10 +98,10 @@ body {
   transition: color 0.3s ease;
 }
 
-.sidebar p { 
+/* .sidebar p { 
   font-size: 0.7rem;
   color: var(--dark);
-}
+} */
 
 /* Main Content */
 .content-section {
@@ -127,15 +123,6 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 25px;
-}
-
-.recent-orders h3 {
-  margin-top: 0;
-  color: var(--dark);
-  font-family: var(--heading);
-  font-size: 1.1rem;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--glass);
 }
 
 .recent-orders ul {
@@ -168,24 +155,6 @@ body {
 .card:hover {
   transform: translateY(-5px);
   box-shadow: var(--dark-shadow);
-}
-
-.card h3 {
-  margin-top: 0;
-  color: var(--dark);
-  font-family: var(--heading);
-  font-size: 1.1rem;
-}
-
-.card p {
-  font-size: 2.5em;
-  font-weight: 700;
-  font-family: var(--prize);
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin: 10px 0 0;
 }
 
 /* Tables */

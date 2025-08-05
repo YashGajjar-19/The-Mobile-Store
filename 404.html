@@ -17,19 +17,47 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            min-height: 95vh;
             text-align: center;
-            padding: 20px;
+            padding: 35px;
             font-family: var(--paragraph);
             color: var(--darkest);
         }
 
         .error-code {
+            font-family: 'Poppins', sans-serif;
             font-size: 8rem;
             font-weight: 700;
+            letter-spacing: 1.5px;
             color: var(--blue);
             margin-bottom: 20px;
-            text-shadow: 4px 4px 8px rgba(0, 78, 224, 0.2);
+            -webkit-text-stroke: 1px;
+            -webkit-text-stroke-color: rgba(138, 220, 255, 0.8) !important;
+            position: relative;
+            animation: sparkle-border 4s linear infinite;
+        }
+
+        @keyframes sparkle-border {
+            0%,
+            18%,
+            22%,
+            25%,
+            53%,
+            57%,
+            100% {
+                text-shadow:
+                    0 0 2px #fff,
+                    0 0 4px #fff,
+                    0 0 10px #87CEFA;
+                opacity: 1;
+            }
+
+            20%,
+            24%,
+            55% {
+                text-shadow: none;
+                opacity: 0.4;
+            }
         }
 
         .error-message {
@@ -78,10 +106,10 @@
     <main>
         <div class="error-container">
             <div class="error-code">404</div>
-            <div class="error-message">Oops! Page Not Found</div>
+            <div class="error-message">Page Not Found!</div>
             <p class="error-subtext">The page you're looking for might have been removed, had its name changed, or is
                 temporarily unavailable.</p>
-            <a href="./index.html" class="button home-button">Go to Homepage</a>
+            <a href="./index.html" class="button" style="width: 20%; border-radius: 50px;">Refresh</a>
         </div>
     </main>
     <script src="./assets/js/main.js"></script>
