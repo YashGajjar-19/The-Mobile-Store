@@ -12,11 +12,11 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./assets/css/main.css">
     <style>
-        /* Specific styles for the contact page */
-        .contact-section {
-            padding: 20px 20px;
+        /* Specific styles for the contact page info boxes and map */
+        .contact-details-section {
+            padding: 20px;
             max-width: 1000px;
-            margin: 0 auto;
+            margin: auto;
             display: flex;
             flex-direction: column;
             gap: 40px;
@@ -32,8 +32,7 @@
         .contact-info-item {
             flex: 1 1 calc(33% - 40px);
             min-width: 280px;
-            /* Minimum width for items */
-            background-color: var(--background);
+            background-color: var(--body);
             border-radius: 15px;
             padding: 30px;
             box-shadow: var(--shadow);
@@ -65,167 +64,17 @@
             color: var(--dark);
             text-decoration: none;
         }
-
-        .contact-info-item a:hover {
-            color: var(--blue);
-        }
-
-        .contact-form-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            background-color: var(--background);
-            border-radius: 15px;
-            padding: 20px 40px;
-            box-shadow: var(--shadow);
-        }
-
-        .contact-form-container h2 {
-            text-align: center;
-            font-size: 2rem;
-            color: var(--darkest);
-        }
-
-        .form-group {
-            position: relative;
-            margin: 20px 0;
-            width: 100%;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.9rem;
-            margin: 8px 1px;
-            font-weight: 600;
-            color: var(--darker);
-        }
-
-        .form-group label::before {
-            content: '';
-            display: inline-block;
-            margin: 2px 7px;
-            width: 7.5px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--blue);
-            opacity: 0.9;
-        }
-
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--light-grey);
-            border-radius: 8px;
-            font-family: var(--paragraph);
-            font-size: 1rem;
-            color: var(--dark);
-            box-sizing: border-box;
-            /* Include padding in width */
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .form-group input[type="text"]:focus,
-        .form-group input[type="email"]:focus,
-        .form-group textarea:focus {
-            border-color: var(--blue);
-            box-shadow: 0 0 0 3px rgba(0, 78, 224, 0.2);
-            outline: none;
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-button-container {
-            text-align: center;
-        }
-
-        .submit-button {
-            padding: 15px 40px;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            cursor: pointer;
-        }
-
-        .map-container {
-            position: relative;
-            border-radius: 0.7rem;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            height: 410px;
-            width: 100%;
-            margin: 20px 0;
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        h2 {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 1.8rem;
-            color: var(--darkest);
-        }
-
-        .form-and-map-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            align-items: flex-start;
-            padding: 15px 20px;
-            border-radius: 1rem;
-        }
-
-        .form-fields,
-        .map-column {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .contact-info-item {
-                flex: 1 1 calc(50% - 30px);
-                /* 2 items per row on tablets */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .contact-info-item {
-                flex: 1 1 100%;
-                /* 1 item per row on mobile */
-            }
-
-            .contact-form-container {
-                padding: 25px;
-            }
-
-            .contact-form-container h2 {
-                font-size: 1.7rem;
-            }
-
-            .submit-button {
-                width: 100%;
-            }
-        }
     </style>
 </head>
 
 <body>
     <main class="products-page-section">
-        <div class="section-title" style="margin-top: 50px;">
+        <div class="section-title" style="padding-top: 50px;">
             <h2>Contact Us</h2>
-            <div class="title-line" style="margin: 10px auto;"></div>
+            <div class="title-line" style="margin-top: 10px; margin-bottom: 20px;"></div>
         </div>
 
-        <div class="contact-section">
+        <div class="contact-details-section">
             <div class="contact-info-container">
                 <div class="contact-info-item">
                     <span class="material-symbols-rounded icon">location_on</span>
@@ -243,50 +92,61 @@
                     <p><a href="mailto:info@themobilestore.com">info@themobilestore.com</a></p>
                 </div>
             </div>
+        </div>
 
-            <div class="contact-form-container">
-                <h2>Send Us a Message</h2>
-                <form action="#" method="POST">
-                    <div class="form-and-map-wrapper">
-                        <div class="form-fields">
-                            <div class="form-group">
-                                <label for="name">Your Name</label>
-                                <input type="text" id="name" name="name" placeholder="Enter your name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Your Email</label>
-                                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="subject">Subject</label>
-                                <input type="text" id="subject" name="subject" placeholder="Subject of your message"
-                                    required>
-                            </div>
-                            <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea id="message" name="message" placeholder="Your message here..."
-                                    required></textarea>
-                            </div>
+        <div class="contact-form-container">
+            <div class="contact-form-wrapper">
+                <div class="contact-content-column">
+                    <div class="form-card">
+                        <div class="form-header">
+                            <h2>Send Us a Message</h2>
                         </div>
-
-                        <div class="map-column">
-                            <div class="map-container">
-                                <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3688.083707768407!2d70.0528243149603!3d22.47704198522369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39571512c2a2d48d%3A0x6b8d9c1e7a6f2b1d!2sJamnagar%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1678901234567!5m2!1sen!2sin"
-                                    allowfullscreen="" loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <form action="#" method="POST" class="auth-form">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Your Name</label>
+                                <div class="form-input">
+                                    <ion-icon name="person-outline"></ion-icon>
+                                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">Your Email</label>
+                                <div class="form-input">
+                                    <ion-icon name="mail-outline"></ion-icon>
+                                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject" class="form-label">Subject</label>
+                                <div class="form-input">
+                                    <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+                                    <input type="text" id="subject" name="subject" placeholder="Subject of your message"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="message" class="form-label">Message</label>
+                                <div class="form-input">
+                                    <ion-icon name="create-outline" style="top: 25px;"></ion-icon>
+                                    <textarea id="message" name="message" placeholder="Your message here..." required
+                                        style="min-height: 120px; width: 100%; padding: 15px 15px 15px 45px; border: 1px solid var(--glass); border-radius: 10px; font-size: 0.95rem;"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-submit">
+                                <button type="submit" class="button">Send Message</button>
+                            </div>
+                        </form>
                     </div>
-
-                    <div class="submit-button-container">
-                        <button type="submit" class="button submit-button">Send Message</button>
-                    </div>
-                </form>
+                </div>
+                <div class="contact-image-column">
+                    <img src="./assets/images/svg/contact.svg" alt="Contact Us Image" class="login-image">
+                </div>
             </div>
         </div>
     </main>
     <script src="./assets/js/main.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>

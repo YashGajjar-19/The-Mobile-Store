@@ -15,6 +15,7 @@
 @import url('components/_cards.css');
 @import url('components/_forms.css');
 @import url('components/_filter.css');
+@import url('components/_sidebar.css');
 
 /* 5. PAGES */
 @import url('pages/_home.css');

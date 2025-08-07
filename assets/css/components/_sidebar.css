@@ -1,0 +1,106 @@
+/* assets/css/components/_sidebar.css */
+
+:root {
+    --sidebar-width: 260px;
+}
+
+.sidebar {
+    position: fixed;
+    top: 40px;
+    left: 30px;
+    height: calc(100vh - 80px);
+    width: var(--sidebar-width);
+    background: var(--background);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: var(--light-shadow);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    z-index: 1001;
+    transition: transform 0.4s ease;
+}
+
+.sidebar-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--glass);
+}
+
+.sidebar-logo-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: contain;
+    box-shadow: var(--shadow);
+}
+
+.sidebar-logo-text {
+    font-family: var(--heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: var(--gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.sidebar-nav {
+    flex-grow: 1;
+}
+
+.sidebar-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav-item {
+    margin-bottom: 10px;
+}
+
+.sidebar-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 15px;
+    border-radius: 12px;
+    color: var(--darkest);
+    text-decoration: none;
+    font-family: var(--paragraph);
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.sidebar-nav-link .material-symbols-rounded {
+    font-size: 1.2rem;
+    color: var(--blue);
+}
+
+.sidebar-nav-link:hover,
+.sidebar-nav-link.active {
+    background: var(--glass);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.sidebar-nav-link:hover .material-symbols-rounded,
+.sidebar-nav-link.active .material-symbols-rounded {
+    color: var(--darkest);
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+}

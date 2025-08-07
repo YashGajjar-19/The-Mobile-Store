@@ -152,33 +152,6 @@
   z-index: initial;
 }
 
-/* Logout Button Styling */
-.sidebar-footer .logout-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  font-family: var(--paragraph);
-  font-weight: 500;
-  color: white;
-  background: var(--red);
-  padding: 12px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
-  transition: all 0.3s ease;
-}
-
-.sidebar-footer .logout-btn:hover {
-  background: #c01a1e;
-  /* Darker red on hover */
-  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
-  transform: translateY(-2px);
-}
-
-.sidebar-footer .logout-btn .material-symbols-rounded {
-  margin-right: 8px;
-}
-
 /* Responsive */
 @media (max-width: 480px) {
   .button {

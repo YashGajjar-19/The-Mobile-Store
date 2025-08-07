@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | The Mobile Store</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+
+<body>
+    <header class="header">
+        <a href="./index.html" class="logo-container">
+            <img class="logo-image" src="../assets/images/logo.png" alt="The Mobile Store">
+            <span class="logo-text">The Mobile Store</span>
+        </a>
+
+        <div class="nav-wrapper">
+            <nav class="navbar">
+                <a class="nav-icon">
+                    <span class="material-symbols-rounded">search</span>
+                </a>
+                <a href="#" class="nav-icon">
+                    <span class="material-symbols-rounded">home</span>
+                </a>
+                <a href="#" class="nav-icon">
+                    <span class="material-symbols-rounded">shopping_cart</span>
+                    <span class="cart-badge">3</span>
+                </a>
+                <a href="#" class="nav-icon">
+                    <span class="material-symbols-rounded">account_circle</span>
+                </a>
+            </nav>
+
+            <button class="mobile-menu-btn">
+                <span class="material-symbols-rounded">
+                    menu
+                </span>
+            </button>
+        </div>
+
+        <div class="mobile-menu">
+            <a href="./index.php" class="mobile-nav-icon">
+                <span class="material-symbols-rounded">home</span>
+                <span>Home</span>
+            </a>
+            <a href="./cart/index.php" class="mobile-nav-icon">
+                <span class="material-symbols-rounded">shopping_cart</span>
+                <span>Cart</span>
+                <span class="cart-badge">3</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="products-page-section">
+        <div class="section-title" style="margin-top: 200px;">
+            <h2>Browse Products</h2>
+            <div class="title-line"></div>
+        </div>
+
+        <div class="filter-options-bar">
+            <select name="brand" id="brand-filter">
+                <option value="">All Brands</option>
+                <option value="Samsung">Samsung</option>
+                <option value="Apple">Apple</option>
+                <option value="Google">Google</option>
+            </select>
+
+            <input type="text" placeholder="Min Price">
+            <input type="text" placeholder="Max Price">
+
+            <select name="sort-by" id="sort-by">
+                <option value="featured">Featured</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+            </select>
+
+            <button class="button"
+                style="width: 130px; font-size: 0.87rem; padding: 11px 15px; margin-bottom: 15px; border-radius: 8px;">Apply
+                Filters</button>
+            <button class="button button-secondary"
+                style="width: 130px; font-size: 0.87rem; padding: 11px 15px; margin-bottom: 15px; border-radius: 8px;">Reset
+                Filters</button>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-badge trending">Hot</div>
+                <h3 class="product-title">Iphone 16 Pro</h3>
+                <p class="product-tagline">The ultimate iPhone experience.</p>
+                <button class="wishlist-btn">
+                    <span class="material-symbols-rounded">favorite</span>
+                </button>
+                <div class="product-image-container">
+                    <img src="../assets/images/products/Apple/iPhone 16 Pro/Black Titanium/1.webp" alt="Iphone 16 Pro">
+                </div>
+                <div class="product-info-bottom">
+                    <div class="product-price">From &#8377;1,74,999</div>
+                    <button class="buy-button">Buy</button>
+                </div>
+            </div>
+        </div>
+        <div class="pagination">
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">&raquo;</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo-container">
+                    <img class="logo-image" src="../assets/images/logo.png" alt="The Mobile Store">
+                    <span class="logo-text">The Mobile Store</span>
+                </div>
+                <p>Your one-stop shop for the latest mobile devices and accessories. We bring the future to your
+                    fingertips.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./products.html">Products</a></li>
+                    <li><a href="./about.html">About Us</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
+                    <li><a href="./privacy.html">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="./faq.html">FAQ</a></li>
+                    <li><a href="./returns.html">Returns & Refunds</a></li>
+                    <li><a href="./shipping.html">Shipping Information</a></li>
+                    <li><a href="./support.html">Support Center</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section footer-contact">
+                <h3>Contact Us</h3>
+                <p>123 Mobile Street, Tech City, 12345</p>
+                <p>Email: <a href="#">info@themobilestore.com</a></p>
+                <p>Phone: <a href="#">+91 1234567890</a></p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            &copy; 2025 The Mobile Store. All rights reserved.
+        </div>
+    </footer>
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

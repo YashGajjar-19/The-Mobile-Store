@@ -4,115 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found | The Mobile Store</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./assets/css/main.css">
+    <title>404 - Page Not Found | The Mobile Store</title>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <link rel="stylesheet" href="./assets/css/main.css" />
     <style>
-        .error-container {
+        .center-container {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 95vh;
+            min-height: 100vh;
             text-align: center;
-            padding: 35px;
             font-family: var(--paragraph);
-            color: var(--darkest);
+            z-index: 1;
         }
 
-        .error-code {
-            font-family: 'Poppins', sans-serif;
-            font-size: 8rem;
+        .error-content {
+            max-width: 850px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 60px 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .error-image {
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 2rem;
+        }
+
+        .error-content h1 {
+            font-size: 2.5rem;
             font-weight: 700;
-            letter-spacing: 1.5px;
-            color: var(--blue);
-            margin-bottom: 20px;
-            -webkit-text-stroke: 1px;
-            -webkit-text-stroke-color: rgba(138, 220, 255, 0.8) !important;
-            position: relative;
-            animation: sparkle-border 4s linear infinite;
+            color: var(--darkest);
+            margin-bottom: 1.2rem;
         }
 
-        @keyframes sparkle-border {
-            0%,
-            18%,
-            22%,
-            25%,
-            53%,
-            57%,
-            100% {
-                text-shadow:
-                    0 0 2px #fff,
-                    0 0 4px #fff,
-                    0 0 10px #87CEFA;
-                opacity: 1;
-            }
-
-            20%,
-            24%,
-            55% {
-                text-shadow: none;
-                opacity: 0.4;
-            }
-        }
-
-        .error-message {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--darker);
-        }
-
-        .error-subtext {
+        .error-content p {
             font-size: 1.1rem;
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
-
-        .home-button {
-            width: auto;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            text-decoration: none;
-        }
-
-        @media (max-width: 480px) {
-            .error-code {
-                font-size: 5rem;
-            }
-
-            .error-message {
-                font-size: 1.4rem;
-            }
-
-            .error-subtext {
-                font-size: 0.9rem;
-            }
-
-            .home-button {
-                width: 80%;
-                font-size: 1rem;
-            }
+            color: var(--dark);
+            margin-bottom: 2.5rem;
         }
     </style>
 </head>
 
 <body>
-    <main>
-        <div class="error-container">
-            <div class="error-code">404</div>
-            <div class="error-message">Page Not Found!</div>
-            <p class="error-subtext">The page you're looking for might have been removed, had its name changed, or is
-                temporarily unavailable.</p>
-            <a href="./index.html" class="button" style="width: 20%; border-radius: 50px;">Refresh</a>
+        <div class="center-container">
+            <div class="error-content">
+                <img src="./assets/images/svg/404.svg" alt="404 Not Found" class="error-image">
+                <h1>Oops! Page Not Found</h1>
+                <p>The page you are looking for might have been removed, had its name changed, or is temporarily
+                    unavailable.</p>
+                <a href="index.html" class="button">Go to Homepage</a>
+            </div>
         </div>
-    </main>
-    <script src="./assets/js/main.js"></script>
 </body>
 
 </html>
