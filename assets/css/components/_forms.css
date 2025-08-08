@@ -76,7 +76,7 @@
 
 /* Inputs */
 .form-input {
-    font-family: var(--paragraph);
+    font-family: var(--quicksand);
     font-weight: 500;
     position: relative;
     margin-bottom: 10px;
@@ -102,8 +102,11 @@
 .form-input input {
     width: 100%;
     padding: 15px 15px 15px 45px;
+    margin-bottom: 3px;
     border: 1px solid var(--glass);
     border-radius: 10px;
+    font-family: var(--montserrat);
+    font-weight: 500;
     font-size: 0.95rem;
     transition: all 0.3s ease;
     background: rgba(255, 255, 255, 0.7);
@@ -149,7 +152,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: var(--paragraph);
+    font-family: var(--montserrat);
     font-weight: 600;
     font-size: 14px;
     margin-top: 15px;
@@ -170,7 +173,7 @@
 }
 
 .forgot-password {
-    font-family: var(--paragraph);
+    font-family: var(--montserrat);
     color: var(--blue);
     text-decoration: none;
     font-weight: 500;
@@ -202,7 +205,7 @@
 }
 
 .form-terms a {
-    font-family: var(--paragraph);
+    font-family: var(--montserrat);
     font-weight: 600;
     display: inline-block;
     color: var(--blue);
@@ -216,7 +219,7 @@
 
 /* Form footer */
 .form-footer {
-    font-family: var(--paragraph);
+    font-family: var(--montserrat);
     font-weight: 600;
     text-align: center;
     margin-top: 25px;

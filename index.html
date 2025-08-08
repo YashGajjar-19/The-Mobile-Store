@@ -28,9 +28,12 @@
             <!-- Navigation Bar -->
             <div class="nav-wrapper">
                 <nav class="navbar">
-                    <a class="nav-icon">
-                        <span class="material-symbols-rounded">search</span>
-                    </a>
+                    <div class="search-container">
+                        <input type="search" class="search-input" placeholder="Search...">
+                        <a class="nav-icon search-btn">
+                            <span class="material-symbols-rounded">search</span>
+                        </a>
+                    </div>
                     <a href="#" class="nav-icon">
                         <span class="material-symbols-rounded">home</span>
                     </a>
@@ -53,14 +56,24 @@
 
             <!-- Mobile Menu -->
             <div class="mobile-menu">
-                <a href="./index.php" class="mobile-nav-icon">
+                <div class="mobile-search-container">
+                    <input type="search" class="mobile-search-input" placeholder="Search...">
+                    <button class="mobile-search-btn">
+                        <span class="material-symbols-rounded">search</span>
+                    </button>
+                </div>
+                <a href="#" class="mobile-nav-icon">
                     <span class="material-symbols-rounded">home</span>
                     <span>Home</span>
                 </a>
-                <a href="./cart/index.php" class="mobile-nav-icon">
+                <a href="#" class="mobile-nav-icon">
                     <span class="material-symbols-rounded">shopping_cart</span>
                     <span>Cart</span>
                     <span class="cart-badge">3</span>
+                </a>
+                <a href="#" class="mobile-nav-icon">
+                    <span class="material-symbols-rounded">account_circle</span>
+                    <span>Account</span>
                 </a>
             </div>
         </header>

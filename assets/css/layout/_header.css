@@ -93,6 +93,39 @@
     color: var(--blue);
 }
 
+/* Search Container */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Search Input */
+.search-input {
+    width: 0;
+    padding: 30px;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: absolute;
+    right: 70px;
+    background-color: white;
+}
+
+.search-input.active {
+    width: 200px;
+    opacity: 1;
+    padding: 15px 20px;
+    font: var(--poppins);
+}
+
+/* Search Button */
+.search-btn {
+    cursor: pointer;
+}
+
 /* Cart */
 .cart-badge {
     position: absolute;
@@ -148,7 +181,7 @@
     top: 90px;
     right: 20px;
     width: 200px;
-    background: var(--background);
+    background: var(--body);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.4);
@@ -166,6 +199,26 @@
     transform: translateY(0);
     opacity: 1;
     visibility: visible;
+}
+
+/* Mobile Search Container */
+.mobile-search-container {
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.mobile-search-input {
+    font-family: var(--montserrat);
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--glass);
+    border-radius: 20px;
+    outline: none;
+    background-color: var(--glass);
+}
+
+.mobile-search-btn {
+    display: none;
 }
 
 .mobile-nav-icon {
@@ -205,10 +258,11 @@
 /* Responsive Styles */
 @media (max-width: 480px) {
 
-/* Responsive Adjustments */
+    /* Responsive Adjustments */
 
     /* Mobile Responsive */
     @media (max-width: 480px) {
+
         /* Header */
         .header-container {
             min-height: 80px;

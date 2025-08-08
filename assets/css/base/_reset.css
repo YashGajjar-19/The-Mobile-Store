@@ -12,7 +12,7 @@
 
 html,
 body {
-    font-family: 'Raleway', 'Quicksand', 'Montserrat', 'Nunito Sans', sans-serif;
+    font-family: 'Raleway', 'Quicksand', 'Montserrat', 'Nunito Sans', 'Poppins', sans-serif;
     background-color: var(--body);
     scroll-behavior: smooth;
     background-image:

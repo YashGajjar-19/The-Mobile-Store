@@ -1,9 +1,5 @@
 /* assets/css/components/_sidebar.css */
 
-:root {
-    --sidebar-width: 260px;
-}
-
 .sidebar {
     position: fixed;
     top: 40px;
@@ -68,24 +64,24 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    padding: 12px 15px;
+    padding: 13px 15px;
     border-radius: 12px;
     color: var(--darkest);
     text-decoration: none;
-    font-family: var(--paragraph);
+    font-family: var(--montserrat);
     font-size: 0.95rem;
     font-weight: 600;
     transition: all 0.3s ease;
 }
 
 .sidebar-nav-link .material-symbols-rounded {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: var(--blue);
 }
 
 .sidebar-nav-link:hover,
 .sidebar-nav-link.active {
-    background: var(--glass);
+    background: var(--body);
     transform: translateY(-2px);
     box-shadow: var(--shadow);
 }

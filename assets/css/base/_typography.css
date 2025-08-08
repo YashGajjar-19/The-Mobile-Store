@@ -3,13 +3,13 @@
 /* Form header('Welcome' part) */
 .form-header {
   text-align: left;
-  font-family: var(--heading);
+  font-family: var(--raleway);
   font-weight: 500;
   margin-bottom: 33px;
 }
 
 .form-header h2 {
-  font-family: var(--heading);
+  font-family: var(--raleway);
   font-size: 2.1rem;
   color: var(--glass);
   margin-bottom: 10px;
@@ -29,7 +29,7 @@
 
 /* Form labels */
 .form-label {
-  font-family: var(--paragraph);
+  font-family: var(--montserrat);
   font-weight: 600;
   font-size: 14px;
   color: var(--dark);
@@ -56,8 +56,8 @@
 
 /* Header logo text */
 .logo-text {
-  font-family: var(--heading);
-  font-size: 23px;
+  font-family: var(--raleway);
+  font-size: 25px;
   font-weight: 700;
   background: var(--gradient);
   background-clip: text;
@@ -79,8 +79,8 @@
 }
 
 .feature-title h2 {
-  font-family: var(--heading);
-  font-size: var(--heading-sz);
+  font-family: var(--raleway);
+  font-size: 35px;
   font-weight: 600px;
   text-shadow: 0 2px 4px rgba(0, 120, 240, 0.15);
   background: var(--text-gradient);
@@ -120,9 +120,9 @@
 /* Product Name */
 .slide .slide-name {
   margin-bottom: 25px;
-  font-family: var(--paragraph);
-  font-weight: 600;
-  font-size: 50px;
+  font-family: var(--poppins);
+  font-weight: 500;
+  font-size: 45px;
   line-height: 1.1px;
   color: var(--darker);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -132,11 +132,11 @@
 .slide .slide-price {
   position: relative;
   margin: 35px 0;
-  font-family: "Nunito Sans";
-  font-weight: 900;
-  font-size: 28px;
+  font-family: var(--nunito);
   font-weight: 600;
-  background: var(--gradient);
+  font-size: 25px;
+  font-weight: 600;
+  background: var(--lightblue);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -145,7 +145,7 @@
 .slide .slide-price::after {
   content: "";
   position: absolute;
-  width: 170px;
+  width: 150px;
   height: 2px;
   left: 0;
   bottom: -9px;
@@ -159,8 +159,8 @@
 }
 
 .section-title h2 {
-  font-family: var(--heading);
-  font-size: var(--heading-sz);
+  font-family: var(--raleway);
+  font-size: 35px;
   font-weight: 600px;
   text-shadow: 0 2px 4px rgba(0, 120, 240, 0.15);
   background: var(--text-gradient);
@@ -187,7 +187,7 @@
 
 /* Product name */
 .product-title {
-  font-family: var(--paragraph);
+  font-family: var(--montserrat);
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 5px;
@@ -198,7 +198,7 @@
 
 /* Product tagline */
 .product-tagline {
-  font-family: var(--paragraph);
+  font-family: var(--montserrat);
   font-size: 0.8rem;
   color: var(--dark);
   margin-bottom: 15px;
@@ -213,9 +213,9 @@
   background-color: transparent;
   border: none;
   padding: 0;
-  font-family: var(--paragraph);
+  font-family: var(--nunito);
   font-size: 0.7rem;
-  font-weight: 500;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   z-index: 2;
@@ -240,7 +240,7 @@
 
 /* Footer */
 .footer-section h3 {
-  font-family: var(--heading);
+  font-family: var(--raleway);
   font-size: 1.2rem;
   color: var(--darkblue);
   margin-bottom: 20px;
@@ -260,16 +260,23 @@
 }
 
 .footer-section p {
+  font-family: var(--montserrat);
+  font-weight: 500;
+  font-size: 1rem;
   line-height: 1.4;
 }
 
 .footer-contact p {
+  font-family: var(--montserrat);
   line-height: normal;
   margin-bottom: 10px;
   font-size: 0.95rem;
+  font-weight: 500;
 }
 
 .footer-contact a {
+  font-family: var(--montserrat);
+  font-weight: 500;
   color: var(--dark);
   text-decoration: none;
   transition: all 0.3s ease;
@@ -286,7 +293,7 @@
 .recent-orders h3 {
   margin-top: 0;
   color: var(--dark);
-  font-family: var(--heading);
+  font-family: var(--raleway);
   font-size: 1.1rem;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--glass);
@@ -296,14 +303,14 @@
 .card h3 {
   margin-top: 0;
   color: var(--dark);
-  font-family: var(--heading);
+  font-family: var(--raleway);
   font-size: 1.1rem;
 }
 
 .card p {
   font-size: 2.5em;
   font-weight: 700;
-  font-family: var(--prize);
+  font-family: var(--montserrat);
   background: var(--gradient);
   -webkit-background-clip: text;
   background-clip: text;
