@@ -4,7 +4,7 @@
     --blue: #004EE0;
     --darkblue: #042E7B;
     --lightblue: #1883FF;
-    --background: rgba(231, 244, 255, 0.555);
+    --background: #e7f4ff8e;
     --body: #f5fbff;
     --green: #079844;
     --yellow: #F3CF31;
@@ -41,6 +41,8 @@
     --nunito: 'Nunito Sans', sans-serif;
     --quicksand: 'Quicksand', sans-serif;
     --poppins: 'Poppins', sans-serif;
+    --kumbh: 'Kumbh Sans', sans-serif;
 
+    /* Breakpoints */
     --sidebar-width: 260px;
 }

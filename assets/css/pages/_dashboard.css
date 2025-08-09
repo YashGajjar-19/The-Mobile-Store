@@ -22,7 +22,7 @@
 }
 
 .dashboard-header h1 {
-  font-family: var(--raleway);
+  font-family: var(--kumbh);
   font-size: 2.5rem;
   color: var(--darkest);
 }
@@ -48,7 +48,7 @@
 }
 
 .dashboard-title-group h2 {
-  font-family: var(--raleway);
+  font-family: var(--kumbh);
   font-size: 2.5rem;
   color: var(--darkest);
   margin: 0;
@@ -109,7 +109,7 @@
 }
 
 .card-info p {
-  font-family: var(--montserrat);
+  font-family: var(--kumbh);
   font-weight: 600;
   color: var(--dark);
   font-size: 1rem;
@@ -117,7 +117,7 @@
 }
 
 .card-info h3 {
-  font-family: var(--montserrat);
+  font-family: var(--kumbh);
   font-size: 2rem;
   color: var(--darkest);
   margin: 0;
@@ -131,7 +131,7 @@
 }
 
 .orders-header h2 {
-  font-family: var(--raleway);
+  font-family: var(--kumbh);
   font-size: 1.5rem;
   color: var(--darkest);
   margin: 0 0 20px 0;
@@ -144,7 +144,7 @@
 table {
   width: 100%;
   border-collapse: collapse;
-  font-family: var(--montserrat);
+  font-family: var(--kumbh);
   font-weight: 400;
 }
 
@@ -165,7 +165,7 @@ tbody tr:hover {
 }
 
 .status {
-  font-family: var(--montserrat);
+  font-family: var(--kumbh);
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 0.8rem;
@@ -219,7 +219,7 @@ tbody tr:hover {
 }
 
 .action-btn {
-  font-family: var(--raleway);
+  font-family: var(--kumbh);
   font-weight: 600;
   background: var(--glass);
   border: none;

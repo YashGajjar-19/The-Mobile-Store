@@ -118,7 +118,7 @@
     width: 200px;
     opacity: 1;
     padding: 15px 20px;
-    font: var(--poppins);
+    font: var(--kumbh);
 }
 
 /* Search Button */
@@ -208,7 +208,7 @@
 }
 
 .mobile-search-input {
-    font-family: var(--montserrat);
+    font-family: var(--kumbh);
     width: 100%;
     padding: 10px 12px;
     border: 1px solid var(--glass);
@@ -230,7 +230,7 @@
     border-radius: 12px;
     color: var(--darkest);
     text-decoration: none;
-    font-family: var(--paragraph);
+    font-family: var(--kumbh);
     font-size: 0.95rem;
     font-weight: 600;
     transition: all 0.3s ease;

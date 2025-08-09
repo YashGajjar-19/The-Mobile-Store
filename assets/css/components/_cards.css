@@ -1,6 +1,6 @@
 /* Form Cards */
 .form-card {
-  font-family: var(--quicksand);
+  font-family: var(--kumbh);
   width: 100%;
   max-width: 450px;
   padding: 18px;
@@ -73,7 +73,7 @@
   transition: all 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
-  font-family: var(--montserrat);
+  font-family: var(--kumbh);
   height: 100%;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.02);

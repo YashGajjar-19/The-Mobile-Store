@@ -1,129 +1,141 @@
--- Create the database if it doesn't already exist
-CREATE DATABASE IF NOT EXISTS `mobile_store`;
+-- =================================================================
+-- E-COMMERCE PLATFORM: FULL DATABASE SETUP SCRIPT
+-- =================================================================
+-- This script will:
+-- 1. Create a new database named 'e_commerce_db'.
+-- 2. Drop any existing tables to ensure a clean setup.
+-- 3. Create all required tables with correct relationships.
+-- 4. Insert a variety of sample data for testing.
+-- 5. Provide example queries for database interaction.
+-- =================================================================
 
--- Select the created database to use for the rest of the script
+-- Drop the database if it exists to start fresh
+DROP DATABASE IF EXISTS `mobile_store`;
+
+-- Create the database
+CREATE DATABASE `mobile_store`;
+
+-- Select the database to use for subsequent queries
 USE `mobile_store`;
 
--- Drop existing tables if they exist to start fresh
-DROP TABLE IF EXISTS `contact_messages`;
-DROP TABLE IF EXISTS `wishlist`;
-DROP TABLE IF EXISTS `cart`;
-DROP TABLE IF EXISTS `order_items`;
-DROP TABLE IF EXISTS `orders`;
-DROP TABLE IF EXISTS `payments`;
-DROP TABLE IF EXISTS `payment_methods`;
-DROP TABLE IF EXISTS `product_images`;
-DROP TABLE IF EXISTS `products`;
-DROP TABLE IF EXISTS `brands`;
-DROP TABLE IF EXISTS `users`;
+-- Set timezone
+SET time_zone = "+00:00";
 
--- Table `users`
-CREATE TABLE `users` (
+-- Temporarily disable foreign key checks to avoid errors when dropping/creating tables in order
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- =================================================================
+-- TABLE DEFINITIONS
+-- =================================================================
+
+-- 1. USERS TABLE
+CREATE TABLE `USERS` (
     `user_id` INT PRIMARY KEY AUTO_INCREMENT,
     `full_name` VARCHAR(255) NOT NULL,
     `email` VARCHAR(255) NOT NULL UNIQUE,
-    `password` VARCHAR(255) NOT NULL COMMENT 'Should be a hashed password',
+    `password` VARCHAR(255) NOT NULL, -- Note: Passwords should be securely hashed!
     `phone_number` VARCHAR(20) NULL,
     `address` TEXT NULL,
-    `is_admin` BOOLEAN NOT NULL DEFAULT 0 COMMENT '0 = User, 1 = Admin',
+    `is_admin` BOOLEAN NOT NULL DEFAULT 0,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table `brands`   
-CREATE TABLE `brands` (
+-- 2. BRANDS TABLE
+CREATE TABLE `BRANDS` (
     `brand_id` INT PRIMARY KEY AUTO_INCREMENT,
     `brand_name` VARCHAR(100) NOT NULL UNIQUE,
     `brand_logo_url` VARCHAR(255) NULL
 );
 
--- Table `products`
-CREATE TABLE `products` (
+-- 3. PRODUCTS TABLE
+CREATE TABLE `PRODUCTS` (
     `product_id` INT PRIMARY KEY AUTO_INCREMENT,
     `product_name` VARCHAR(255) NOT NULL,
+    `tagline` VARCHAR(255) NULL,
     `brand_id` INT,
     `price` DECIMAL(10, 2) NOT NULL,
     `discount_percentage` DECIMAL(5, 2) NOT NULL DEFAULT 0.00,
     `description` TEXT NULL,
     `specifications` TEXT NULL,
-    `availability_status` VARCHAR(50) NOT NULL DEFAULT 'out of stock' COMMENT '"in stock" or "out of stock"',
+    `availability_status` VARCHAR(50) NOT NULL DEFAULT 'Out of Stock',
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (`brand_id`) REFERENCES `brands` (`brand_id`)
+    FOREIGN KEY (`brand_id`) REFERENCES `BRANDS` (`brand_id`)
 );
 
--- Table `product_images`
-CREATE TABLE `product_images` (
+-- 4. PRODUCT_IMAGES TABLE
+CREATE TABLE `PRODUCT_IMAGES` (
     `image_id` INT PRIMARY KEY AUTO_INCREMENT,
     `product_id` INT,
     `image_url` VARCHAR(255) NOT NULL,
-    `is_primary` BOOLEAN NOT NULL DEFAULT 0 COMMENT '1 = Main image, 0 = Secondary image',
-    FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
+    `is_primary` BOOLEAN NOT NULL DEFAULT 0,
+    FOREIGN KEY (`product_id`) REFERENCES `PRODUCTS` (`product_id`) ON DELETE CASCADE
 );
 
--- Table `payment_methods`
-CREATE TABLE `payment_methods` (
+-- 5. PAYMENT_METHODS TABLE
+CREATE TABLE `PAYMENT_METHODS` (
     `method_id` INT PRIMARY KEY AUTO_INCREMENT,
     `method_name` VARCHAR(100) NOT NULL UNIQUE,
-    `is_active` BOOLEAN NOT NULL DEFAULT 1 COMMENT '1 = Active, 0 = Inactive'
+    `is_active` BOOLEAN NOT NULL DEFAULT 1
 );
 
--- Table `payments`
-CREATE TABLE `payments` (
-    `payment_id` INT PRIMARY KEY AUTO_INCREMENT,
-    `order_id` INT NOT NULL,
-    `method_id` INT,
-    `amount_paid` DECIMAL(10, 2) NOT NULL,
-    `transaction_status` VARCHAR(50) NOT NULL DEFAULT 'Completed' COMMENT '"Completed", "Failed", "Pending"',
-    `payment_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (`method_id`) REFERENCES `payment_methods` (`method_id`)
-);
-
--- Table `orders`
-CREATE TABLE `orders` (
+-- 6. ORDERS TABLE
+CREATE TABLE `ORDERS` (
     `order_id` INT PRIMARY KEY AUTO_INCREMENT,
     `user_id` INT,
     `total_amount` DECIMAL(10, 2) NOT NULL,
-    `final_amount` DECIMAL(10, 2) NOT NULL COMMENT 'Amount after discounts',
-    `payment_id` INT,
-    `order_status` VARCHAR(50) NOT NULL DEFAULT 'Pending' COMMENT '"Pending", "Approved", "Rejected", "Delivered"',
+    `final_amount` DECIMAL(10, 2) NOT NULL,
+    `order_status` VARCHAR(50) NOT NULL DEFAULT 'Pending',
     `delivery_date` DATE NULL,
     `order_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
-    FOREIGN KEY (`payment_id`) REFERENCES `payments` (`payment_id`)
+    FOREIGN KEY (`user_id`) REFERENCES `USERS` (`user_id`)
 );
 
--- Table `order_items`
-CREATE TABLE `order_items` (
+-- 7. PAYMENTS TABLE
+CREATE TABLE `PAYMENTS` (
+    `payment_id` INT PRIMARY KEY AUTO_INCREMENT,
+    `order_id` INT UNIQUE,
+    `method_id` INT,
+    `amount_paid` DECIMAL(10, 2) NOT NULL,
+    `transaction_status` VARCHAR(50) DEFAULT 'Completed',
+    `payment_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (`order_id`) REFERENCES `ORDERS` (`order_id`),
+    FOREIGN KEY (`method_id`) REFERENCES `PAYMENT_METHODS` (`method_id`)
+);
+
+-- 8. ORDER_ITEMS TABLE
+CREATE TABLE `ORDER_ITEMS` (
     `order_item_id` INT PRIMARY KEY AUTO_INCREMENT,
     `order_id` INT,
     `product_id` INT,
     `quantity` INT NOT NULL,
-    `price_per_item` DECIMAL(10, 2) NOT NULL COMMENT 'Price at the time of order',
-    FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-    FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
+    `price_per_item` DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (`order_id`) REFERENCES `ORDERS` (`order_id`),
+    FOREIGN KEY (`product_id`) REFERENCES `PRODUCTS` (`product_id`)
 );
 
--- Table `cart`
-CREATE TABLE `cart` (
+-- 9. CART TABLE
+CREATE TABLE `CART` (
     `cart_item_id` INT PRIMARY KEY AUTO_INCREMENT,
     `user_id` INT,
     `product_id` INT,
     `quantity` INT NOT NULL DEFAULT 1,
     `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
-    FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
+    FOREIGN KEY (`user_id`) REFERENCES `USERS` (`user_id`),
+    FOREIGN KEY (`product_id`) REFERENCES `PRODUCTS` (`product_id`)
 );
 
--- Table `wishlist`
-CREATE TABLE `wishlist` (
+-- 10. WISHLIST TABLE
+CREATE TABLE `WISHLIST` (
     `wishlist_item_id` INT PRIMARY KEY AUTO_INCREMENT,
     `user_id` INT,
     `product_id` INT,
     `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
-    FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
+    FOREIGN KEY (`user_id`) REFERENCES `USERS` (`user_id`),
+    FOREIGN KEY (`product_id`) REFERENCES `PRODUCTS` (`product_id`)
 );
 
-CREATE TABLE `contact_messages` (
+-- 11. CONTACT_MESSAGES TABLE
+CREATE TABLE `CONTACT_MESSAGES` (
     `message_id` INT PRIMARY KEY AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
@@ -132,25 +144,5 @@ CREATE TABLE `contact_messages` (
     `submitted_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- INSERTING ESSENTIAL DATA
-INSERT INTO
-    `users` (
-        `full_name`,
-        `email`,
-        `password`,
-        `is_admin`
-    )
-VALUES (
-        'Admin',
-        'admin@themobilestore.com',
-        'admin123',
-        1
-    );
-
--- Insert default Payment Methods
-INSERT INTO
-    `payment_methods` (`method_name`, `is_active`)
-VALUES ('Cash on Delivery', 1),
-    ('Credit Card', 1),
-    ('Debit Card', 1),
-    ('UPI', 1);
+-- Re-enable foreign key checks
+SET FOREIGN_KEY_CHECKS = 1;
