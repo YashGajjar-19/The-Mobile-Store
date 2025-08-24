@@ -87,7 +87,6 @@
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    line-height: 1;
     color: var(--darkest);
     font-size: 1.2rem;
     z-index: 1;
@@ -110,8 +109,7 @@
     font-size: 0.95rem;
     transition: all 0.3s ease;
     background: rgba(255, 255, 255, 0.7);
-    box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.05),
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05),
         inset 0 1px 2px rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
@@ -145,6 +143,85 @@
 
 .password-input:hover {
     color: var(--blue);
+}
+
+/* --- Password Strength Bar --- */
+.strength-meter {
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    /* Add transition for smooth appearance */
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* NEW: Class to hide the strength bar */
+.strength-meter.hidden {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    /* Collapse the element when hidden */
+    margin-bottom: 0;
+}
+
+.strength-meter-fill {
+    height: 100%;
+    background: #f44336;
+    /* Default: Weak */
+    border-radius: 5px;
+    width: 0%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Strength levels */
+.strength-meter-fill[data-strength="1"] {
+    width: 25%;
+    background-color: var(--clr-danger);
+}
+
+/* Weak */
+.strength-meter-fill[data-strength="2"] {
+    width: 50%;
+    background-color: var(--clr-warning);
+}
+
+/* Medium */
+.strength-meter-fill[data-strength="3"] {
+    width: 75%;
+    background-color: #ffeb3b;
+}
+
+/* Strong */
+.strength-meter-fill[data-strength="4"] {
+    width: 100%;
+    background-color: var(--clr-success);
+}
+
+/* Very Strong */
+
+/* --- Password Visibility Toggle --- */
+.form-input {
+    position: relative;
+    /* This is crucial for positioning the icon */
+}
+
+/* Ensure input text doesn't overlap the icon */
+.form-input .form-control {
+    padding-right: 45px !important;
+}
+
+.password-toggle-icon {
+    position: absolute;
+    right: 15px;
+    /* Position icon on the far right */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+    z-index: 10;
 }
 
 /* Form options styling in login form */

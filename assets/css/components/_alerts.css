@@ -27,7 +27,7 @@
 /* Success Alert - Using your green */
 .alert-success,
 .form-alert.alert-success {
-  background-color: rgba(7, 152, 68, 0.15);
+  background-color: rgba(7, 152, 68, 0.20);
   color: var(--green);
   border-color: rgba(7, 152, 68, 0.3);
 }
@@ -40,7 +40,7 @@
 /* Error Alert - Using your red */
 .alert-error,
 .form-alert.alert-error {
-  background-color: rgba(246, 47, 50, 0.15);
+  background-color: rgba(246, 47, 50, 0.20);
   color: var(--red);
   border-color: rgba(246, 47, 50, 0.3);
 }

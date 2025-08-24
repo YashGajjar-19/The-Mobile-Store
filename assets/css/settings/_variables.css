@@ -29,7 +29,7 @@
 
     /* Shadows */
     --shadow: 0 4px 10px rgba(24, 131, 255, 0.15);
-    --light-shadow: 0 2px 20px rgba(24, 131, 255, 0.25);
+    --light-shadow: 0 4px 20px rgba(24, 131, 255, 0.3);
     --dark-shadow: 0 6px 20px rgba(22, 53, 110, 0.25);
     --blue-shadow: 0 4px 12px rgba(0, 78, 224, 0.3);
     --red-shadow: 0 4px 12px rgba(246, 47, 50, 0.3);
