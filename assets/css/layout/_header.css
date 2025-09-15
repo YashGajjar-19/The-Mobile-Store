@@ -258,89 +258,83 @@
     color: var(--darkest);
 }
 
-/* Responsive Styles */
+/* Mobile Responsive */
 @media (max-width: 480px) {
 
-    /* Responsive Adjustments */
+    /* Header */
+    .header-container {
+        min-height: 80px;
+    }
 
-    /* Mobile Responsive */
-    @media (max-width: 480px) {
+    .header {
+        top: 10px;
+        width: 88%;
+        padding: 13px 15px;
+        border-radius: 50px;
+        min-height: 60px;
+    }
 
-        /* Header */
-        .header-container {
-            min-height: 80px;
-        }
+    .logo-container {
+        gap: 8px;
+    }
 
-        .header {
-            top: 10px;
-            width: 88%;
-            padding: 13px 15px;
-            border-radius: 50px;
-            min-height: 60px;
-        }
+    .logo-image {
+        width: 50px;
+        height: 50px;
+    }
 
-        .logo-container {
-            gap: 8px;
-        }
+    .logo-text {
+        font-size: 16px;
+    }
 
-        .logo-image {
-            width: 50px;
-            height: 50px;
-        }
+    .nav-wrapper {
+        gap: 8px;
+    }
 
-        .logo-text {
-            font-size: 16px;
-        }
+    .navbar {
+        display: none;
+    }
 
-        .nav-wrapper {
-            gap: 8px;
-        }
+    .nav-icon {
+        width: 45px;
+        height: 45px;
+    }
 
-        .navbar {
-            display: none;
-        }
+    .nav-icon .material-symbols-rounded {
+        font-size: 20px;
+    }
 
-        .nav-icon {
-            width: 45px;
-            height: 45px;
-        }
+    .cart-badge {
+        top: -3px;
+        right: -3px;
+        width: 18px;
+        height: 18px;
+        font-size: 0.6rem;
+    }
 
-        .nav-icon .material-symbols-rounded {
-            font-size: 20px;
-        }
+    .mobile-menu-btn {
+        display: flex;
+        width: 50px;
+        height: 50px;
+    }
 
-        .cart-badge {
-            top: -3px;
-            right: -3px;
-            width: 18px;
-            height: 18px;
-            font-size: 0.6rem;
-        }
+    .mobile-menu-btn .material-symbols-rounded {
+        font-size: 1.3rem;
+    }
 
-        .mobile-menu-btn {
-            display: flex;
-            width: 50px;
-            height: 50px;
-        }
+    .mobile-menu {
+        top: 70px;
+        right: 10px;
+        width: 160px;
+        padding: 10px;
+    }
 
-        .mobile-menu-btn .material-symbols-rounded {
-            font-size: 1.3rem;
-        }
+    .mobile-nav-icon {
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
 
-        .mobile-menu {
-            top: 70px;
-            right: 10px;
-            width: 160px;
-            padding: 10px;
-        }
-
-        .mobile-nav-icon {
-            padding: 10px 12px;
-            font-size: 0.85rem;
-        }
-
-        .mobile-nav-icon .material-symbols-rounded {
-            font-size: 1rem;
-        }
+    .mobile-nav-icon .material-symbols-rounded {
+        font-size: 1rem;
     }
 }

@@ -120,5 +120,38 @@
     color: var(--dark);
 }
 
-/* Responsive */
-@media(max-width: 480px) {}
+@media (max-width: 480px) {
+    .footer {
+        width: 95%;
+        padding: 27px;
+    }
+
+    .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .footer-section {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .footer-section:nth-child(2),
+    .footer-section:nth-child(3),
+    .footer-section:nth-child(4) {
+        width: 30%;
+        text-align: left;
+    }
+
+    .footer-logo-container,
+    .social-links {
+        justify-content: center;
+    }
+
+    .footer-section h3::after {
+        left: 13%;
+        transform: translateX(-50%);
+    }
+}

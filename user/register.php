@@ -1,3 +1,6 @@
+<?php
+$error = isset($_GET['error']) ? $_GET['error'] : '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,8 +27,10 @@
             <h2 class="form-header">Create Account</h2>
             <p class="form-header">Join The Mobile Store</p>
           </div>
+          <div id="alert-container"></div>
 
-          <form method="POST" class="auth-form">
+
+          <form action="../includes/auth.php" method="POST" class="auth-form">
             <div class="form-group">
               <label for="fullname" class="form-label">Full Name</label>
               <div class="form-input">
@@ -80,14 +85,14 @@
           </form>
 
           <div class="form-footer">
-            <p>Already have an account? <a href="login.html">Sign in</a></p>
+            <p>Already have an account? <a href="login.php">Sign in</a></p>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/modules/auth.js"></script>
 </body>
 
 </html>

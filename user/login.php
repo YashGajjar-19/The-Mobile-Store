@@ -24,7 +24,8 @@
                         <h2 class="form-header">Welcome Back</h2>
                         <p class="form-header">Login to access your account</p>
                     </div>
-                    <form method="POST" class="auth-form">
+                    <div id="alert-container"></div>
+                    <form action="../includes/auth.php" method="POST" class="auth-form">
                         <input type="hidden" name="login" value="1">
 
                         <div class="form-group">
@@ -56,7 +57,7 @@
                         </div>
 
                         <div class="form-footer">
-                            Don't have an account? <a href="./register.html" class="form-footer">Sign up</a>
+                            Don't have an account? <a href="./register.php" class="form-footer">Sign up</a>
                         </div>
                     </form>
                 </div>
@@ -64,7 +65,7 @@
         </div>
     </div>
 
-    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/modules/auth.js"></script>
 </body>
 
 </html>

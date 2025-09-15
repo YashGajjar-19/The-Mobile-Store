@@ -235,3 +235,57 @@ tbody tr:hover {
   background: var(--dark);
   color: white;
 }
+
+/* assets/css/pages/_dashboard.css */
+@media (max-width: 480px) {
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+    margin-top: 80px;
+  }
+
+  .admin-header {
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .dashboard-header-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .dashboard-title-group h2 {
+    font-size: 2rem;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .orders-card {
+    padding: 20px;
+  }
+
+  .orders-header h2 {
+    font-size: 1.25rem;
+  }
+
+  th,
+  td {
+    padding: 12px 10px;
+    font-size: 0.9rem;
+  }
+
+  .status {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+
+  .action-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}
