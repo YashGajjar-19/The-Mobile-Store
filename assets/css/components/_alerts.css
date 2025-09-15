@@ -2,17 +2,17 @@
 .alert,
 .form-alert {
   padding: 1rem 1.25rem;
-  margin: 0 0 10px 0;
+  margin: 0 0 20px 0;
   border-radius: 12px;
   font-family: var(--kumbh);
-  font-size: 0.95rem;
+  font-size: 0.80rem;
   display: flex;
   align-items: center;
   position: relative;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: var(--shadow);
   border: 1px solid transparent;
-  box-shadow: var(--glass-shadow);
   transition: all 0.3s ease;
   animation: slideIn 0.3s ease-out forwards;
 }
@@ -74,7 +74,6 @@
   margin: 0 0 1.25rem 0;
   padding: 0.85rem 1.15rem;
   border-radius: 10px;
-  box-shadow: var(--shadow);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
 }

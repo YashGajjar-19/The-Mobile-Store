@@ -1,20 +1,33 @@
 DROP DATABASE IF EXISTS `mobile_store`;
 -- Create the database if it doesn't already exist
 CREATE DATABASE IF NOT EXISTS mobile_store;
+
 USE mobile_store;
 -- Drop existing tables to prevent errors on re-running the script
 DROP TABLE IF EXISTS `contact_messages`;
+
 DROP TABLE IF EXISTS `wishlist`;
+
 DROP TABLE IF EXISTS `cart`;
+
 DROP TABLE IF EXISTS `order_items`;
+
 DROP TABLE IF EXISTS `orders`;
+
 DROP TABLE IF EXISTS `reviews`;
+
 DROP TABLE IF EXISTS `product_images`;
+
 DROP TABLE IF EXISTS `product_variants`;
+
 DROP TABLE IF EXISTS `products`;
+
 DROP TABLE IF EXISTS `categories`;
+
 DROP TABLE IF EXISTS `brands`;
+
 DROP TABLE IF EXISTS `user_tokens`;
+
 DROP TABLE IF EXISTS `users`;
 
 -- =================================================================
@@ -48,7 +61,7 @@ CREATE TABLE `user_tokens` (
 -- =================================================================
 -- Table structure for `brands`
 -- Stores brand information like 'Samsung', 'Apple', etc.
--- =================================================================
+--- =================================================================
 CREATE TABLE `brands` (
     `brand_id` INT AUTO_INCREMENT PRIMARY KEY,
     `brand_name` VARCHAR(255) NOT NULL UNIQUE,
@@ -89,6 +102,7 @@ CREATE TABLE `product_variants` (
     `product_id` INT NOT NULL,
     `color` VARCHAR(50),
     `storage_gb` INT,
+    `ram_gb` INT,
     `price` DECIMAL(10, 2) NOT NULL,
     `stock_quantity` INT NOT NULL DEFAULT 0,
     FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE
@@ -173,10 +187,10 @@ CREATE TABLE `cart` (
 CREATE TABLE `wishlist` (
     `wishlist_item_id` INT AUTO_INCREMENT PRIMARY KEY,
     `user_id` INT NOT NULL,
-    `product_id` INT NOT NULL,
+    `variant_id` INT NOT NULL, -- Changed from product_id
     `added_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-    FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE
+    FOREIGN KEY (`variant_id`) REFERENCES `product_variants` (`variant_id`) ON DELETE CASCADE -- Changed from products
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 -- =================================================================

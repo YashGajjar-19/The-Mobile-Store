@@ -1,3 +1,18 @@
+<?php
+require_once '../includes/auth_check.php';
+
+// Determine the link for the account icon
+if (isset($_SESSION['user_id'])) {
+    // User is logged in, link to profile page
+    $account_link = './user/profile/index.php';
+    $account_text = 'Account';
+} else {
+    // User is not logged in, link to register page
+    $account_link = './user/register.php';
+    $account_text = 'Login / Register';
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

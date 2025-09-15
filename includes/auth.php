@@ -2,7 +2,26 @@
 session_start();
 require_once 'config.php';
 
+// --- Logout Logic ---
+if (isset($_GET['action']) && $_GET['action'] == 'logout') {
+    // Also delete the remember me cookie and database token
+    if (isset($_COOKIE['remember_me'])) {
+        list($selector, $validator) = explode(':', $_COOKIE['remember_me']);
+        $stmt = $conn->prepare("DELETE FROM user_tokens WHERE selector = ?");
+        $stmt->bind_param("s", $selector);
+        $stmt->execute();
+        $stmt->close();
+        setcookie('remember_me', '', time() - 3600, '/'); // Expire the cookie
+    }
+
+    $_SESSION = array();
+    session_destroy();
+    header("Location: ../index.php");
+    exit();
+}
+
 // --- Registration Logic ---
+// ... (Your existing registration code remains unchanged) ...
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fullname'])) {
     $fullname = $_POST['fullname'];
     $email = $_POST['email'];
@@ -55,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fullname'])) {
     $stmt->bind_param("sss", $fullname, $email, $hashed_password);
 
     if ($stmt->execute()) {
-        header("Location: ../index.php?success=registered");
+        header("Location: ../user/login.php?success=registered");
         exit();
     } else {
         header("Location: ../user/register.php?error=dberror");
@@ -64,6 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['fullname'])) {
 
     $stmt->close();
 }
+
 
 // --- Login Logic ---
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
@@ -83,6 +103,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
             $_SESSION['user_id'] = $id;
             $_SESSION['full_name'] = $fullname;
             $_SESSION['is_admin'] = $is_admin;
+
+            // --- REMEMBER ME LOGIC ---
+            if (isset($_POST['remember'])) {
+                $selector = bin2hex(random_bytes(16));
+                $validator = bin2hex(random_bytes(32));
+                $expires = date('Y-m-d H:i:s', time() + (86400 * 30)); // 30 days
+                $hashed_validator = hash('sha256', $validator);
+
+                // Insert token into the database
+                $token_stmt = $conn->prepare("INSERT INTO user_tokens (user_id, selector, hashed_validator, expires) VALUES (?, ?, ?, ?)");
+                $token_stmt->bind_param("isss", $id, $selector, $hashed_validator, $expires);
+                $token_stmt->execute();
+                $token_stmt->close();
+
+                // Set the cookie
+                setcookie('remember_me', $selector . ':' . $validator, time() + (86400 * 30), '/');
+            }
+            // --- END REMEMBER ME LOGIC ---
 
             if ($is_admin) {
                 header("Location: ../admin/dashboard.php");

@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+// Determine the link for the account icon
+if (isset($_SESSION['user_id'])) {
+    // User is logged in, link to profile page
+    $account_link = './user/profile.php';
+    $account_text = 'Account';
+} else {
+    // User is not logged in, link to register page
+    $account_link = './user/register.php';
+    $account_text = 'Login / Register';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,26 +20,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | The Mobile Store</title>
 
-    <!-- Icons -->
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Style Sheets -->
     <link rel="stylesheet" href="./assets/css/main.css">
 </head>
 
 <body>
-    <!-- Header Section -->
     <section class="header-container" id="header-section">
         <header class="header">
-            <a href="./index.html" class="logo-container">
+            <a href="./index.php" class="logo-container">
                 <img class="logo-image" src="./assets/images/Logo.png" alt="The Mobile Store">
                 <span class="logo-text">The Mobile Store</span>
             </a>
-            <!-- Navigation Bar -->
             <div class="nav-wrapper">
                 <nav class="navbar">
                     <div class="search-container">
@@ -34,19 +44,18 @@
                             <span class="material-symbols-rounded">search</span>
                         </a>
                     </div>
-                    <a href="#" class="nav-icon">
+                    <a href="./index.php" class="nav-icon">
                         <span class="material-symbols-rounded">home</span>
                     </a>
                     <a href="#" class="nav-icon">
                         <span class="material-symbols-rounded">shopping_cart</span>
                         <span class="cart-badge">3</span>
                     </a>
-                    <a href="#" class="nav-icon">
+                    <a href="<?php echo $account_link; ?>" class="nav-icon">
                         <span class="material-symbols-rounded">account_circle</span>
                     </a>
                 </nav>
 
-                <!-- Mobile Menu Button -->
                 <button class="mobile-menu-btn">
                     <span class="material-symbols-rounded">
                         menu
@@ -54,7 +63,6 @@
                 </button>
             </div>
 
-            <!-- Mobile Menu -->
             <div class="mobile-menu">
                 <div class="mobile-search-container">
                     <input type="search" class="mobile-search-input" placeholder="Search...">
@@ -62,7 +70,7 @@
                         <span class="material-symbols-rounded">search</span>
                     </button>
                 </div>
-                <a href="#" class="mobile-nav-icon">
+                <a href="./index.php" class="mobile-nav-icon">
                     <span class="material-symbols-rounded">home</span>
                     <span>Home</span>
                 </a>
@@ -71,18 +79,20 @@
                     <span>Cart</span>
                     <span class="cart-badge">3</span>
                 </a>
-                <a href="#" class="mobile-nav-icon">
+                <a href="<?php echo $account_link; ?>" class="mobile-nav-icon">
                     <span class="material-symbols-rounded">account_circle</span>
-                    <span>Account</span>
+                    <span><?php echo $account_text; ?></span>
                 </a>
-                <a href="includes/auth.php?action=logout" class="nav-icon">
-                    <span class="material-symbols-rounded">logout</span>
-                </a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="./includes/auth.php?action=logout" class="mobile-nav-icon">
+                        <span class="material-symbols-rounded">logout</span>
+                        <span>Logout</span>
+                    </a>
+                <?php endif; ?>
             </div>
         </header>
     </section>
 
-    <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-container">
             <div class="hero-image-column">
@@ -98,25 +108,19 @@
         </div>
     </section>
 
-    <!-- Featured Products -->
     <section class="feature-section">
-        <!-- Title Part -->
         <div class="feature-title">
             <h2> Featured Products </h2>
             <div class="title-line"></div>
         </div>
 
-        <!-- Feature Slider -->
         <div class="slider-wrapper">
             <div class="slider-container">
-                <!-- Slide 1 -->
-                <!-- Image Section -->
                 <div class="slide">
                     <div class="slide-image">
                         <div class="slide-status new">New</div>
                         <img src="./assets/images/products/Samsung/Z Fold 7/Blue Shadow/1.webp" alt="Galaxy Z Fold7">
                     </div>
-                    <!-- Detail Section -->
                     <div class="slide-details">
                         <div class="slide-name">Galaxy Z Fold7</div>
                         <div class="slide-price">From &#8377;1,74,999</div>
@@ -124,14 +128,11 @@
                     </div>
                 </div>
 
-                <!-- Slide 2 -->
-                <!-- Image Section -->
                 <div class="slide">
                     <div class="slide-image">
                         <div class="slide-status new">New</div>
                         <img src="./assets/images/products/Samsung/Z Flip 7/Blue Shadow/1.webp" alt="Galaxy Z Flip7">
                     </div>
-                    <!-- Detail Section -->
                     <div class="slide-details">
                         <div class="slide-name">Galaxy Z Flip7</div>
                         <div class="slide-price">From &#8377;1,14,999</div>
@@ -139,14 +140,11 @@
                     </div>
                 </div>
 
-                <!-- Slide 3 -->
-                <!-- Image Section -->
                 <div class="slide">
                     <div class="slide-image">
                         <div class="slide-status trending">Trending</div>
                         <img src="./assets/images/products/Google/Pixel 9A/Porcelain/1.webp" alt="Pixel 9A">
                     </div>
-                    <!-- Detail Section -->
                     <div class="slide-details">
                         <div class="slide-name">Pixel 9A</div>
                         <div class="slide-price">From &#8377;64,999</div>
@@ -154,15 +152,12 @@
                     </div>
                 </div>
 
-                <!-- Slide 4 -->
-                <!-- Image Section -->
                 <div class="slide">
                     <div class="slide-image">
                         <div class="slide-status trending">Trending</div>
                         <img src="./assets/images/products/Samsung/S25 Ultra/Titanium WhiteSilver/1.webp"
                             alt="Galaxy S25 Ultra">
                     </div>
-                    <!-- Detail Section -->
                     <div class="slide-details">
                         <div class="slide-name">Galaxy S25 Ultra</div>
                         <div class="slide-price">From &#8377;1,17,999</div>
@@ -170,13 +165,10 @@
                     </div>
                 </div>
 
-                <!-- Slide 5 -->
-                <!-- Image Section -->
                 <div class="slide">
                     <div class="slide-image">
                         <img src="./assets/images/products/Oneplus/OnePlus 13S/Green Silk/1.webp" alt="Oneplus 13S">
                     </div>
-                    <!-- Detail Section -->
                     <div class="slide-details">
                         <div class="slide-name">Oneplus 13S</div>
                         <div class="slide-price">From &#8377;51,999</div>
@@ -184,7 +176,6 @@
                     </div>
                 </div>
 
-                <!-- Navigation Dots -->
                 <div class="dots-container">
                     <div class="dot active" data-slide="0"></div>
                     <div class="dot" data-slide="1"></div>
@@ -196,9 +187,7 @@
         </div>
     </section>
 
-    <!-- Shop By Brand Section -->
     <section class="shop-by-brand">
-        <!-- Title Part -->
         <div class="section-title">
             <h2>
                 Shop By Brand
@@ -206,70 +195,56 @@
             <div class="title-line"></div>
         </div>
 
-        <!-- Brand Logos Grid -->
         <div class="brands-grid">
-            <!-- Brand 1 -->
             <div class="brand-card">
                 <img src="./assets/images/brands-logo/Samsung.webp" alt="Samsung">
             </div>
 
-            <!-- Brand 2 -->
             <div class="brand-card">
                 <img src="./assets/images/brands-logo/Apple.webp" alt="Apple">
             </div>
 
-            <!-- Brand 3 -->
             <div class="brand-card">
                 <img src="./assets/images/brands-logo/Google.webp" alt="Google">
             </div>
 
-            <!-- Brand 4 -->
             <div class="brand-card">
                 <img src="./assets/images/brands-logo/Oneplus.webp" alt="OnePlus">
             </div>
 
-            <!-- Brand 5 -->
             <div class="brand-card">
                 <img src="./assets/images/brands-logo/Xiomi.webp" alt="Xiaomi">
             </div>
 
-            <!-- Brand 6 -->
             <div class="brand-card">
                 <img src="./assets/images/brands-logo/Oppo.webp" alt="Oppo">
             </div>
 
-            <!-- Brand 7 -->
             <div class="brand-card">
                 <img src="./assets/images/brands-logo/Vivo.webp" alt="Vivo">
             </div>
 
-            <!-- Brand 8 -->
             <div class="brand-card">
                 <img src="./assets/images/brands-logo/Iqoo.webp" alt="">
             </div>
 
-            <!-- Brand 9 -->
             <div class="brand-card">
                 <img src="./assets/images/brands-logo/Nothing.webp" alt="Nothing">
             </div>
 
-            <!-- Brand 10 -->
             <div class="brand-card" id="products-section">
                 <img src="./assets/images/brands-logo/Motorola.webp" alt="Motorola">
             </div>
         </div>
     </section>
 
-    <!-- Products Section -->
     <section class="products-section">
-        <!-- Title Part-->
         <div class="section-title" id="section-title">
             <h2>Browse Products</h2>
             <div class="title-line"></div>
         </div>
 
         <div class="products-grid">
-            <!-- Product Card 1 -->
             <div class="product-card">
                 <div class="product-badge trending">Hot</div>
                 <h3 class="product-title">Iphone 16 Pro</h3>
@@ -288,7 +263,6 @@
                 </div>
             </div>
 
-            <!-- Product Card 2 -->
             <div class="product-card">
                 <div class="product-badge new">New</div>
                 <h3 class="product-title">iPhone 16E</h3>
@@ -307,7 +281,6 @@
                 </div>
             </div>
 
-            <!-- Product Card 3 -->
             <div class="product-card">
                 <div class="product-badge trending">Hot</div>
                 <button class="wishlist-btn">
@@ -331,7 +304,6 @@
         </div>
     </section>
 
-    <!-- Footer Section -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
@@ -361,7 +333,7 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./index.php">Home</a></li>
                     <li><a href="./products.html">Products</a></li>
                     <li><a href="./about.html">About Us</a></li>
                     <li><a href="./contact.html">Contact</a></li>

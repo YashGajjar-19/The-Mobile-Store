@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Use your existing alert classes!
     alertContainer.innerHTML = `
           <div class="alert alert-error" role="alert">
-              <span class="material-symbols-rounded alert-icon">error</span>
+              <ion-icon name="warning-outline" class="alert-icon"></ion-icon>
               <span>${message}</span>
               <button class="alert-close">&times;</button>
           </div>
@@ -40,60 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
   if (success === "registered") {
     alertContainer.innerHTML = `
             <div class="alert alert-success" role="alert">
-                <span class="material-symbols-rounded alert-icon">check_circle</span>
+               <ion-icon name="checkmark-done-circle-outline" class="alert-icon"></ion-icon>
                 <span>Registration successful! Please log in.</span>
                 <button class="alert-close">&times;</button>
             </div>
         `;
-  }
-
-  // --- Password Visibility Toggle ---
-  function setupToggle(toggleId, inputId) {
-    const toggleElement = document.getElementById(toggleId);
-    const inputElement = document.getElementById(inputId);
-    if (!toggleElement || !inputElement) return;
-
-    toggleElement.addEventListener("click", function () {
-      const type =
-        inputElement.getAttribute("type") === "password" ? "text" : "password";
-      inputElement.setAttribute("type", type);
-      this.setAttribute(
-        "name",
-        type === "password" ? "eye-outline" : "eye-off-outline"
-      );
-    });
-  }
-  setupToggle("togglePassword", "password");
-  setupToggle("toggleConfirmPassword", "confirm_password");
-
-  // --- Password Strength Meter Logic ---
-  if (passwordInput && strengthMeter) {
-    passwordInput.addEventListener("input", function () {
-      const password = passwordInput.value;
-
-      // Show or hide the strength bar based on input
-      if (password.length > 0) {
-        strengthMeter.classList.remove("hidden");
-      } else {
-        strengthMeter.classList.add("hidden");
-      }
-
-      let strength = 0;
-      if (password.length >= 8) strength++;
-      if (password.match(/[a-z]/)) strength++;
-      if (password.match(/[A-Z]/)) strength++;
-      if (password.match(/[0-9]/)) strength++;
-      if (password.match(/[^A-Za-z0-9]/)) strength++;
-
-      let effectiveStrength = Math.min(strength, 4);
-      if (password.length > 0 && strength < 2) {
-        effectiveStrength = 1;
-      } else if (password.length === 0) {
-        effectiveStrength = 0;
-      }
-
-      strengthBar.setAttribute("data-strength", effectiveStrength);
-    });
   }
 
   // --- Close Button Functionality ---
