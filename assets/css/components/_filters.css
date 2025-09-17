@@ -1,0 +1,77 @@
+/* STYLES FOR THE FILTER AND SORT BAR */
+.filter-options-bar {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    margin: 0 auto 40px;
+    max-width: 1250px;
+    background: var(--background);
+    border-radius: 15px;
+    box-shadow: var(--light-shadow);
+    flex-wrap: wrap;
+}
+
+.filter-form {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter-form .form-group {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-form .form-label {
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.filter-form select {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--glass);
+    background: white;
+    font-family: var(--kumbh);
+    font-weight: 500;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+/* --- Pagination Styles --- */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 50px;
+}
+
+.pagination a {
+    color: var(--dark);
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 10px;
+    background-color: var(--glass);
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.pagination a:hover {
+    background-color: var(--blue);
+    color: white;
+    box-shadow: var(--blue-shadow);
+}
+
+.pagination a.active {
+    background: var(--gradient);
+    color: white;
+    box-shadow: var(--shadow);
+    cursor: default;
+}

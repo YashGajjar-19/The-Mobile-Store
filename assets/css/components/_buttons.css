@@ -117,9 +117,9 @@
 }
 
 .wishlist-btn.active .material-symbols-rounded {
-  font-variation-settings: "FILL" 1;
-  color: var(--red);
-  animation: none;
+    font-variation-settings: "FILL" 1;
+    color: var(--red);
+    animation: normal 0.3s ease;
 }
 
 /* Browse more button */

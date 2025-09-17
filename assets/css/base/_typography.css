@@ -163,7 +163,7 @@
   font-size: 35px;
   font-weight: 600px;
   text-shadow: 0 2px 4px rgba(0, 120, 240, 0.15);
-  background: var(--text-gradient);
+  background: var(--text-gradient); 
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -228,6 +228,10 @@
 }
 
 .product-badge.trending {
+  color: var(--yellow);
+}
+
+.product-badge.hot { 
   color: var(--red);
 }
 

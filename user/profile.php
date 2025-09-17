@@ -18,32 +18,31 @@ $stmt_user->execute();
 $user_data = $stmt_user->get_result()->fetch_assoc();
 $stmt_user->close();
 
-// Fetch user's recent orders (e.g., the last 5)
+// Fetch user's recent orders
 $stmt_orders = $conn->prepare("SELECT order_id, order_date, total_amount, status FROM orders WHERE user_id = ? ORDER BY order_date DESC LIMIT 5");
 $stmt_orders->bind_param("i", $user_id);
 $stmt_orders->execute();
 $orders = $stmt_orders->get_result();
 $stmt_orders->close();
 
-// Fetch user's wishlist items
+// Wishlist items
 $stmt_wishlist = $conn->prepare("
     SELECT
         p.product_name,
-        pv.color,
-        pv.storage_gb,
-        pv.price,
-        (SELECT image_url FROM product_images WHERE variant_id = pv.variant_id AND is_thumbnail = 1 LIMIT 1) as image_url
+        MIN(pv.price) as starting_price,
+        (SELECT image_url FROM product_images pi JOIN product_variants pv_img ON pi.variant_id = pv_img.variant_id WHERE pv_img.product_id = p.product_id AND pi.is_thumbnail = 1 LIMIT 1) as image_url
     FROM wishlist w
-    JOIN product_variants pv ON w.variant_id = pv.variant_id
-    JOIN products p ON pv.product_id = p.product_id
+    JOIN products p ON w.product_id = p.product_id
+    LEFT JOIN product_variants pv ON p.product_id = pv.product_id
     WHERE w.user_id = ?
+    GROUP BY p.product_id
 ");
 $stmt_wishlist->bind_param("i", $user_id);
 $stmt_wishlist->execute();
 $wishlist_items = $stmt_wishlist->get_result();
 $stmt_wishlist->close();
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,28 +80,66 @@ $stmt_wishlist->close();
             padding: 30px;
             box-shadow: var(--shadow);
         }
-
-        .form-input .icon-textarea {
-            top: 20px;
-            transform: none;
-        }
     </style>
 </head>
 
 <body>
-
     <section class="header-container" id="header-section">
         <header class="header">
-            <a href="../index.php" class="logo-container">
+            <a href="./index.php" class="logo-container">
                 <img class="logo-image" src="../assets/images/Logo.png" alt="The Mobile Store">
                 <span class="logo-text">The Mobile Store</span>
             </a>
             <div class="nav-wrapper">
                 <nav class="navbar">
-                    <a href="../index.php" class="nav-icon"><span class="material-symbols-rounded">home</span></a>
-                    <a href="#" class="nav-icon"><span class="material-symbols-rounded">shopping_cart</span></a>
-                    <a href="#" class="nav-icon"><span class="material-symbols-rounded">account_circle</span></a>
+                    <div class="search-container">
+                        <input type="search" class="search-input" placeholder="Search...">
+                        <a class="nav-icon search-btn">
+                            <span class="material-symbols-rounded">search</span>
+                        </a>
+                    </div>
+                    <a href="../index.php" class="nav-icon">
+                        <span class="material-symbols-rounded">home</span>
+                    </a>
+                    <a href="#" class="nav-icon">
+                        <span class="material-symbols-rounded">shopping_cart</span>
+                        <span class="cart-badge">3</span>
+                    </a>
                 </nav>
+
+                <button class="mobile-menu-btn">
+                    <span class="material-symbols-rounded">
+                        menu
+                    </span>
+                </button>
+            </div>
+
+            <div class="mobile-menu">
+                <div class="mobile-search-container">
+                    <input type="search" class="mobile-search-input" placeholder="Search...">
+                    <button class="mobile-search-btn">
+                        <span class="material-symbols-rounded">search</span>
+                    </button>
+                </div>
+                <a href="../index.php" class="mobile-nav-icon">
+                    <span class="material-symbols-rounded">home</span>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="mobile-nav-icon">
+                    <span class="material-symbols-rounded">shopping_cart</span>
+                    <span>Cart</span>
+                    <span class="cart-badge">3</span>
+                </a>
+                <a href="<?php echo $account_link; ?>" class="mobile-nav-icon">
+                    <span class="material-symbols-rounded">account_circle</span>
+                    <span><?php echo $account_text; ?></span>
+                </a>
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <a href="./includes/auth.php?action=logout" class="mobile-nav-icon">
+                        <span class="material-symbols-rounded">logout</span>
+                        <span>Logout</span>
+                    </a>
+                <?php endif; ?>
             </div>
         </header>
     </section>
@@ -151,7 +188,7 @@ $stmt_wishlist->close();
                     <h2 style="margin-top: 0;">Profile Information</h2>
                     <div class="title-line" style="margin: 10px 0 0 0;"></div>
                 </div>
-                <form action="../../includes/profile_update.php" method="POST" class="auth-form" style="margin: 0;">
+                <form action="../includes/profile_update.php" method="POST" class="auth-form" style="margin: 0;">
                     <div class="form-group">
                         <label for="full_name" class="form-label">Full Name</label>
                         <div class="form-input">
@@ -177,7 +214,7 @@ $stmt_wishlist->close();
                         <label for="address" class="form-label">Address</label>
                         <div class="form-input">
                             <ion-icon name="location-outline" class="icon-textarea"></ion-icon>
-                            <textarea id="address" name="address" rows="4" style="width: 100%; padding-left: 45px;"><?php echo htmlspecialchars($user_data['address']); ?></textarea>
+                            <textarea id="address" name="address" rows="3" style="width: 100%; padding: 10px 15px 10px 45px; line-height: 1.2rem;"><?php echo htmlspecialchars($user_data['address']); ?></textarea>
                         </div>
                     </div>
                     <div class="form-submit">
@@ -231,11 +268,11 @@ $stmt_wishlist->close();
                         <thead>
                             <tr>
                                 <th>Product</th>
-                                <th>Details</th>
-                                <th>Price</th>
+                                <th>Starting Price</th>
                             </tr>
                         </thead>
                         <tbody>
+
                             <?php if ($wishlist_items->num_rows > 0): ?>
                                 <?php while ($item = $wishlist_items->fetch_assoc()): ?>
                                     <tr>
@@ -245,20 +282,18 @@ $stmt_wishlist->close();
                                                 <strong><?php echo htmlspecialchars($item['product_name']); ?></strong>
                                             </div>
                                         </td>
-                                        <td><?php echo htmlspecialchars($item['color'] . ', ' . $item['storage_gb'] . 'GB'); ?></td>
-                                        <td>&#8377;<?php echo number_format($item['price'], 2); ?></td>
+                                        <td>&#8377;<?php echo number_format($item['starting_price'], 2); ?></td>
                                     </tr>
                                 <?php endwhile; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="3">Your wishlist is empty.</td>
+                                    <td colspan="2">Your wishlist is empty.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
-        </section>
     </main>
 </body>
 

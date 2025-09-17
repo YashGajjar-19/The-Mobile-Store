@@ -19,6 +19,7 @@
 .dashboard-header {
   display: flex;
   margin-bottom: 30px;
+
 }
 
 .dashboard-header h1 {
@@ -72,29 +73,6 @@
   margin: 0;
 }
 
-.dashboard-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  margin-bottom: 30px;
-}
-
-.summary-card {
-  background-color: var(--body);
-  border-radius: 1rem;
-  padding: 25px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  box-shadow: var(--shadow);
-  transition: all 0.3s ease;
-}
-
-.summary-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--dark-shadow);
-}
-
 .card-icon {
   width: 60px;
   height: 60px;
@@ -130,11 +108,17 @@
   box-shadow: var(--shadow);
 }
 
+.orders-header { 
+  display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
 .orders-header h2 {
   font-family: var(--kumbh);
   font-size: 1.5rem;
   color: var(--darkest);
-  margin: 0 0 20px 0;
 }
 
 .orders-table-container {

@@ -1,17 +1,69 @@
 <?php
-session_start();
+require_once 'includes/auth_check.php';
+require_once 'includes/config.php';
 
-// Determine the link for the account icon
+// --- Fetch User's Wishlist (if logged in) ---
+$wishlist_product_ids = [];
 if (isset($_SESSION['user_id'])) {
-    // User is logged in, link to profile page
+    $wishlist_stmt = $conn->prepare("SELECT product_id FROM wishlist WHERE user_id = ?");
+    $wishlist_stmt->bind_param("i", $_SESSION['user_id']);
+    $wishlist_stmt->execute();
+    $wishlist_result = $wishlist_stmt->get_result();
+    while ($row = $wishlist_result->fetch_assoc()) {
+        $wishlist_product_ids[] = $row['product_id'];
+    }
+    $wishlist_stmt->close();
+}
+
+// --- Fetch Data for Homepage ---
+// 1. Fetch 5 random "Hot", "Trending", or "New" products for the slider
+$featured_products_stmt = $conn->prepare("
+    SELECT
+        p.product_id,
+        p.product_name,
+        p.status,
+        MIN(pv.price) as starting_price,
+        (SELECT image_url FROM product_images pi JOIN product_variants pv_img ON pi.variant_id = pv_img.variant_id WHERE pv_img.product_id = p.product_id AND pi.is_thumbnail = 1 LIMIT 1) as image_url
+    FROM products p
+    JOIN product_variants pv ON p.product_id = pv.product_id
+    WHERE p.status IN ('New', 'Hot', 'Trending')
+    GROUP BY p.product_id
+    ORDER BY RAND()
+    LIMIT 5
+");
+$featured_products_stmt->execute();
+$featured_products = $featured_products_stmt->get_result();
+
+// 2. Fetch 10 random products for the main grid
+$random_products_stmt = $conn->prepare("
+    SELECT
+        p.product_id,
+        p.product_name,
+        p.status,
+        MIN(pv.price) as starting_price,
+        (SELECT image_url FROM product_images pi JOIN product_variants pv_img ON pi.variant_id = pv_img.variant_id WHERE pv_img.product_id = p.product_id AND pi.is_thumbnail = 1 LIMIT 1) as image_url
+    FROM products p
+    JOIN product_variants pv ON p.product_id = pv.product_id
+    GROUP BY p.product_id
+    ORDER BY RAND()
+    LIMIT 10
+");
+$random_products_stmt->execute();
+$random_products = $random_products_stmt->get_result();
+
+// 3. Fetch brands for the "Shop by Brand" section
+$brands_result = $conn->query("SELECT * FROM brands");
+
+// Determine account link
+if (isset($_SESSION['user_id'])) {
     $account_link = './user/profile.php';
     $account_text = 'Account';
 } else {
-    // User is not logged in, link to register page
     $account_link = './user/register.php';
     $account_text = 'Login / Register';
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,12 +90,12 @@ if (isset($_SESSION['user_id'])) {
             </a>
             <div class="nav-wrapper">
                 <nav class="navbar">
-                    <div class="search-container">
-                        <input type="search" class="search-input" placeholder="Search...">
-                        <a class="nav-icon search-btn">
+                    <form action="./products/search.php" method="GET" class="search-container">
+                        <input type="search" name="query" class="search-input" placeholder="Search..." required>
+                        <button type="submit" class="nav-icon search-btn" style="border:none; background:transparent; cursor:pointer;">
                             <span class="material-symbols-rounded">search</span>
-                        </a>
-                    </div>
+                        </button>
+                    </form>
                     <a href="./index.php" class="nav-icon">
                         <span class="material-symbols-rounded">home</span>
                     </a>
@@ -64,12 +116,12 @@ if (isset($_SESSION['user_id'])) {
             </div>
 
             <div class="mobile-menu">
-                <div class="mobile-search-container">
-                    <input type="search" class="mobile-search-input" placeholder="Search...">
-                    <button class="mobile-search-btn">
+                <form action="./products/search.php" method="GET" class="mobile-search-container">
+                    <input type="search" name="query" class="mobile-search-input" placeholder="Search..." required>
+                    <button type="submit" class="mobile-search-btn">
                         <span class="material-symbols-rounded">search</span>
                     </button>
-                </div>
+                </form>
                 <a href="./index.php" class="mobile-nav-icon">
                     <span class="material-symbols-rounded">home</span>
                     <span>Home</span>
@@ -103,204 +155,92 @@ if (isset($_SESSION['user_id'])) {
                 <h1 class="hero-headline">Welcome to the world of premium smart phones</h1>
                 <p class="hero-subheadline">Discover cutting-edge technology and elegant design, crafted for a seamless
                     mobile experience.</p>
-                <button class="button" onclick="window.location.href='#products-section'">Explore More</button>
+                <button class="button" onclick="window.location.href='#brand-section'">Explore More</button>
             </div>
         </div>
     </section>
 
     <section class="feature-section">
         <div class="feature-title">
-            <h2> Featured Products </h2>
+            <h2>Featured Products</h2>
             <div class="title-line"></div>
         </div>
-
         <div class="slider-wrapper">
             <div class="slider-container">
-                <div class="slide">
-                    <div class="slide-image">
-                        <div class="slide-status new">New</div>
-                        <img src="./assets/images/products/Samsung/Z Fold 7/Blue Shadow/1.webp" alt="Galaxy Z Fold7">
+                <?php while ($product = $featured_products->fetch_assoc()): ?>
+                    <div class="slide">
+                        <div class="slide-image">
+                            <div class="slide-status <?php echo strtolower(htmlspecialchars($product['status'])); ?>"><?php echo htmlspecialchars($product['status']); ?></div>
+                            <img src="./assets/images/products/<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>">
+                        </div>
+                        <div class="slide-details">
+                            <div class="slide-name"><?php echo htmlspecialchars($product['product_name']); ?></div>
+                            <div class="slide-price">From &#8377;<?php echo number_format($product['starting_price']); ?></div>
+                            <a href="./products/product.php?id=<?php echo $product['product_id']; ?>" class="button" style="width: 25%; border-radius: 50px; text-decoration:none;">Buy Now</a>
+                        </div>
                     </div>
-                    <div class="slide-details">
-                        <div class="slide-name">Galaxy Z Fold7</div>
-                        <div class="slide-price">From &#8377;1,74,999</div>
-                        <button class="button" style="width: 25%; border-radius: 50px;">Buy Now</button>
-                    </div>
-                </div>
-
-                <div class="slide">
-                    <div class="slide-image">
-                        <div class="slide-status new">New</div>
-                        <img src="./assets/images/products/Samsung/Z Flip 7/Blue Shadow/1.webp" alt="Galaxy Z Flip7">
-                    </div>
-                    <div class="slide-details">
-                        <div class="slide-name">Galaxy Z Flip7</div>
-                        <div class="slide-price">From &#8377;1,14,999</div>
-                        <button class="button" style="width: 25%; border-radius: 50px;">Buy Now</button>
-                    </div>
-                </div>
-
-                <div class="slide">
-                    <div class="slide-image">
-                        <div class="slide-status trending">Trending</div>
-                        <img src="./assets/images/products/Google/Pixel 9A/Porcelain/1.webp" alt="Pixel 9A">
-                    </div>
-                    <div class="slide-details">
-                        <div class="slide-name">Pixel 9A</div>
-                        <div class="slide-price">From &#8377;64,999</div>
-                        <button class="button" style="width: 25%; border-radius: 50px;">Buy Now</button>
-                    </div>
-                </div>
-
-                <div class="slide">
-                    <div class="slide-image">
-                        <div class="slide-status trending">Trending</div>
-                        <img src="./assets/images/products/Samsung/S25 Ultra/Titanium WhiteSilver/1.webp"
-                            alt="Galaxy S25 Ultra">
-                    </div>
-                    <div class="slide-details">
-                        <div class="slide-name">Galaxy S25 Ultra</div>
-                        <div class="slide-price">From &#8377;1,17,999</div>
-                        <button class="button" style="width: 25%; border-radius: 50px;">Buy Now</button>
-                    </div>
-                </div>
-
-                <div class="slide">
-                    <div class="slide-image">
-                        <img src="./assets/images/products/Oneplus/OnePlus 13S/Green Silk/1.webp" alt="Oneplus 13S">
-                    </div>
-                    <div class="slide-details">
-                        <div class="slide-name">Oneplus 13S</div>
-                        <div class="slide-price">From &#8377;51,999</div>
-                        <button class="button" style="width: 25%; border-radius: 50px;">Buy Now</button>
-                    </div>
-                </div>
-
-                <div class="dots-container">
-                    <div class="dot active" data-slide="0"></div>
-                    <div class="dot" data-slide="1"></div>
-                    <div class="dot" data-slide="2"></div>
-                    <div class="dot" data-slide="3"></div>
-                    <div class="dot" data-slide="4"></div>
-                </div>
+                <?php endwhile; ?>
+            </div>
+            <div class="dots-container">
+                <?php mysqli_data_seek($featured_products, 0); ?>
+                <?php for ($i = 0; $i < $featured_products->num_rows; $i++): ?>
+                    <div class="dot" data-slide="<?php echo $i; ?>"></div>
+                <?php endfor; ?>
             </div>
         </div>
     </section>
 
-    <section class="shop-by-brand">
+    <section class="shop-by-brand" id="brand-section">
         <div class="section-title">
-            <h2>
-                Shop By Brand
-            </h2>
+            <h2>Shop By Brand</h2>
             <div class="title-line"></div>
         </div>
-
         <div class="brands-grid">
-            <div class="brand-card">
-                <img src="./assets/images/brands-logo/Samsung.webp" alt="Samsung">
-            </div>
-
-            <div class="brand-card">
-                <img src="./assets/images/brands-logo/Apple.webp" alt="Apple">
-            </div>
-
-            <div class="brand-card">
-                <img src="./assets/images/brands-logo/Google.webp" alt="Google">
-            </div>
-
-            <div class="brand-card">
-                <img src="./assets/images/brands-logo/Oneplus.webp" alt="OnePlus">
-            </div>
-
-            <div class="brand-card">
-                <img src="./assets/images/brands-logo/Xiomi.webp" alt="Xiaomi">
-            </div>
-
-            <div class="brand-card">
-                <img src="./assets/images/brands-logo/Oppo.webp" alt="Oppo">
-            </div>
-
-            <div class="brand-card">
-                <img src="./assets/images/brands-logo/Vivo.webp" alt="Vivo">
-            </div>
-
-            <div class="brand-card">
-                <img src="./assets/images/brands-logo/Iqoo.webp" alt="">
-            </div>
-
-            <div class="brand-card">
-                <img src="./assets/images/brands-logo/Nothing.webp" alt="Nothing">
-            </div>
-
-            <div class="brand-card" id="products-section">
-                <img src="./assets/images/brands-logo/Motorola.webp" alt="Motorola">
-            </div>
+            <?php if ($brands_result->num_rows > 0): ?>
+                <?php while ($brand = $brands_result->fetch_assoc()): ?>
+                    <a href="./products/brand.php?id=<?php echo $brand['brand_id']; ?>" class="brand-card">
+                        <img src="./assets/images/brands-logo/<?php echo htmlspecialchars($brand['brand_logo_url']); ?>" alt="<?php echo htmlspecialchars($brand['brand_name']); ?>">
+                    </a>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p>No brands found.</p>
+            <?php endif; ?>
         </div>
     </section>
 
+    <div class="alert-container"></div>
     <section class="products-section">
-        <div class="section-title" id="section-title">
+        <div class="section-title">
             <h2>Browse Products</h2>
             <div class="title-line"></div>
         </div>
-
         <div class="products-grid">
-            <div class="product-card">
-                <div class="product-badge trending">Hot</div>
-                <h3 class="product-title">Iphone 16 Pro</h3>
-                <p class="product-tagline">The ultimate iPhone experience.</p>
-                <button class="wishlist-btn">
-                    <span class="material-symbols-rounded">favorite</span>
-                </button>
+            <?php mysqli_data_seek($random_products, 0); ?>
+            <?php while ($product = $random_products->fetch_assoc()): ?>
+                <div class="product-card">
+                    <?php $is_wishlisted = in_array($product['product_id'], $wishlist_product_ids); ?>
+                    <button class="wishlist-btn <?php if ($is_wishlisted) echo 'active'; ?>" data-product-id="<?php echo $product['product_id']; ?>">
+                        <span class="material-symbols-rounded">favorite</span>
+                    </button>
 
-                <div class="product-image-container">
-                    <img src="./assets/images/products/Apple/iPhone 16 Pro/Black Titanium/1.webp" alt="Iphone 16 Pro">
+                    <?php if ($product['status']): ?>
+                        <div class="product-badge <?php echo strtolower(htmlspecialchars($product['status'])); ?>"><?php echo htmlspecialchars($product['status']); ?></div>
+                    <?php endif; ?>
+                    <h3 class="product-title"><?php echo htmlspecialchars($product['product_name']); ?></h3>
+                    <div class="product-image-container">
+                        <a href="./products/product.php?id=<?php echo $product['product_id']; ?>">
+                            <img src="./assets/images/products/<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>">
+                        </a>
+                    </div>
+                    <div class="product-info-bottom">
+                        <div class="product-price">From &#8377;<?php echo number_format($product['starting_price']); ?></div>
+                        <a href="./products/product.php?id=<?php echo $product['product_id']; ?>" class="button buy-button">View</a>
+                    </div>
                 </div>
-
-                <div class="product-info-bottom">
-                    <div class="product-price">From &#8377;1,74,999</div>
-                    <button class="button buy-button">Buy</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-badge new">New</div>
-                <h3 class="product-title">iPhone 16E</h3>
-                <p class="product-tagline">The ultimate iPhone experience.</p>
-                <button class="wishlist-btn">
-                    <span class="material-symbols-rounded">favorite</span>
-                </button>
-
-                <div class="product-image-container">
-                    <img src="./assets/images/products/Apple/iPhone 16E/Black/1.webp" alt="Iphone 16 Pro">
-                </div>
-
-                <div class="product-info-bottom">
-                    <div class="product-price">From &#8377;78,999</div>
-                    <button class="button buy-button">Buy</button>
-                </div>
-            </div>
-
-            <div class="product-card">
-                <div class="product-badge trending">Hot</div>
-                <button class="wishlist-btn">
-                    <span class="material-symbols-rounded">favorite</span>
-                </button>
-                <h3 class="product-title">Pixel 9</h3>
-                <p class="product-tagline">The ultimate Pixel experience.</p>
-
-                <div class="product-image-container">
-                    <img src="./assets/images/products/Google/Pixel 9/Obsidian/1.webp" alt="Pixel 9">
-                </div>
-
-                <div class="product-info-bottom">
-                    <div class="product-price">From &#8377;74,999</div>
-                    <button class="button buy-button">Buy</button>
-                </div>
-            </div>
+            <?php endwhile; ?>
         </div>
         <div class="browse-more-container">
-            <a href="#" class="button browse-more-btn">Browse More</a>
+            <a href="./products/index.php" class="button browse-more-btn">Browse All Products</a>
         </div>
     </section>
 
@@ -334,24 +274,24 @@ if (isset($_SESSION['user_id'])) {
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="./index.php">Home</a></li>
-                    <li><a href="./products.html">Products</a></li>
-                    <li><a href="./about.html">About Us</a></li>
-                    <li><a href="./contact.html">Contact</a></li>
-                    <li><a href="./privacy.html">Privacy Policy</a></li>
+                    <li><a href="./products/index.php">Products</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
                 <h3>Customer Service</h3>
                 <ul>
-                    <li><a href="./faq.html">FAQ</a></li>
-                    <li><a href="./returns.html">Returns & Refunds</a></li>
-                    <li><a href="./shipping.html">Shipping Information</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">Shipping Information</a></li>
                 </ul>
             </div>
 
             <div class="footer-section footer-contact">
-                <a href="./contact.html">
+                <a href="contact.php">
                     <h3>Contact Us</h3>
                 </a>
                 <p>123 Mobile Street, Tech City, 12345</p>
