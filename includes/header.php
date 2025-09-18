@@ -15,19 +15,20 @@ if (isset($_SESSION['user_id'])) {
 
 
 // Determine account link and text
+$current_dir = basename(dirname($_SERVER['PHP_SELF']));
+
+// Base path for assets and links
+$base_path = in_array($current_dir, ['products', 'user', 'includes']) ? '../' : './';
+
 if (isset($_SESSION['user_id'])) {
     // Correct the path for files inside subdirectories
-    $profile_path = (basename(dirname($_SERVER['PHP_SELF'])) == 'products' || basename(dirname($_SERVER['PHP_SELF'])) == 'user') ? './profile.php' : './user/profile.php';
-    $account_link = $profile_path;
+    $account_link = $base_path . 'user/profile.php';
     $account_text = 'Account';
 } else {
-    $register_path = (basename(dirname($_SERVER['PHP_SELF'])) == 'products' || basename(dirname($_SERVER['PHP_SELF'])) == 'user') ? './register.php' : './user/register.php';
-    $account_link = $register_path;
+    $account_link = $base_path . 'user/register.php';
     $account_text = 'Login / Register';
 }
 
-// Base path for assets and links
-$base_path = (basename(dirname($_SERVER['PHP_SELF'])) == 'products' || basename(dirname($_SERVER['PHP_SELF'])) == 'user') ? '../' : './';
 ?>
 <!DOCTYPE html>
 <html lang="en">

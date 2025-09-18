@@ -244,6 +244,60 @@
     transform: scale(1.2);
 }
 
+/* Contact Us page */
+/* Specific styles for the contact page info boxes and map */
+.contact-details-section {
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.contact-info-container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+.contact-info-item {
+    flex: 1 1 calc(33% - 40px);
+    min-width: 280px;
+    background-color: var(--body);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.3s ease;
+}
+
+.contact-info-item:hover {
+    transform: translateY(-5px);
+}
+
+.contact-info-item .icon {
+    font-size: 3rem;
+    color: var(--blue);
+}
+
+.contact-info-item h3 {
+    font-size: 1.5rem;
+    color: var(--darkest);
+    margin-bottom: 5px;
+}
+
+.contact-info-item p,
+.contact-info-item a {
+    font-size: 1rem;
+    color: var(--dark);
+    text-decoration: none;
+}
+
 /* Responsive */
 @media (max-width: 480px) {
 

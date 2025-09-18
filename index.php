@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/auth_check.php';
 require_once 'includes/config.php';
+require_once 'includes/header.php';
 
 // --- Fetch User's Wishlist (if logged in) ---
 $wishlist_product_ids = [];
@@ -82,69 +83,6 @@ if (isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-    <section class="header-container" id="header-section">
-        <header class="header">
-            <a href="./index.php" class="logo-container">
-                <img class="logo-image" src="./assets/images/Logo.png" alt="The Mobile Store">
-                <span class="logo-text">The Mobile Store</span>
-            </a>
-            <div class="nav-wrapper">
-                <nav class="navbar">
-                    <form action="./products/search.php" method="GET" class="search-container">
-                        <input type="search" name="query" class="search-input" placeholder="Search..." required>
-                        <button type="submit" class="nav-icon search-btn" style="border:none; background:transparent; cursor:pointer;">
-                            <span class="material-symbols-rounded">search</span>
-                        </button>
-                    </form>
-                    <a href="./index.php" class="nav-icon">
-                        <span class="material-symbols-rounded">home</span>
-                    </a>
-                    <a href="#" class="nav-icon">
-                        <span class="material-symbols-rounded">shopping_cart</span>
-                        <span class="cart-badge">3</span>
-                    </a>
-                    <a href="<?php echo $account_link; ?>" class="nav-icon">
-                        <span class="material-symbols-rounded">account_circle</span>
-                    </a>
-                </nav>
-
-                <button class="mobile-menu-btn">
-                    <span class="material-symbols-rounded">
-                        menu
-                    </span>
-                </button>
-            </div>
-
-            <div class="mobile-menu">
-                <form action="./products/search.php" method="GET" class="mobile-search-container">
-                    <input type="search" name="query" class="mobile-search-input" placeholder="Search..." required>
-                    <button type="submit" class="mobile-search-btn">
-                        <span class="material-symbols-rounded">search</span>
-                    </button>
-                </form>
-                <a href="./index.php" class="mobile-nav-icon">
-                    <span class="material-symbols-rounded">home</span>
-                    <span>Home</span>
-                </a>
-                <a href="#" class="mobile-nav-icon">
-                    <span class="material-symbols-rounded">shopping_cart</span>
-                    <span>Cart</span>
-                    <span class="cart-badge">3</span>
-                </a>
-                <a href="<?php echo $account_link; ?>" class="mobile-nav-icon">
-                    <span class="material-symbols-rounded">account_circle</span>
-                    <span><?php echo $account_text; ?></span>
-                </a>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="./includes/auth.php?action=logout" class="mobile-nav-icon">
-                        <span class="material-symbols-rounded">logout</span>
-                        <span>Logout</span>
-                    </a>
-                <?php endif; ?>
-            </div>
-        </header>
-    </section>
-
     <section class="hero-section">
         <div class="hero-container">
             <div class="hero-image-column">

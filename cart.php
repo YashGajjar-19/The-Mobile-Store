@@ -32,102 +32,65 @@ $cart_items_result = $cart_items_stmt->get_result();
 $cart_total = 0;
 ?>
 
-<style>
-    .cart-container {
-        max-width: 1200px;
-        margin: 150px auto 50px;
-        padding: 20px;
-    }
+<main class="cart-container two-column-layout">
+    <div class="cart-items-column">
+        <div class="section-title">
+            <h2>Your Cart</h2>
+            <div class="title-line"></div>
+        </div>
+        <hr>
 
-    .cart-item {
-        display: flex;
-        align-items: center;
-        padding: 20px;
-        border-bottom: 1px solid var(--glass);
-        gap: 20px;
-    }
-
-    .cart-item-img {
-        width: 100px;
-        height: 100px;
-        object-fit: contain;
-        background: var(--body);
-        border-radius: 10px;
-        padding: 5px;
-    }
-
-    .cart-item-details {
-        flex-grow: 1;
-    }
-
-    .cart-item-details h3 {
-        margin: 0 0 5px 0;
-        font-size: 1.2rem;
-    }
-
-    .cart-item-details p {
-        margin: 0;
-        color: var(--dark);
-        font-size: 0.9rem;
-    }
-
-    .cart-item-price,
-    .cart-item-subtotal {
-        font-weight: 600;
-        width: 120px;
-        text-align: right;
-    }
-
-    .cart-summary {
-        margin-top: 30px;
-        padding: 20px;
-        background: var(--body);
-        border-radius: 15px;
-        text-align: right;
-    }
-
-    .cart-summary h2 {
-        font-size: 1.8rem;
-        margin: 0 0 10px 0;
-    }
-</style>
-
-<main class="cart-container">
-    <div class="section-title">
-        <h2>Your Cart</h2>
-        <div class="title-line"></div>
-    </div>
-
-    <div class="cart-items-list">
-        <?php if ($cart_items_result->num_rows > 0): ?>
-            <?php while ($item = $cart_items_result->fetch_assoc()): ?>
-                <?php
-                $subtotal = $item['price'] * $item['quantity'];
-                $cart_total += $subtotal;
-                ?>
-                <div class="cart-item">
-                    <img src="./assets/images/products/<?php echo htmlspecialchars($item['image_url']); ?>" alt="<?php echo htmlspecialchars($item['product_name']); ?>" class="cart-item-img">
-                    <div class="cart-item-details">
-                        <h3><?php echo htmlspecialchars($item['product_name']); ?></h3>
-                        <p><?php echo htmlspecialchars($item['color']) . ', ' . htmlspecialchars($item['ram_gb']) . 'GB RAM, ' . htmlspecialchars($item['storage_gb']) . 'GB'; ?></p>
+        <div class="cart-items-list">
+            <?php if ($cart_items_result->num_rows > 0): ?>
+                <?php while ($item = $cart_items_result->fetch_assoc()): ?>
+                    <?php
+                    $subtotal = $item['price'] * $item['quantity'];
+                    $cart_total += $subtotal;
+                    ?>
+                    <div class="cart-item">
+                        <img src="./assets/images/products/<?php echo htmlspecialchars($item['image_url']); ?>" alt="<?php echo htmlspecialchars($item['product_name']); ?>" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <h3><?php echo htmlspecialchars($item['product_name']); ?></h3>
+                            <p><?php echo htmlspecialchars($item['color']) . ', ' . htmlspecialchars($item['ram_gb']) . 'GB RAM, ' . htmlspecialchars($item['storage_gb']) . 'GB'; ?></p>
+                            <div class="cart-item-price">Price: &#8377;<?php echo number_format($item['price']); ?></div>
+                        </div>
+                        <div class="cart-item-quantity">
+                            <label for="quantity-<?php echo $item['cart_item_id']; ?>">Quantity:</label>
+                            <input type="number" id="quantity-<?php echo $item['cart_item_id']; ?>" value="<?php echo $item['quantity']; ?>" min="1" max="5" class="quantity-setter">
+                            <div class="cart-item-subtotal">Subtotal: &#8377;<?php echo number_format($subtotal); ?></div>
+                        </div>
                     </div>
-                    <div class="cart-item-quantity">
-                        <p>Qty: <?php echo $item['quantity']; ?></p>
-                    </div>
-                    <div class="cart-item-price">&#8377;<?php echo number_format($item['price']); ?></div>
-                    <div class="cart-item-subtotal">&#8377;<?php echo number_format($subtotal); ?></div>
-                </div>
-            <?php endwhile; ?>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p style="text-align: center; padding: 50px;">Your cart is empty.</p>
+            <?php endif; ?>
+        </div>
     </div>
 
-    <div class="cart-summary">
-        <h2>Total: &#8377;<?php echo number_format($cart_total); ?></h2>
-        <a href="#" class="button" style="width: auto; padding: 15px 30px;">Proceed to Checkout</a>
-    </div>
+    <div class="billing-details-column">
+        <div class="section-title">
+            <h2>Bill Details</h2>
+            <div class="title-line"></div>
+        </div>
+        <hr>
 
-<?php else: ?>
-    <p style="text-align: center; padding: 50px;">Your cart is empty.</p>
-<?php endif; ?>
+        <div class="cart-summary">
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span>&#8377;<?php echo number_format($cart_total); ?></span>
+            </div>
+            <div class="summary-row">
+                <span>Shipping</span>
+                <span>FREE</span>
+            </div>
+            <hr>
+            <div class="summary-row total">
+                <span>Total</span>
+                <span>&#8377;<?php echo number_format($cart_total); ?></span>
+            </div>
+            <a href="checkout.php" class="button" style="max-width: 100%; padding: 15px auto; margin-top: 40px;">Proceed to Checkout</a>
+        </div>
+    </div>
 </main>
 
-<?
+<?php require_once 'includes/footer.php'; ?>
