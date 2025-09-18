@@ -1,5 +1,7 @@
 <?php
+$page_title = 'Home | The Mobile Store';
 require_once '../includes/config.php';
+require_once '../includes/header.php';
 
 // --- Fetch User's Wishlist ---
 $wishlist_product_ids = [];
@@ -93,81 +95,8 @@ $products_stmt->bind_param($types, ...$params);
 $products_stmt->execute();
 $products_result = $products_stmt->get_result();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Products | The Mobile Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-    <link rel="stylesheet" href="../assets/css/main.css">
-</head>
 
 <body>
-    <section class="header-container" id="header-section">
-        <header class="header">
-            <a href="../index.php" class="logo-container">
-                <img class="logo-image" src="../assets/images/Logo.png" alt="The Mobile Store">
-                <span class="logo-text">The Mobile Store</span>
-            </a>
-            <div class="nav-wrapper">
-                <nav class="navbar">
-                    <div class="search-container">
-                        <input type="search" class="search-input" placeholder="Search...">
-                        <a class="nav-icon search-btn">
-                            <span class="material-symbols-rounded">search</span>
-                        </a>
-                    </div>
-                    <a href="../index.php" class="nav-icon">
-                        <span class="material-symbols-rounded">home</span>
-                    </a>
-                    <a href="#" class="nav-icon">
-                        <span class="material-symbols-rounded">shopping_cart</span>
-                        <span class="cart-badge">3</span>
-                    </a>
-                    <a href="<?php echo $account_link; ?>" class="nav-icon">
-                        <span class="material-symbols-rounded">account_circle</span>
-                    </a>
-                </nav>
-
-                <button class="mobile-menu-btn">
-                    <span class="material-symbols-rounded">
-                        menu
-                    </span>
-                </button>
-            </div>
-
-            <div class="mobile-menu">
-                <div class="mobile-search-container">
-                    <input type="search" class="mobile-search-input" placeholder="Search...">
-                    <button class="mobile-search-btn">
-                        <span class="material-symbols-rounded">search</span>
-                    </button>
-                </div>
-                <a href="../index.php" class="mobile-nav-icon">
-                    <span class="material-symbols-rounded">home</span>
-                    <span>Home</span>
-                </a>
-                <a href="#" class="mobile-nav-icon">
-                    <span class="material-symbols-rounded">shopping_cart</span>
-                    <span>Cart</span>
-                    <span class="cart-badge">3</span>
-                </a>
-                <a href="<?php echo $account_link; ?>" class="mobile-nav-icon">
-                    <span class="material-symbols-rounded">account_circle</span>
-                    <span><?php echo $account_text; ?></span>
-                </a>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="../includes/auth.php?action=logout" class="mobile-nav-icon">
-                        <span class="material-symbols-rounded">logout</span>
-                        <span>Logout</span>
-                    </a>
-                <?php endif; ?>
-            </div>
-        </header>
-    </section>
-
     <div class="alert-container"></div>
     <main class="products-page-section" style="padding-top: 80px;">
         <div class="section-title">
@@ -252,69 +181,9 @@ $products_result = $products_stmt->get_result();
             ?>
         </div>
     </main>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <div class="footer-logo-container">
-                    <img class="logo-image" src="../assets/images/logo.png" alt="The Mobile Store">
-                    <span class="logo-text">The Mobile Store</span>
-                </div>
-                <p>Your one-stop shop for the latest mobile devices. We bring the future to your
-                    fingertips.
-                </p>
-                <div class="social-links">
-                    <a href="#" class="social-link" aria-label="Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Whatsapp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="#" class="social-link" aria-label="Gmail">
-                        <i class="fa-regular fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="./index.php">Home</a></li>
-                    <li><a href="./products.html">Products</a></li>
-                    <li><a href="./about.html">About Us</a></li>
-                    <li><a href="./contact.html">Contact</a></li>
-                    <li><a href="./privacy.html">Privacy Policy</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h3>Customer Service</h3>
-                <ul>
-                    <li><a href="./faq.html">FAQ</a></li>
-                    <li><a href="./returns.html">Returns & Refunds</a></li>
-                    <li><a href="./shipping.html">Shipping Information</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section footer-contact">
-                <a href="./contact.html">
-                    <h3>Contact Us</h3>
-                </a>
-                <p>123 Mobile Street, Tech City, 12345</p>
-                <p>Email: <a href="#">info@themobilestore.com</a></p>
-                <p>Phone: <a href="#">+91 1234567890</a></p>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            &copy; 2025 The Mobile Store. All rights reserved.
-        </div>
-    </footer>
-
-    <script src="../assets/js/main.js"></script>
+    <?php
+    require_once '../includes/footer.php';
+    ?>
 </body>
 
 </html>

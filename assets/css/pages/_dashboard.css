@@ -108,11 +108,11 @@
   box-shadow: var(--shadow);
 }
 
-.orders-header { 
+.orders-header {
   display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
 }
 
 .orders-header h2 {
@@ -218,6 +218,146 @@ tbody tr:hover {
 .action-btn:hover {
   background: var(--dark);
   color: white;
+}
+
+/* Manage page */
+
+.tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--glass);
+}
+
+.tab-link {
+  padding: 15px 25px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark);
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.tab-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.tab-link.active {
+  color: var(--darkest);
+}
+
+.tab-link.active::after {
+  transform: scaleX(1);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.multi-select-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.multi-select-grid label {
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--glass);
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.multi-select-grid label:hover {
+  background: #fff;
+}
+
+.multi-select-grid input[type="checkbox"] {
+  accent-color: var(--blue);
+}
+
+.spec-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.spec-row .form-input {
+  margin-bottom: 0;
+}
+
+.combinations-container .form-input input {
+  padding: 12px 15px 12px 45px;
+}
+
+.combinations-container .form-label {
+  white-space: nowrap;
+}
+
+.remove-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  margin: 0;
+  border-radius: 50%;
+  background-color: rgba(246, 47, 50, 0.1);
+  color: var(--red);
+  font-size: 24px;
+  font-weight: bold;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.remove-btn:hover {
+  background-color: var(--red);
+  color: white;
+  box-shadow: var(--red-shadow);
+  transform: scale(1.1);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .form-wrapper {
+    max-width: 100%;
+  }
+
+  .spec-row,
+  .combinations-container .form-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 5px;
+  }
+
+  .combinations-container .form-label {
+    text-align: left;
+  }
+
+  .form-card {
+    padding: 15px;
+  }
 }
 
 /* assets/css/pages/_dashboard.css */

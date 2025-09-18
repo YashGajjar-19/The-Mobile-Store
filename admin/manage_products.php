@@ -4,6 +4,8 @@ require_once '../includes/config.php';
 // --- Initial Fetch for Form Dropdowns ---
 $brands_result = $conn->query("SELECT * FROM brands ORDER BY brand_name");
 $categories_result = $conn->query("SELECT * FROM categories ORDER BY category_name");
+$payment_methods_result = $conn->query("SELECT * FROM payment_methods ORDER BY method_name");
+
 
 $message = '';
 $message_type = ''; // To hold 'success' or 'error'
@@ -73,6 +75,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_category'])) {
     $check_stmt->close();
 }
 
+// --- Handle Payment Method Submission ---
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['add_payment_method'])) {
+        $active_tab = 'payment';
+        $method_name = $_POST['method_name'];
+        $check_stmt = $conn->prepare("SELECT payment_method_id FROM payment_methods WHERE method_name = ?");
+        $check_stmt->bind_param("s", $method_name);
+        $check_stmt->execute();
+        if ($check_stmt->get_result()->num_rows > 0) {
+            $message = "Error: This payment method already exists.";
+            $message_type = 'error';
+        } else {
+            $stmt = $conn->prepare("INSERT INTO payment_methods (method_name) VALUES (?)");
+            $stmt->bind_param("s", $method_name);
+            if ($stmt->execute()) {
+                $message = "Payment method added successfully!";
+                $message_type = 'success';
+                $payment_methods_result = $conn->query("SELECT * FROM payment_methods ORDER BY method_name");
+            } else {
+                $message = "Error: " . $stmt->error;
+                $message_type = 'error';
+            }
+        }
+    }
+    // Handle Delete Payment Method
+    elseif (isset($_POST['delete_payment_method'])) {
+        $active_tab = 'payment';
+        $method_id = $_POST['payment_method_id'];
+        $stmt = $conn->prepare("DELETE FROM payment_methods WHERE payment_method_id = ?");
+        $stmt->bind_param("i", $method_id);
+        if ($stmt->execute()) {
+            $message = "Payment method deleted successfully!";
+            $message_type = 'success';
+            $payment_methods_result = $conn->query("SELECT * FROM payment_methods ORDER BY method_name");
+        } else {
+            $message = "Error: Could not delete method. It might be in use.";
+            $message_type = 'error';
+        }
+    }
+}
 
 // --- Handle Add Product Form Submission ---
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_product'])) {
@@ -193,145 +235,6 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="../assets/css/main.css">
-    <style>
-        .tabs {
-            display: flex;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--glass);
-        }
-
-        .tab-link {
-            padding: 15px 25px;
-            cursor: pointer;
-            border: none;
-            background: transparent;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--dark);
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .tab-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--blue);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .tab-link.active {
-            color: var(--darkest);
-        }
-
-        .tab-link.active::after {
-            transform: scaleX(1);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .multi-select-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-        }
-
-        .multi-select-grid label {
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--glass);
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .multi-select-grid label:hover {
-            background: #fff;
-        }
-
-        .multi-select-grid input[type="checkbox"] {
-            accent-color: var(--blue);
-        }
-
-        .spec-row {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-
-        .spec-row .form-input {
-            margin-bottom: 0;
-        }
-
-        .combinations-container .form-input input {
-            padding: 12px 15px 12px 45px;
-        }
-
-        .combinations-container .form-label {
-            white-space: nowrap;
-        }
-
-        .remove-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            padding: 0;
-            margin: 0;
-            border-radius: 50%;
-            background-color: rgba(246, 47, 50, 0.1);
-            color: var(--red);
-            font-size: 24px;
-            font-weight: bold;
-            border: 1px solid transparent;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .remove-btn:hover {
-            background-color: var(--red);
-            color: white;
-            box-shadow: var(--red-shadow);
-            transform: scale(1.1);
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .form-wrapper {
-                max-width: 100%;
-            }
-
-            .spec-row,
-            .combinations-container .form-group {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 5px;
-            }
-
-            .combinations-container .form-label {
-                text-align: left;
-            }
-
-            .form-card {
-                padding: 15px;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -356,6 +259,7 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                         <button class="tab-link" onclick="openTab(event, 'brands')">Brands</button>
                         <button class="tab-link" onclick="openTab(event, 'categories')">Categories</button>
                         <button class="tab-link" onclick="openTab(event, 'edit_product')">Edit Products</button>
+                        <button class="tab-link" onclick="openTab(event, 'payment')">Payment Methods</button>
                     </div>
 
                     <div id="products" class="tab-content active">
@@ -499,6 +403,48 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                             </table>
                         </div>
                     </div>
+
+                    <div id="payment" class="tab-content">
+                        <div class="form-header">
+                            <h2>Manage Payment Methods</h2>
+                        </div>
+                        <?php if ($message && $active_tab === 'payment'): ?><div class="alert alert-<?php echo $message_type; ?>"><?php echo $message; ?></div><?php endif; ?>
+                        <form method="POST" class="auth-form">
+                            <input type="hidden" name="add_payment_method" value="1">
+                            <div class="form-group"><label for="method_name" class="form-label">New Method Name</label>
+                                <div class="form-input"><ion-icon name="card-outline"></ion-icon><input type="text" id="method_name" name="method_name" placeholder="e.g., Cash on Delivery" required></div>
+                            </div>
+                            <div class="form-submit"><button type="submit" class="button">Add Method</button></div>
+                        </form>
+                        <hr style="margin: 30px 0;">
+                        <h4>Existing Methods</h4>
+                        <div class="orders-table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Method Name</th>
+                                        <th style="text-align: right;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php mysqli_data_seek($payment_methods_result, 0); ?>
+                                    <?php while ($method = $payment_methods_result->fetch_assoc()): ?>
+                                        <tr>
+                                            <td><?php echo htmlspecialchars($method['method_name']); ?></td>
+                                            <td style="text-align: right;">
+                                                <form method="POST" onsubmit="return confirm('Are you sure you want to delete this payment method?');" style="display: inline;">
+                                                    <input type="hidden" name="delete_payment_method" value="1">
+                                                    <input type="hidden" name="payment_method_id" value="<?php echo $method['payment_method_id']; ?>">
+                                                    <button type="submit" class="remove-btn" title="Delete Method">&times;</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -516,26 +462,17 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
             document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-
-            // If a form was just submitted, the page reloaded.
-            // This logic ensures the correct tab is shown based on PHP's $active_tab variable.
-            // We set the active tab on page load.
-            if (evt.isTrusted) { // Only set on actual user clicks, not on page load simulation
-                // Optional: you can store the active tab in localStorage to persist it across reloads
-            }
+            if (evt) evt.currentTarget.className += " active";
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Set the active tab on page load based on PHP's feedback
             const activeTabName = "<?php echo $active_tab; ?>";
             const tabButtonToActivate = document.querySelector(`.tab-link[onclick*="'${activeTabName}'"]`);
             if (tabButtonToActivate) {
                 tabButtonToActivate.click();
             } else {
-                document.querySelector('.tab-link').click(); // Default to first tab
+                document.querySelector('.tab-link').click();
             }
-
 
             // --- SPECIFICATIONS SCRIPT ---
             const specsContainer = document.getElementById('specifications-container');
