@@ -12,12 +12,12 @@ if (!isset($_GET['order_id'])) {
 <style>
     .confirmation-container {
         max-width: 800px;
-        margin: 150px auto 50px;
-        padding: 40px;
+        margin: 100px auto 50px;
+        padding: 60px;
         text-align: center;
         background: var(--body);
         border-radius: 15px;
-        box-shadow: var(--shadow);
+        box-shadow: var(--dark-shadow);
     }
 
     .confirmation-container .material-symbols-rounded {
@@ -38,9 +38,9 @@ if (!isset($_GET['order_id'])) {
 </style>
 
 <main class="confirmation-container">
-    <span class="material-symbols-rounded">check_circle</span>
+    <img class="login-image" src="../assets/images/svg/order.svg" alt="Order Confirmed" width="50%">
     <h1>Thank You For Your Order!</h1>
-    <p>Your order #<?php echo htmlspecialchars($_GET['order_id']); ?> has been placed successfully.<br>We have sent a confirmation to your email address.</p>
+    <p style="margin-bottom: 40px;">Your order #<?php echo htmlspecialchars($_GET['order_id']); ?> has been placed successfully.</p>
     <a href="../index.php" class="button" style="width: auto; margin-top: 20px; padding: 15px 30px;">Continue Shopping</a>
 </main>
 

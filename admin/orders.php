@@ -25,6 +25,41 @@ $orders_result = $orders_stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Orders | Admin</title>
     <link rel="stylesheet" href="../assets/css/main.css">
+    <style>
+        .action-buttons form {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .button-small {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .approve {
+            background-color: var(--green);
+        }
+
+        .decline {
+            background-color: var(--red);
+        }
+
+        .shipped {
+            background-color: var(--blue);
+        }
+
+        .delivered {
+            background-color: var(--dark);
+        }
+    </style>
 </head>
 
 <body class="admin-page">
@@ -46,6 +81,7 @@ $orders_result = $orders_stmt->get_result();
                             <th>Amount</th>
                             <th>Status</th>
                             <th>Date</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,6 +92,30 @@ $orders_result = $orders_stmt->get_result();
                                 <td>&#8377;<?php echo number_format($order['total_amount']); ?></td>
                                 <td><span class="status <?php echo strtolower(htmlspecialchars($order['status'])); ?>"><?php echo htmlspecialchars($order['status']); ?></span></td>
                                 <td><?php echo date('M d, Y', strtotime($order['order_date'])); ?></td>
+                                <td class="action-buttons">
+                                    <?php if ($order['status'] == 'Pending'): ?>
+                                        <form action="../includes/order_status.php" method="POST">
+                                            <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
+                                            <button type="submit" name="action" value="Approved" class="button-small approve">Approve</button>
+                                        </form>
+                                        <form action="../includes/order_status.php" method="POST">
+                                            <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
+                                            <button type="submit" name="action" value="Declined" class="button-small decline">Decline</button>
+                                        </form>
+                                    <?php elseif ($order['status'] == 'Approved'): ?>
+                                        <form action="../includes/order_status.php" method="POST">
+                                            <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
+                                            <button type="submit" name="action" value="Shipped" class="button-small shipped">Ship</button>
+                                        </form>
+                                    <?php elseif ($order['status'] == 'Shipped'): ?>
+                                        <form action="../includes/order_status.php" method="POST">
+                                            <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
+                                            <button type="submit" name="action" value="Delivered" class="button-small delivered">Deliver</button>
+                                        </form>
+                                    <?php else: ?>
+                                        -
+                                    <?php endif; ?>
+                                </td>
                             </tr>
                         <?php endwhile; ?>
                     </tbody>

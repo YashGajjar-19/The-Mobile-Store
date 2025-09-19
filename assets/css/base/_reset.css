@@ -25,3 +25,21 @@ body {
 a {
     text-decoration: none;
 }
+
+textarea {
+    min-height: 120px;
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    border: 1px solid var(--glass);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    resize: vertical;
+    transition: all 0.3s ease-in-out;
+}
+
+textarea:focus {
+    border: 2px solid var(--dark);
+    box-shadow: var(--dark-shadow); 
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}

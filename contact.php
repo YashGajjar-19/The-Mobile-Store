@@ -4,33 +4,11 @@ require_once 'includes/header.php';
 ?>
 
 <main class="products-page-section">
-    <div class="section-title" style="padding-top: 130px;">
+    <div class="section-title" style="padding-top: 95px;">
         <h2>Contact Us</h2>
         <div class="title-line" style="margin-top: 10px; margin-bottom: 20px;"></div>
     </div>
 
-    <!-- Alert container for submission status -->
-    <div class="alert-container" style="position: static; max-width: 1000px; margin: 0 auto 20px;">
-        <?php
-        if (isset($_GET['status'])) {
-            if ($_GET['status'] == 'success') {
-                echo '<div class="alert alert-success">Your message has been sent successfully! We will get back to you shortly.</div>';
-            } else if ($_GET['status'] == 'error') {
-                $msg = $_GET['msg'] ?? 'unknown';
-                $error_message = 'An unknown error occurred.';
-                if ($msg == 'emptyfields') {
-                    $error_message = 'Please fill in all the required fields.';
-                } else if ($msg == 'invalidemail') {
-                    $error_message = 'Please provide a valid email address.';
-                } else if ($msg == 'dberror') {
-                    $error_message = 'Could not send your message due to a server error. Please try again later.';
-                }
-                echo '<div class="alert alert-error">' . $error_message . '</div>';
-            }
-        }
-        ?>
-    </div>
-    
     <div class="contact-details-section">
         <div class="contact-info-container">
             <div class="contact-info-item">
@@ -58,6 +36,29 @@ require_once 'includes/header.php';
                     <div class="form-header">
                         <h2>Send Us a Message</h2>
                     </div>
+
+                    <!-- Alert container for submission status -->
+                    <div class="alert-container" style="position: static; max-width: 1000px; margin: 10px 0px;">
+                        <?php
+                        if (isset($_GET['status'])) {
+                            if ($_GET['status'] == 'success') {
+                                echo '<div class="alert alert-success">Your message has been sent successfully! We will get back to you shortly.</div>';
+                            } else if ($_GET['status'] == 'error') {
+                                $msg = $_GET['msg'] ?? 'unknown';
+                                $error_message = 'An unknown error occurred.';
+                                if ($msg == 'emptyfields') {
+                                    $error_message = 'Please fill in all the required fields.';
+                                } else if ($msg == 'invalidemail') {
+                                    $error_message = 'Please provide a valid email address.';
+                                } else if ($msg == 'dberror') {
+                                    $error_message = 'Could not send your message due to a server error. Please try again later.';
+                                }
+                                echo '<div class="alert alert-error">' . $error_message . '</div>';
+                            }
+                        }
+                        ?>
+                    </div>
+
                     <form action="includes/contact_handler.php" method="POST" class="auth-form">
                         <div class="form-group">
                             <label for="name" class="form-label">Your Name</label>

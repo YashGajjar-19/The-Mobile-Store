@@ -55,7 +55,9 @@ $reviews = $reviews_stmt->get_result();
         <div class="thumbnail-strip"></div>
 
         <div class="product-description">
-            <h3 style="margin-bottom: 15px;">Description:</h3>
+            <h3 style="margin-bottom: 10px;">
+                <span>Description:</span>
+            </h3>
             <p><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
         </div>
 
@@ -65,16 +67,23 @@ $reviews = $reviews_stmt->get_result();
                 <div class="title-line" style="margin: 10px 0 0 0;"></div>
             </div>
             <hr>
+
             <?php if ($reviews->num_rows > 0): ?>
                 <?php while ($review = $reviews->fetch_assoc()): ?>
                     <div class="review-card">
                         <div class="review-header">
+
                             <div class="review-avatar"><?php echo strtoupper(substr($review['full_name'], 0, 1)); ?></div>
+
                             <div class="review-author-info">
-                                <div class="author-name"><?php echo htmlspecialchars($review['full_name']); ?></div>
-                                <div class="review-date"><?php echo date("F j, Y", strtotime($review['created_at'])); ?></div>
+                                <div class="author-name"><?php echo htmlspecialchars($review['full_name']); ?>
+                                </div>
+
+                                <div class="review-date"><?php echo date("F j, Y", strtotime($review['created_at'])); ?>
+                                </div>
                             </div>
                         </div>
+
                         <div class="star-rating">
                             <?php for ($i = 1; $i <= 5; $i++): ?>
                                 <span class="material-symbols-rounded"
@@ -83,6 +92,7 @@ $reviews = $reviews_stmt->get_result();
                                 </span>
                             <?php endfor; ?>
                         </div>
+
                         <p class="review-comment"><?php echo nl2br(htmlspecialchars($review['comment'])); ?></p>
                     </div>
                 <?php endwhile; ?>
@@ -94,7 +104,9 @@ $reviews = $reviews_stmt->get_result();
 
     <section class="product-details">
         <p class="brand-name"><?php echo htmlspecialchars($product['brand_name']); ?></p>
+
         <h1 class="product-main-name"><?php echo htmlspecialchars($product['product_name']); ?></h1>
+
         <p class="product-price-display" id="price-display">Select a variant</p>
 
         <form id="add-to-cart-form">
@@ -103,7 +115,7 @@ $reviews = $reviews_stmt->get_result();
             <div class="variant-options">
                 <div class="variant-options-color">
                     <div class="option-group" id="color-options">
-                        <label class="option-label">Color:</label>
+                        <label class="form-label" style="margin-bottom: 12px; font-size: 14px">Color:</label>
                         <div class="option-choices">
                             <?php foreach (array_keys($images_by_color) as $color): ?>
                                 <button type="button" class="choice-btn color-btn" data-color="<?php echo htmlspecialchars($color); ?>"><?php echo htmlspecialchars($color); ?></button>
@@ -113,15 +125,15 @@ $reviews = $reviews_stmt->get_result();
                 </div>
 
                 <div class="variant-options-grid">
-                    <div class="option-group" id="ram-options" style="display: none;"><label class="option-label">RAM:</label>
+                    <div class="option-group" id="ram-options" style="display: none;"><label class="form-label">RAM:</label>
                         <div class="option-choices"></div>
                     </div>
-                    <div class="option-group" id="storage-options" style="display: none;"><label class="option-label">Storage:</label>
+                    <div class="option-group" id="storage-options" style="display: none;"><label class="form-label">Storage:</label>
                         <div class="option-choices"></div>
                     </div>
-                    <div class="quantity-group">
-                        <label for="quantity-input" class="form-label" style="margin-left: 5px;">Quantity</label>
-                        <input id="quantity-input" type="number" value="1" min="1" max="5" style="width: 80px; padding: 14px; text-align: center; border-radius: 10px; border: 1px solid var(--glass); font-size: 1rem;">
+                    <div class="cart-item-quantity" style="margin-bottom: 25px;">
+                        <label for="quantity-input" class="form-label">Quantity:</label>
+                        <input id="quantity-input" class="quantity-setter" type="number" value="1" min="1" max="5" style="margin: 0px;">
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+require_once '../includes/header.php';
 
 // Redirect if not logged in
 if (!isset($_SESSION['user_id'])) {
@@ -47,13 +48,7 @@ $stmt_wishlist->close();
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Account | The Mobile Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link rel="stylesheet" href="../assets/css/main.css">
     <style>
         .profile-container {
             display: flex;
@@ -84,71 +79,11 @@ $stmt_wishlist->close();
 </head>
 
 <body>
-    <section class="header-container" id="header-section">
-        <header class="header">
-            <a href="./index.php" class="logo-container">
-                <img class="logo-image" src="../assets/images/Logo.png" alt="The Mobile Store">
-                <span class="logo-text">The Mobile Store</span>
-            </a>
-            <div class="nav-wrapper">
-                <nav class="navbar">
-                    <div class="search-container">
-                        <input type="search" class="search-input" placeholder="Search...">
-                        <a class="nav-icon search-btn">
-                            <span class="material-symbols-rounded">search</span>
-                        </a>
-                    </div>
-                    <a href="../index.php" class="nav-icon">
-                        <span class="material-symbols-rounded">home</span>
-                    </a>
-                    <a href="#" class="nav-icon">
-                        <span class="material-symbols-rounded">shopping_cart</span>
-                        <span class="cart-badge">3</span>
-                    </a>
-                </nav>
-
-                <button class="mobile-menu-btn">
-                    <span class="material-symbols-rounded">
-                        menu
-                    </span>
-                </button>
-            </div>
-
-            <div class="mobile-menu">
-                <div class="mobile-search-container">
-                    <input type="search" class="mobile-search-input" placeholder="Search...">
-                    <button class="mobile-search-btn">
-                        <span class="material-symbols-rounded">search</span>
-                    </button>
-                </div>
-                <a href="../index.php" class="mobile-nav-icon">
-                    <span class="material-symbols-rounded">home</span>
-                    <span>Home</span>
-                </a>
-                <a href="#" class="mobile-nav-icon">
-                    <span class="material-symbols-rounded">shopping_cart</span>
-                    <span>Cart</span>
-                    <span class="cart-badge">3</span>
-                </a>
-                <a href="<?php echo $account_link; ?>" class="mobile-nav-icon">
-                    <span class="material-symbols-rounded">account_circle</span>
-                    <span><?php echo $account_text; ?></span>
-                </a>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="./includes/auth.php?action=logout" class="mobile-nav-icon">
-                        <span class="material-symbols-rounded">logout</span>
-                        <span>Logout</span>
-                    </a>
-                <?php endif; ?>
-            </div>
-        </header>
-    </section>
-
     <main class="profile-container">
         <aside class="profile-sidebar">
             <div class="sidebar" style="position: static; height: auto; transform: none;">
                 <div class="sidebar-logo-container">
-                    <img src="../assets/images/svg/admin.svg" alt="User Avatar" class="sidebar-logo-image">
+                    <img src="../assets/images/svg/user.svg" alt="User Avatar" class="sidebar-logo-image">
                     <span class="sidebar-logo-text"><?php echo htmlspecialchars($user_name); ?></span>
                 </div>
                 <nav class="sidebar-nav">

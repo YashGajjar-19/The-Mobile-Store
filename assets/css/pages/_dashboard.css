@@ -3,7 +3,7 @@
   position: relative;
   padding-top: var(--header-height);
   margin-left: calc(var(--sidebar-width) + 80px);
-  padding-left: 40px;
+  padding-left: 10px;
   padding-right: 40px;
   padding-bottom: 40px;
   margin-top: 110px;
