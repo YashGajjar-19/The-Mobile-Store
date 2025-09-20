@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $update_stmt->bind_param("ii", $new_quantity, $cart_item['cart_item_id']);
         $update_stmt->execute();
     } else {
-        // Item does not exist, insert new
+        // Item does not exist, insert newz
         $insert_stmt = $conn->prepare("INSERT INTO cart (user_id, variant_id, quantity) VALUES (?, ?, ?)");
         $insert_stmt->bind_param("iii", $user_id, $variant_id, $quantity);
         $insert_stmt->execute();

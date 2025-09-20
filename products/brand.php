@@ -4,6 +4,12 @@ require_once '../includes/config.php';
 
 // Check if a brand ID is provided in the URL
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    header("Location: ../404.php"); // Redirect if no ID
+    exit();
+}
+
+// Check if a brand ID is provided in the URL
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     header("Location: ../index.php"); // Redirect if no ID
     exit();
 }

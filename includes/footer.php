@@ -29,7 +29,7 @@
             <ul>
                 <li><a href="<?php echo $base_path; ?>index.php">Home</a></li>
                 <li><a href="<?php echo $base_path; ?>products/index.php">Products</a></li>
-                <li><a href="#">About Us</a></li>
+                <li><a href="<?php echo $base_path; ?>pages/about-us.php">About Us</a></li>
                 <li><a href="<?php echo $base_path; ?>contact.php">Contact</a></li>
                 <li><a href="#">Privacy Policy</a></li>
             </ul>

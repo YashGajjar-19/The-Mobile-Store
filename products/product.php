@@ -3,6 +3,12 @@ $page_title = 'Product Details';
 require_once '../includes/header.php';
 require_once '../includes/auth_check.php';
 
+// Check if a brand ID is provided in the URL
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    header("Location: ../404.php"); // Redirect if no ID
+    exit();
+}
+
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     header("Location: index.php");
     exit();

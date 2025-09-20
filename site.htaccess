@@ -1,0 +1,4 @@
+# This rule tells the server to use your custom 404.php page
+# for any "Not Found" errors.
+ErrorDocument 404 /The%20Mobile%20Store/404.php
+

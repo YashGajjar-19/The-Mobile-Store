@@ -123,7 +123,7 @@ if (!isset($_SESSION['user_id']) && isset($_COOKIE['remember_me'])) {
             <div class="mobile-menu">
                 <form action="<?php echo $base_path; ?>products/search.php" method="GET" class="mobile-search-container">
                     <input type="search" name="query" class="mobile-search-input" placeholder="Search..." required>
-                    <button type="submit" class="mobile-search-btn" title="Search"> 
+                    <button type="submit" class="mobile-search-btn" title="Search">
                         <span class="material-symbols-rounded">search</span>
                     </button>
                 </form>
