@@ -1,5 +1,5 @@
 <?php
-require_once '../includes/auth_check.php';
+require_once '../includes/auth.php';
 
 // Determine the link for the account icon
 if (isset($_SESSION['user_id'])) {
@@ -8,7 +8,7 @@ if (isset($_SESSION['user_id'])) {
     $account_text = 'Account';
 } else {
     // User is not logged in, link to register page
-    $account_link = './user/register.php';
+    $account_link = 'register.php';
     $account_text = 'Login / Register';
 }
 ?>
@@ -80,7 +80,7 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </div>
 
-    <script src="../assets/js/modules/auth.js"></script>
+    <script src="../assets/js/auth.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 <?php
 $page_title = '404 - Page Not Found';
-require_once 'includes/header.php';
+require_once '../includes/header.php';
 ?>
 
 <style>
@@ -55,5 +55,5 @@ require_once 'includes/header.php';
 </div>
 
 <?php
-require_once 'includes/footer.php';
+require_once '../includes/footer.php';
 ?>

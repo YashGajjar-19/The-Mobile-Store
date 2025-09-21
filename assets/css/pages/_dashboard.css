@@ -1,7 +1,7 @@
 /* assets/css/pages/_dashboard.css */
 .main-content {
   position: relative;
-  padding-top: var(--header-height);
+  padding-top: calc(var(--header-height) - 60px);
   margin-left: calc(var(--sidebar-width) + 80px);
   padding-left: 10px;
   padding-right: 40px;

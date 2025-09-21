@@ -69,6 +69,8 @@ require_once '../includes/header.php';
     }
 </style>
 
+<link rel="stylesheet" href="assets/css/main.css">
+
 <main>
     <div class="about-header">
         <div class="section-title">

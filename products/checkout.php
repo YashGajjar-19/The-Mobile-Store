@@ -1,10 +1,10 @@
 <?php
 $page_title = 'Checkout';
-require_once 'includes/header.php';
+require_once '../includes/header.php';
 
 // Redirect user if not logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: user/login.php?redirect=checkout.php');
+    header('Location: ../user/login.php?redirect=checkout.php');
     exit();
 }
 
@@ -210,4 +210,4 @@ $cart_total = 0;
         });
     });
 </script>
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once '../includes/footer.php'; ?>

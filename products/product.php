@@ -1,7 +1,7 @@
 <?php
 $page_title = 'Product Details';
 require_once '../includes/header.php';
-require_once '../includes/auth_check.php';
+require_once '../includes/auth.php';
 
 // Check if a brand ID is provided in the URL
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -363,7 +363,7 @@ $reviews = $reviews_stmt->get_result();
                 .then(data => {
                     if (data.status === 'success') {
                         if (redirect) {
-                            window.location.href = '../checkout.php';
+                            window.location.href = 'checkout.php';
                         } else {
                             showAlert('success', data.message);
                             const cartBadge = document.querySelector('.cart-badge');

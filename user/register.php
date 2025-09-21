@@ -1,6 +1,7 @@
 <?php
 $error = isset($_GET['error']) ? $_GET['error'] : '';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,7 +93,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
     </div>
   </div>
 
-  <script src="../assets/js/modules/auth.js"></script>
+  <script src="../assets/js/auth.js"></script>
 </body>
 
 </html>

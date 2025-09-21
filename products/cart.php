@@ -1,10 +1,11 @@
 <?php
-$page_title = 'Your Shopping Cart';
-require_once 'includes/header.php';
+$page_title = 'Cart';
+require_once '../includes/header.php';
+require_once '../includes/navbar.php';
 
 // Redirect user if not logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: user/login.php?redirect=cart.php');
+    header('Location: ../user/login.php?redirect=cart.php');
     exit();
 }
 
@@ -34,7 +35,7 @@ $cart_total = 0;
 
 <main class="cart-container two-column-layout">
     <div class="form-image-column">
-        <img src="./assets/images/svg/cart.svg" alt="Contact Us Image" class="login-image" style="width: 80%;">
+        <img src="../assets/images/svg/cart.svg" alt="Contact Us Image" class="login-image" style="width: 80%;">
     </div>
 
     <div class="form-content-column" style="padding: 30px;">
@@ -59,8 +60,11 @@ $cart_total = 0;
 
                             <p><?php echo htmlspecialchars($item['color']) . ', ' . htmlspecialchars($item['ram_gb']) . 'GB RAM, ' . htmlspecialchars($item['storage_gb']) . 'GB'; ?></p>
 
-                            <div class="cart-item-price">Price: &#8377;<?php echo number_format($item['price']); ?>
-                            </div>
+                            <div class="cart-item-price">Price: &#8377;<?php echo number_format($item['price']); ?></div>
+
+                             <button class="remove-item-btn" data-item-id="<?php echo $item['cart_item_id']; ?>" title="Remove item">
+                            <span class="material-symbols-rounded">delete</span>
+                        </button>
                         </div>
 
                         <div class="cart-item-quantity">
@@ -110,4 +114,56 @@ $cart_total = 0;
     </div>
 </main>
 
-<?php require_once 'includes/footer.php'; ?>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const cartItemsList = document.querySelector('.cart-items-list');
+
+    function updateCartOnServer(itemId, action, quantity = 1) {
+        const formData = new FormData();
+        formData.append('cart_item_id', itemId);
+        formData.append('action', action);
+        formData.append('quantity', quantity);
+
+        return fetch('../handlers/cart_handler.php', {
+            method: 'POST',
+            body: formData
+        }).then(response => response.json());
+    }
+
+    cartItemsList.addEventListener('click', e => {
+        const removeButton = e.target.closest('.remove-item-btn');
+        if (removeButton) {
+            const itemId = removeButton.dataset.itemId;
+            
+            updateCartOnServer(itemId, 'remove').then(data => {
+                if (data.status === 'success') {
+                    // Remove the item element from the page
+                    const itemElement = document.querySelector(`.cart-item[data-cart-item-id='${itemId}']`);
+                    if (itemElement) {
+                        itemElement.remove();
+                    }
+                    
+                    // Update totals
+                    document.getElementById('summary-subtotal').innerHTML = `&#8377;${parseFloat(data.cart_total).toLocaleString()}`;
+                    document.getElementById('summary-total').innerHTML = `&#8377;${parseFloat(data.cart_total).toLocaleString()}`;
+                    
+                    // Update cart badge in header
+                    const cartBadge = document.querySelector('.cart-badge');
+                    if (cartBadge) {
+                        if (data.cart_count > 0) {
+                            cartBadge.textContent = data.cart_count;
+                        } else {
+                            cartBadge.style.display = 'none';
+                             cartItemsList.innerHTML = '<p style="text-align: center; padding: 50px;">Your cart is empty.</p>';
+                        }
+                    }
+                } else {
+                    console.error('Failed to remove item:', data.message);
+                }
+            });
+        }
+    });
+});
+</script>
+
+<?php require_once '../includes/footer.php'; ?>

@@ -1,5 +1,10 @@
 <?php
-session_start();
+require_once 'header.php';
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once 'config.php';
 
 // --- Logout Logic ---
@@ -139,5 +144,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
 
     $stmt->close();
 }
-
-$conn->close();

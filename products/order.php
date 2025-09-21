@@ -1,7 +1,7 @@
 <?php
 $page_title = 'Order Confirmed!';
 // Use require_once instead of include for critical files
-require_once 'header.php';
+require_once '../includes/header.php';
 
 if (!isset($_GET['order_id'])) {
     header('Location: index.php');
@@ -45,5 +45,5 @@ if (!isset($_GET['order_id'])) {
 </main>
 
 <?php
-require_once 'footer.php';
+require_once '../includes/footer.php';
 ?>

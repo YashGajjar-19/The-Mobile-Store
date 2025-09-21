@@ -121,6 +121,21 @@ if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['product
                 box-shadow: var(--red-shadow);
                 transform: scale(1.1);
             }
+
+            .form-row {
+                display: flex;
+                gap: 20px;
+                align-items: flex-end;
+            }
+
+            .form-row .form-group {
+                flex: 1;
+                margin-bottom: 20px;
+            }
+
+            .form-row .form-input {
+                margin-bottom: 0;
+            }
         </style>
     </head>
 
@@ -136,7 +151,9 @@ if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['product
                             </div>
                             <a href="catalog.php" class="button button-secondary" style="margin: 0; width: auto; text-decoration: none;">Back</a>
                         </div>
+
                         <form method="POST" action="catalog.php" class="auth-form" enctype="multipart/form-data">
+
                             <input type="hidden" name="edit_product" value="1">
                             <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
 
@@ -148,43 +165,41 @@ if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['product
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="form-label">Brand</label>
-                                <div class="form-input">
-                                    <select name="brand_id" required>
-                                        <?php mysqli_data_seek($brands_result, 0); ?>
-                                        <?php while ($brand = $brands_result->fetch_assoc()): ?>
-                                            <option value="<?php echo $brand['brand_id']; ?>" <?php if ($brand['brand_id'] == $product['brand_id']) echo 'selected'; ?>>
-                                                <?php echo htmlspecialchars($brand['brand_name']); ?>
-                                            </option>
-                                        <?php endwhile; ?>
-                                    </select>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Brand</label>
+                                    <div class="form-input">
+                                        <select name="brand_id" required>
+                                            <option value="">Select a Brand</option>
+                                            <?php mysqli_data_seek($brands_result, 0);
+                                            while ($brand = $brands_result->fetch_assoc()): ?>
+                                                <option value="<?php echo $brand['brand_id']; ?>"><?php echo htmlspecialchars($brand['brand_name']); ?></option>
+                                            <?php endwhile; ?>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Category</label>
-                                <div class="form-input">
-                                    <select name="category_id" required>
-                                        <?php mysqli_data_seek($categories_result, 0); ?>
-                                        <?php while ($category = $categories_result->fetch_assoc()): ?>
-                                            <option value="<?php echo $category['category_id']; ?>" <?php if ($category['category_id'] == $product['category_id']) echo 'selected'; ?>>
-                                                <?php echo htmlspecialchars($category['category_name']); ?>
-                                            </option>
-                                        <?php endwhile; ?>
-                                    </select>
+                                <div class="form-group">
+                                    <label class="form-label">Category</label>
+                                    <div class="form-input">
+                                        <select name="category_id" required>
+                                            <option value="">Select a Category</option>
+                                            <?php mysqli_data_seek($categories_result, 0);
+                                            while ($category = $categories_result->fetch_assoc()): ?>
+                                                <option value="<?php echo $category['category_id']; ?>"><?php echo htmlspecialchars($category['category_name']); ?></option>
+                                            <?php endwhile; ?>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Product Status</label>
-                                <div class="form-input">
-                                    <select name="status">
-                                        <option value="" <?php if (empty($product['status'])) echo 'selected'; ?>>None</option>
-                                        <option value="New" <?php if ($product['status'] == 'New') echo 'selected'; ?>>New</option>
-                                        <option value="Trending" <?php if ($product['status'] == 'Trending') echo 'selected'; ?>>Trending</option>
-                                        <option value="Hot" <?php if ($product['status'] == 'Hot') echo 'selected'; ?>>Hot</option>
-                                    </select>
+                                <div class="form-group">
+                                    <label class="form-label">Product Status</label>
+                                    <div class="form-input">
+                                        <select name="status">
+                                            <option value="">None</option>
+                                            <option value="New">New</option>
+                                            <option value="Trending">Trending</option>
+                                            <option value="Hot">Hot</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
@@ -641,13 +656,13 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Products | Admin</title>
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-    
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    
-    <link rel="stylesheet" href="../assets/css/main.css"> 
+
+    <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 
 <body>

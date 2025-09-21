@@ -35,14 +35,6 @@
     --red-shadow: 0 4px 12px rgba(246, 47, 50, 0.3);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 
-    /* Fonts */
-    --raleway: 'Raleway', sans-serif;
-    --montserrat: 'Montserrat', sans-serif;
-    --nunito: 'Nunito Sans', sans-serif;
-    --quicksand: 'Quicksand', sans-serif;
-    --poppins: 'Poppins', sans-serif;
-    --kumbh: 'Kumbh Sans', sans-serif;
-
     /* Breakpoints */
     --sidebar-width: 260px;
 }
