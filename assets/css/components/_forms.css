@@ -126,6 +126,51 @@
     color: var(--dark);
 }
 
+.form-input select {
+    /* Basic Appearance & Sizing */
+    width: 100%;
+    padding: 14px 40px 14px 15px;
+    /* Added padding for text and new arrow */
+    font-family: var(--kumbh);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--dark);
+    background-color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+
+    /* Border and Border Radius */
+    border: 1px solid var(--glass);
+    border-radius: 10px;
+    /* This matches your other input fields */
+
+    /* Remove default browser appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    /* Add custom dropdown arrow */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2em 1.2em;
+}
+
+/* Style for when the dropdown is focused (clicked) */
+.form-input select:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: var(--dark-shadow);
+}
+
+.form-input select option {
+    font-family: var(--kumbh);
+    color: var(--dark);
+    background-color: var(--background);
+    padding: 10px;
+    border-radius: 20px;
+    border: 2px solid var(--dark);
+}
+
 /* Password inputs */
 .password-input {
     position: absolute;
@@ -145,83 +190,12 @@
     color: var(--blue);
 }
 
-/* --- Password Strength Bar --- */
-.strength-meter {
-    height: 10px;
-    background: #e0e0e0;
-    border-radius: 5px;
-    margin-top: -10px;
-    margin-bottom: 15px;
-    /* Add transition for smooth appearance */
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-    opacity: 1;
-    visibility: visible;
-}
-
-/* NEW: Class to hide the strength bar */
-.strength-meter.hidden {
-    opacity: 0;
-    visibility: hidden;
-    height: 0;
-    /* Collapse the element when hidden */
-    margin-bottom: 0;
-}
-
-.strength-meter-fill {
-    height: 100%;
-    background: #f44336;
-    /* Default: Weak */
-    border-radius: 5px;
-    width: 0%;
-    transition: width 0.3s ease, background-color 0.3s ease;
-}
-
-/* Strength levels */
-.strength-meter-fill[data-strength="1"] {
-    width: 25%;
-    background-color: var(--clr-danger);
-}
-
-/* Weak */
-.strength-meter-fill[data-strength="2"] {
-    width: 50%;
-    background-color: var(--clr-warning);
-}
-
-/* Medium */
-.strength-meter-fill[data-strength="3"] {
-    width: 75%;
-    background-color: #ffeb3b;
-}
-
-/* Strong */
-.strength-meter-fill[data-strength="4"] {
-    width: 100%;
-    background-color: var(--clr-success);
-}
-
-/* Very Strong */
-
-/* --- Password Visibility Toggle --- */
 .form-input {
     position: relative;
-    /* This is crucial for positioning the icon */
 }
 
-/* Ensure input text doesn't overlap the icon */
 .form-input .form-control {
     padding-right: 45px !important;
-}
-
-.password-toggle-icon {
-    position: absolute;
-    right: 15px;
-    /* Position icon on the far right */
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #888;
-    z-index: 10;
 }
 
 /* Form options styling in login form */
@@ -367,6 +341,63 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+/* Custom Quantity Input */
+.quantity-input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--glass);
+    border-radius: 5px;
+    background: white;
+    width: fit-content;
+    overflow: hidden;
+}
+
+.quantity-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px 5px;
+    color: var(--dark);
+    font-size: 1rem;
+    line-height: 1;
+    transition: background-color 0.2s ease;
+    user-select: none;
+    background-color: var(--glass);
+}
+
+.quantity-btn:hover {
+    background-color: var(--glass);
+    color: var(--blue);
+}
+
+.quantity-input {
+    width: 25px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--darkest);
+}
+
+/* Color coding for quantity buttons */
+.quantity-btn[data-action="increment"] {
+    background-color: rgba(7, 152, 68, 0.1);
+    color: var(--green);
+}
+
+.quantity-btn[data-action="decrement"] {
+    background-color: rgba(246, 47, 50, 0.1);
+    color: var(--red);
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    /* For Chrome, Safari, Edge */
+    margin: 0;
 }
 
 /* Responsive Adjustments */

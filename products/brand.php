@@ -91,7 +91,7 @@ $total_pages = ceil($total_products / $products_per_page);
 // --- Get Products for the Current Page ---
 $products_sql = "
     SELECT p.product_id, p.product_name, p.status, MIN(pv.price) as starting_price,
-    (SELECT image_url FROM product_images pi JOIN product_variants pv_img ON pi.variant_id = pv_img.variant_id WHERE pv_img.product_id = p.product_id AND pi.is_thumbnail = 1 LIMIT 1) as image_url
+    (SELECT image_url FROM product_color_images pci WHERE pci.product_id = p.product_id AND pci.is_thumbnail = 1 LIMIT 1) as image_url
 " . $base_sql . $where_sql . $group_by_sql . $having_sql;
 
 switch ($sort_option) {

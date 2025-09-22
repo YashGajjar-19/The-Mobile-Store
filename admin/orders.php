@@ -34,7 +34,7 @@ $orders_result = $orders_stmt->get_result();
         .button-small {
             padding: 6px 12px;
             font-size: 0.8rem;
-            border-radius: 6px;
+            border-radius: 20px;
             border: none;
             cursor: pointer;
             color: white;
@@ -46,18 +46,47 @@ $orders_result = $orders_stmt->get_result();
 
         .approve {
             background-color: var(--green);
+            box-shadow:
+                0px 0px 20px rgba(74, 255, 71, 0.25),
+                0px 5px 5px -1px rgba(58, 233, 67, 0.25),
+                inset 4px 4px 8px rgba(175, 255, 178, 0.5),
+                inset -4px -4px 8px rgba(19, 216, 45, 0.25);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
         }
 
         .decline {
             background-color: var(--red);
+            box-shadow:
+                0px 0px 20px rgba(255, 71, 71, 0.25),
+                0px 5px 5px -1px rgba(233, 58, 58, 0.25),
+                inset 4px 4px 8px rgba(255, 175, 175, 0.5),
+                inset -4px -4px 8px rgba(216, 19, 19, 0.35);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
         }
 
         .shipped {
-            background-color: var(--blue);
+            background-color: var(--yellow);
+            color: var(--dark);
+            box-shadow:
+                0px 0px 20px rgba(255, 255, 71, 0.25),
+                0px 5px 5px -1px rgba(233, 233, 58, 0.25),
+                inset 4px 4px 8px rgba(254, 255, 175, 0.5),
+                inset -4px -4px 8px rgba(213, 216, 19, 0.35);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
         }
 
         .delivered {
-            background-color: var(--dark);
+            background-color: var(--blue);
+            box-shadow:
+                0px 0px 20px rgba(71, 184, 255, 0.25),
+                0px 5px 5px -1px rgba(58, 125, 233, 0.25),
+                inset 4px 4px 8px rgba(175, 230, 255, 0.5),
+                inset -4px -4px 8px rgba(19, 95, 216, 0.35);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
         }
     </style>
 </head>

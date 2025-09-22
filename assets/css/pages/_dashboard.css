@@ -161,7 +161,7 @@ tbody tr:hover {
   background-color: var(--yellow);
   color: var(--dark);
   box-shadow:
-    0px 0px 20px rgba(255, 255, 71, 0.5),
+    0px 0px 20px rgba(255, 255, 71, 0.25),
     0px 5px 5px -1px rgba(233, 233, 58, 0.25),
     inset 4px 4px 8px rgba(254, 255, 175, 0.5),
     inset -4px -4px 8px rgba(213, 216, 19, 0.35);
@@ -172,7 +172,7 @@ tbody tr:hover {
 .status.approved {
   background-color: var(--blue);
   box-shadow:
-    0px 0px 20px rgba(71, 184, 255, 0.5),
+    0px 0px 20px rgba(71, 184, 255, 0.25),
     0px 5px 5px -1px rgba(58, 125, 233, 0.25),
     inset 4px 4px 8px rgba(175, 230, 255, 0.5),
     inset -4px -4px 8px rgba(19, 95, 216, 0.35);
@@ -183,7 +183,7 @@ tbody tr:hover {
 .status.delivered {
   background-color: var(--green);
   box-shadow:
-    0px 0px 20px rgba(74, 255, 71, 0.5),
+    0px 0px 20px rgba(74, 255, 71, 0.25),
     0px 5px 5px -1px rgba(58, 233, 67, 0.25),
     inset 4px 4px 8px rgba(175, 255, 178, 0.5),
     inset -4px -4px 8px rgba(19, 216, 45, 0.25);
@@ -194,7 +194,7 @@ tbody tr:hover {
 .status.rejected {
   background-color: var(--red);
   box-shadow:
-    0px 0px 20px rgba(255, 71, 71, 0.5),
+    0px 0px 20px rgba(255, 71, 71, 0.25),
     0px 5px 5px -1px rgba(233, 58, 58, 0.25),
     inset 4px 4px 8px rgba(255, 175, 175, 0.5),
     inset -4px -4px 8px rgba(216, 19, 19, 0.35);
@@ -324,7 +324,7 @@ tbody tr:hover {
   border-radius: 50%;
   background-color: rgba(246, 47, 50, 0.1);
   color: var(--red);
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
   border: 1px solid transparent;
   cursor: pointer;
@@ -336,6 +336,60 @@ tbody tr:hover {
   color: white;
   box-shadow: var(--red-shadow);
   transform: scale(1.1);
+}
+
+.multi-select-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.multi-select-grid label {
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--glass);
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.multi-select-grid label:hover {
+  background: #fff;
+}
+
+.multi-select-grid input[type="checkbox"] {
+  accent-color: var(--blue);
+}
+
+.spec-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.spec-row .form-input {
+  margin-bottom: 0;
+}
+
+.combinations-container .form-input input {
+  padding: 12px 15px 12px 45px;
+}
+
+.combinations-container .form-label {
+  white-space: nowrap;
+}
+
+.form-row {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  margin: 20px;
+  margin-left: 0;
+  gap: 30px;
 }
 
 /* Responsive Styles */

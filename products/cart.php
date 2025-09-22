@@ -11,6 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 
 // Fetch cart items for the logged-in user
 $user_id = $_SESSION['user_id'];
+
 $cart_items_stmt = $conn->prepare("
     SELECT 
         c.cart_item_id,
@@ -21,12 +22,13 @@ $cart_items_stmt = $conn->prepare("
         pv.storage_gb,
         pv.price,
         p.product_name,
-        (SELECT image_url FROM product_images pi WHERE pi.variant_id = pv.variant_id AND pi.is_thumbnail = 1 LIMIT 1) as image_url
+        (SELECT image_url FROM product_color_images pci WHERE pci.product_id = p.product_id AND pci.color = pv.color AND pci.is_thumbnail = 1 LIMIT 1) as image_url
     FROM cart c
     JOIN product_variants pv ON c.variant_id = pv.variant_id
     JOIN products p ON pv.product_id = p.product_id
     WHERE c.user_id = ?
 ");
+
 $cart_items_stmt->bind_param("i", $user_id);
 $cart_items_stmt->execute();
 $cart_items_result = $cart_items_stmt->get_result();
@@ -52,40 +54,31 @@ $cart_total = 0;
                     $subtotal = $item['price'] * $item['quantity'];
                     $cart_total += $subtotal;
                     ?>
-                    <div class="cart-item">
-                        <img src="./assets/images/products/<?php echo htmlspecialchars($item['image_url']); ?>" alt="<?php echo htmlspecialchars($item['product_name']); ?>" class="cart-item-img">
+                    <div class="cart-item" data-cart-item-id="<?php echo $item['cart_item_id']; ?>">
+                        <img src="../assets/images/products/<?php echo htmlspecialchars($item['image_url']); ?>" alt="<?php echo htmlspecialchars($item['product_name']); ?>" class="cart-item-img">
 
                         <div class="cart-item-details">
                             <h3><?php echo htmlspecialchars($item['product_name']); ?></h3>
-
                             <p><?php echo htmlspecialchars($item['color']) . ', ' . htmlspecialchars($item['ram_gb']) . 'GB RAM, ' . htmlspecialchars($item['storage_gb']) . 'GB'; ?></p>
-
                             <div class="cart-item-price">Price: &#8377;<?php echo number_format($item['price']); ?></div>
-
-                             <button class="remove-item-btn" data-item-id="<?php echo $item['cart_item_id']; ?>" title="Remove item">
-                            <span class="material-symbols-rounded">delete</span>
-                        </button>
                         </div>
 
                         <div class="cart-item-quantity">
-                            <label class="form-label" for="quantity-<?php echo $item['cart_item_id']; ?>">
-                                Quantity:
-                            </label>
-
-                            <input type="number" id="quantity-<?php echo $item['cart_item_id']; ?>" value="<?php echo $item['quantity']; ?>" min="1" max="5" class="quantity-setter">
-
-                            <div class="cart-item-subtotal">Subtotal: &#8377;<?php echo number_format($subtotal); ?>
+                            <label class="form-label">Quantity:</label>
+                            <div class="quantity-input-wrapper">
+                                <button type="button" class="quantity-btn" data-action="decrement" data-item-id="<?php echo $item['cart_item_id']; ?>">-</button>
+                                <input type="number" class="quantity-input" value="<?php echo $item['quantity']; ?>" min="1" max="5" data-item-id="<?php echo $item['cart_item_id']; ?>">
+                                <button type="button" class="quantity-btn" data-action="increment" data-item-id="<?php echo $item['cart_item_id']; ?>">+</button>
                             </div>
+                            <div class="cart-item-subtotal">Subtotal: &#8377;<span><?php echo number_format($subtotal); ?></span></div>
                         </div>
+                        <button class="remove-item-btn" data-item-id="<?php echo $item['cart_item_id']; ?>" title="Remove item">
+                            <span class="material-symbols-rounded">delete</span>
+                        </button>
                     </div>
-
                 <?php endwhile; ?>
             <?php else: ?>
-
-                <p style="text-align: center; padding: 50px;">
-                    Your cart is empty.
-                </p>
-
+                <p style="text-align: center; padding: 50px;">Your cart is empty.</p>
             <?php endif; ?>
         </div>
 
@@ -98,7 +91,7 @@ $cart_total = 0;
         <div class="cart-summary">
             <div class="summary-row">
                 <span class="form-label">Subtotal</span>
-                <span>&#8377;<?php echo number_format($cart_total); ?></span>
+                <span id="summary-subtotal">&#8377;<?php echo number_format($cart_total); ?></span>
             </div>
             <div class="summary-row">
                 <span class="form-label">Shipping</span>
@@ -107,63 +100,84 @@ $cart_total = 0;
             <hr>
             <div class="summary-row total">
                 <span class="form-label">Total</span>
-                <span>&#8377;<?php echo number_format($cart_total); ?></span>
+                <span id="summary-total">&#8377;<?php echo number_format($cart_total); ?></span>
             </div>
-            <a href="checkout.php" class="button" style="max-width: 100%; padding: 15px auto;">Proceed to Checkout</a>
+            <a href="checkout.php" class="button" id="checkout-btn" style="max-width: 100%; padding: 15px auto;" <?php if ($cart_items_result->num_rows === 0) echo 'disabled'; ?>>Proceed to Checkout</a>
         </div>
     </div>
 </main>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const cartItemsList = document.querySelector('.cart-items-list');
+    document.addEventListener('DOMContentLoaded', () => {
+        const cartItemsList = document.querySelector('.cart-items-list');
 
-    function updateCartOnServer(itemId, action, quantity = 1) {
-        const formData = new FormData();
-        formData.append('cart_item_id', itemId);
-        formData.append('action', action);
-        formData.append('quantity', quantity);
+        function updateCartOnServer(itemId, action, quantity = 1) {
+            const formData = new FormData();
+            formData.append('cart_item_id', itemId);
+            formData.append('action', action);
+            formData.append('quantity', quantity);
 
-        return fetch('../handlers/cart_handler.php', {
-            method: 'POST',
-            body: formData
-        }).then(response => response.json());
-    }
-
-    cartItemsList.addEventListener('click', e => {
-        const removeButton = e.target.closest('.remove-item-btn');
-        if (removeButton) {
-            const itemId = removeButton.dataset.itemId;
-            
-            updateCartOnServer(itemId, 'remove').then(data => {
-                if (data.status === 'success') {
-                    // Remove the item element from the page
-                    const itemElement = document.querySelector(`.cart-item[data-cart-item-id='${itemId}']`);
-                    if (itemElement) {
-                        itemElement.remove();
-                    }
-                    
-                    // Update totals
-                    document.getElementById('summary-subtotal').innerHTML = `&#8377;${parseFloat(data.cart_total).toLocaleString()}`;
-                    document.getElementById('summary-total').innerHTML = `&#8377;${parseFloat(data.cart_total).toLocaleString()}`;
-                    
-                    // Update cart badge in header
-                    const cartBadge = document.querySelector('.cart-badge');
-                    if (cartBadge) {
-                        if (data.cart_count > 0) {
-                            cartBadge.textContent = data.cart_count;
-                        } else {
-                            cartBadge.style.display = 'none';
-                             cartItemsList.innerHTML = '<p style="text-align: center; padding: 50px;">Your cart is empty.</p>';
-                        }
-                    }
-                } else {
-                    console.error('Failed to remove item:', data.message);
-                }
-            });
+            return fetch('../handlers/cart_handler.php', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json());
         }
+
+        function updatePageTotals(newTotal, newCount) {
+            document.getElementById('summary-subtotal').innerHTML = `&#8377;${parseFloat(newTotal).toLocaleString()}`;
+            document.getElementById('summary-total').innerHTML = `&#8377;${parseFloat(newTotal).toLocaleString()}`;
+            const cartBadge = document.querySelector('.cart-badge');
+            if (cartBadge) {
+                if (newCount > 0) {
+                    cartBadge.textContent = newCount;
+                    cartBadge.style.display = 'flex';
+                } else {
+                    cartBadge.style.display = 'none';
+                }
+            }
+            if (newCount === 0) {
+                cartItemsList.innerHTML = '<p style="text-align: center; padding: 50px;">Your cart is empty.</p>';
+                document.getElementById('checkout-btn').setAttribute('disabled', true);
+            }
+        }
+
+        cartItemsList.addEventListener('click', e => {
+            const removeButton = e.target.closest('.remove-item-btn');
+            if (removeButton) {
+                const itemId = removeButton.dataset.itemId;
+                const itemElement = document.querySelector(`.cart-item[data-cart-item-id='${itemId}']`);
+
+                updateCartOnServer(itemId, 'remove').then(data => {
+                    if (data.status === 'success' && itemElement) {
+                        itemElement.remove();
+                        updatePageTotals(data.cart_total, data.cart_count);
+                    } else {
+                        console.error('Failed to remove item:', data.message);
+                    }
+                });
+            }
+        });
+
+        cartItemsList.addEventListener('change', e => {
+            if (e.target.classList.contains('quantity-input')) {
+                const itemId = e.target.dataset.itemId;
+                const newQuantity = e.target.value;
+                const itemElement = document.querySelector(`.cart-item[data-cart-item-id='${itemId}']`);
+
+                updateCartOnServer(itemId, 'update', newQuantity).then(data => {
+                    if (data.status === 'success' && itemElement) {
+                        // Update subtotal for this specific item
+                        const price = parseFloat(itemElement.querySelector('.cart-item-price').textContent.replace(/[^0-9.-]+/g, ""));
+                        const subtotalElement = itemElement.querySelector('.cart-item-subtotal span');
+                        subtotalElement.textContent = (price * newQuantity).toLocaleString();
+
+                        // Update the main totals
+                        updatePageTotals(data.cart_total, data.cart_count);
+                    }
+                });
+            }
+        });
     });
-});
 </script>
 
 <?php require_once '../includes/footer.php'; ?>

@@ -2,6 +2,7 @@
 session_start();
 require_once '../includes/config.php';
 require_once '../includes/header.php';
+require_once '../includes/navbar.php';
 
 // Redirect if not logged in
 if (!isset($_SESSION['user_id'])) {
@@ -26,12 +27,13 @@ $stmt_orders->execute();
 $orders = $stmt_orders->get_result();
 $stmt_orders->close();
 
-// Wishlist items
+// CORRECTED: Wishlist items query
 $stmt_wishlist = $conn->prepare("
     SELECT
+        p.product_id,
         p.product_name,
         MIN(pv.price) as starting_price,
-        (SELECT image_url FROM product_images pi JOIN product_variants pv_img ON pi.variant_id = pv_img.variant_id WHERE pv_img.product_id = p.product_id AND pi.is_thumbnail = 1 LIMIT 1) as image_url
+        (SELECT image_url FROM product_color_images pci WHERE pci.product_id = p.product_id AND pci.is_thumbnail = 1 LIMIT 1) as image_url
     FROM wishlist w
     JOIN products p ON w.product_id = p.product_id
     LEFT JOIN product_variants pv ON p.product_id = pv.product_id
@@ -123,7 +125,7 @@ $stmt_wishlist->close();
                     <h2 style="margin-top: 0;">Profile Information</h2>
                     <div class="title-line" style="margin: 10px 0 0 0;"></div>
                 </div>
-                <form action="../includes/profile_update.php" method="POST" class="auth-form" style="margin: 0;">
+                <form action="../handlers/profile_update.php" method="POST" class="auth-form" style="margin: 0;">
                     <div class="form-group">
                         <label for="full_name" class="form-label">Full Name</label>
                         <div class="form-input">
@@ -204,10 +206,10 @@ $stmt_wishlist->close();
                             <tr>
                                 <th>Product</th>
                                 <th>Starting Price</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-
                             <?php if ($wishlist_items->num_rows > 0): ?>
                                 <?php while ($item = $wishlist_items->fetch_assoc()): ?>
                                     <tr>
@@ -218,17 +220,21 @@ $stmt_wishlist->close();
                                             </div>
                                         </td>
                                         <td>&#8377;<?php echo number_format($item['starting_price'], 2); ?></td>
+                                        <td>
+                                            <a href="../products/product.php?id=<?php echo $item['product_id']; ?>" class="button buy-button">View</a>
+                                        </td>
                                     </tr>
                                 <?php endwhile; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="2">Your wishlist is empty.</td>
+                                    <td colspan="3">Your wishlist is empty.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
+        </section>
     </main>
 </body>
 

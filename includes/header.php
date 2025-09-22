@@ -20,7 +20,7 @@ if (isset($_SESSION['user_id'])) {
 $current_dir = basename(dirname($_SERVER['PHP_SELF']));
 
 // Base path for assets and links
-$base_path = in_array($current_dir, ['products', 'user', 'includes']) ? '../' : './';
+$base_path = in_array($current_dir, ['products', 'user', 'includes', 'pages', 'admin']) ? '../' : './';
 
 if (isset($_SESSION['user_id'])) {
     // Correct the path for files inside subdirectories

@@ -2,6 +2,7 @@
 $page_title = 'Home | The Mobile Store';
 require_once '../includes/config.php';
 require_once '../includes/header.php';
+require_once '../includes/navbar.php';
 
 // --- Fetch User's Wishlist ---
 $wishlist_product_ids = [];
@@ -17,7 +18,7 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // --- Pagination Configuration ---
-$products_per_page = 12;
+$products_per_page = 15;
 $current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($current_page - 1) * $products_per_page;
 
@@ -67,7 +68,7 @@ $total_pages = ceil($total_products / $products_per_page); // Correct variable n
 // --- Get Products for the Current Page ---
 $products_sql = "
     SELECT p.product_id, p.product_name, p.status, MIN(pv.price) as starting_price,
-    (SELECT image_url FROM product_images pi JOIN product_variants pv_img ON pi.variant_id = pv_img.variant_id WHERE pv_img.product_id = p.product_id AND pi.is_thumbnail = 1 LIMIT 1) as image_url
+    (SELECT image_url FROM product_color_images pci WHERE pci.product_id = p.product_id AND pci.is_thumbnail = 1 LIMIT 1) as image_url
 " . $base_sql . $where_sql . $group_by_sql . $having_sql;
 
 switch ($sort_option) {

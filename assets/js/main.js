@@ -8,45 +8,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (slider && slides.length > 0 && dots.length > 0) {
     const showSlide = (index) => {
-      // Move the entire slider container
       slider.style.transform = `translateX(-${index * 100}%)`;
-
-      // Update the active dot
       const activeDot = document.querySelector(".dot.active");
       if (activeDot) activeDot.classList.remove("active");
       dots[index].classList.add("active");
-
       currentIndex = index;
     };
+    const nextSlide = () => showSlide((currentIndex + 1) % slides.length);
+    const startSlideShow = () => slideInterval = setInterval(nextSlide, 3000);
+    const stopSlideShow = () => clearInterval(slideInterval);
 
-    const nextSlide = () => {
-      const newIndex = (currentIndex + 1) % slides.length;
-      showSlide(newIndex);
-    };
-
-    const startSlideShow = () => {
-      slideInterval = setInterval(nextSlide, 3000);
-    };
-
-    const stopSlideShow = () => {
-      clearInterval(slideInterval);
-    };
-
-    dots.forEach((dot) => {
-      dot.addEventListener("click", () => {
-        stopSlideShow();
-        showSlide(parseInt(dot.dataset.slide));
-        startSlideShow();
-      });
-    });
-
+    dots.forEach((dot, i) => dot.addEventListener("click", () => {
+      stopSlideShow();
+      showSlide(i);
+      startSlideShow();
+    }));
     showSlide(0);
     startSlideShow();
   }
 
-  // --- Search Bar Functionality ---
+  // --- Search Bar & Mobile Menu ---
   const searchBtn = document.querySelector(".search-btn");
   const searchInput = document.querySelector(".search-input");
+  const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+  const mobileMenu = document.querySelector(".mobile-menu");
 
   if (searchBtn && searchInput) {
     searchBtn.addEventListener("click", (e) => {
@@ -54,81 +39,70 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         searchInput.classList.add("active");
         searchInput.focus();
-      } else if (searchInput.value.trim() === "") {
-        e.preventDefault();
-        searchInput.focus();
       }
     });
   }
-
-  // --- Mobile Menu Functionality ---
-  const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
-  const mobileMenu = document.querySelector(".mobile-menu");
-
   if (mobileMenuBtn && mobileMenu) {
-    mobileMenuBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      mobileMenu.classList.toggle("active");
-    });
+    mobileMenuBtn.addEventListener("click", (e) => e.stopPropagation());
+    document.body.addEventListener('click', (e) => mobileMenu.classList.toggle("active", mobileMenuBtn.contains(e.target)));
   }
-
-  // --- Close Menu/Search on Outside Click ---
   document.addEventListener("click", (e) => {
-    if (
-      searchInput &&
-      searchInput.classList.contains("active") &&
-      !searchInput.contains(e.target) &&
-      !searchBtn.contains(e.target)
-    ) {
+    if (searchInput && !searchBtn.contains(e.target) && !searchInput.contains(e.target)) {
       searchInput.classList.remove("active");
-    }
-
-    if (
-      mobileMenu &&
-      mobileMenu.classList.contains("active") &&
-      !mobileMenu.contains(e.target) &&
-      !mobileMenuBtn.contains(e.target)
-    ) {
-      mobileMenu.classList.remove("active");
     }
   });
 });
 
-// --- Wishlist Functionality ---
+// --- START: CORRECTED WISHLIST FUNCTIONALITY ---
 document.addEventListener("click", function (e) {
   const wishlistButton = e.target.closest(".wishlist-btn");
   if (wishlistButton) {
+    e.stopPropagation(); // Prevents the event from firing on parent elements
+
+    // Prevent double-clicks while a request is in progress
+    if (wishlistButton.disabled) {
+      return;
+    }
+    wishlistButton.disabled = true;
+
     const productId = wishlistButton.dataset.productId;
+    const wishlistHandlerPath = '/The-Mobile-Store/handlers/wishlist_handler.php';
+    const loginPath = '/The-Mobile-Store/user/login.php';
 
-    wishlistButton.classList.toggle("active");
-
-    let pathPrefix = window.location.pathname.includes("/products/")
-      ? "../"
-      : "./";
-
-    fetch(`${pathPrefix}includes/wishlist_handler.php`, {
+    fetch(wishlistHandlerPath, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: "product_id=" + productId,
     })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === "error") {
-          wishlistButton.classList.toggle("active");
-          if (data.message.includes("logged in")) {
-            window.location.href = `${pathPrefix}user/login.php`;
-          } else {
-            showAlert("error", data.message);
-          }
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.status === "added") {
+        wishlistButton.classList.add("active");
+        showAlert("success", data.message);
+      } else if (data.status === "removed") {
+        wishlistButton.classList.remove("active");
+        showAlert("success", data.message);
+      } else {
+        if (data.message && data.message.includes("logged in")) {
+          window.location.href = loginPath;
         } else {
-          showAlert("success", data.message);
+          showAlert("error", data.message || "An unknown error occurred.");
         }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        wishlistButton.classList.toggle("active");
-        showAlert("error", "An unexpected error occurred.");
-      });
+      }
+    })
+    .catch(error => {
+      console.error("Wishlist Error:", error);
+      showAlert("error", "An unexpected error occurred.");
+    })
+    .finally(() => {
+      // Re-enable the button after the action is complete
+      wishlistButton.disabled = false;
+    });
   }
 });
 
@@ -141,10 +115,9 @@ function showAlert(type, message) {
   }
 
   const alert = document.createElement("div");
-  const icon = type === "success" ? "check_circle" : "error";
+  const iconName = type === "success" ? "checkmark-done-circle-outline" : "warning-outline";
   alert.className = `alert alert-${type}`;
-  alert.innerHTML = `<span class="material-symbols-rounded alert-icon">${icon}</span><span>${message}</span><button class="alert-close">&times;</button>`;
-
+  alert.innerHTML = `<ion-icon name="${iconName}" class="alert-icon"></ion-icon><span>${message}</span><button class="alert-close">&times;</button>`;
   alertContainer.appendChild(alert);
 
   setTimeout(() => {
@@ -152,77 +125,26 @@ function showAlert(type, message) {
     setTimeout(() => alert.remove(), 300);
   }, 5000);
 
-  alert
-    .querySelector(".alert-close")
-    .addEventListener("click", () => alert.remove());
+  alert.querySelector(".alert-close").addEventListener("click", () => alert.remove());
 }
 
-// --- Product Page Interactivity ---
-document.addEventListener("DOMContentLoaded", () => {
-  if (document.querySelector(".product-page-container")) {
-    const productData = {
-      variants: typeof variantsData !== "undefined" ? variantsData : [],
-      images: typeof imagesData !== "undefined" ? imagesData : [],
-    };
+// --- Quantity Setter Functionality ---
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('quantity-btn')) {
+        const action = e.target.dataset.action;
+        const wrapper = e.target.closest('.quantity-input-wrapper');
+        const input = wrapper.querySelector('.quantity-input');
+        
+        let currentValue = parseInt(input.value, 10);
+        const min = parseInt(input.min, 10);
+        const max = parseInt(input.max, 10);
 
-    const mainImageContainer = document.querySelector(".main-image-container");
-    const thumbnailStrip = document.querySelector(".thumbnail-strip");
-    const priceDisplay = document.getElementById("price-display");
-
-    const colorOptions = document.getElementById("color-options");
-    const ramOptions = document.getElementById("ram-options");
-    const storageOptions = document.getElementById("storage-options");
-
-    let selectedColor = null;
-    let selectedRam = null;
-    let selectedStorage = null;
-
-    function updateImages() {
-      mainImageContainer.innerHTML = "";
-      thumbnailStrip.innerHTML = "";
-      if (selectedColor && productData.images[selectedColor]) {
-        productData.images[selectedColor].forEach((imgUrl, index) => {
-          const fullUrl = `../assets/images/products/${imgUrl}`;
-          if (index === 0) {
-            mainImageContainer.innerHTML = `<img src="${fullUrl}" alt="Main product image">`;
-          }
-          const thumb = document.createElement("div");
-          thumb.className = "thumbnail-item";
-          thumb.innerHTML = `<img src="${fullUrl}" alt="Product thumbnail">`;
-          thumb.addEventListener("click", () => {
-            mainImageContainer.querySelector("img").src = fullUrl;
-            document
-              .querySelectorAll(".thumbnail-item.active")
-              .forEach((t) => t.classList.remove("active"));
-            thumb.classList.add("active");
-          });
-          if (index === 0) thumb.classList.add("active");
-          thumbnailStrip.appendChild(thumb);
-        });
-      }
+        if (action === 'increment' && currentValue < max) {
+            input.value = currentValue + 1;
+        } else if (action === 'decrement' && currentValue > min) {
+            input.value = currentValue - 1;
+        }
+        
+        input.dispatchEvent(new Event('change', { bubbles: true }));
     }
-
-    function updateRamOptions() {
-      /* ... function to update ram options ... */
-    }
-    function updateStorageOptions() {
-      /* ... function to update storage options ... */
-    }
-    function updatePrice() {
-      /* ... function to update price ... */
-    }
-
-    colorOptions.addEventListener("click", (e) => {
-      if (e.target.classList.contains("color-btn")) {
-        // ... logic to handle color selection
-      }
-    });
-
-    // ... (event listeners for RAM and Storage)
-
-    // Initial setup
-    if (colorOptions.querySelector(".color-btn")) {
-      colorOptions.querySelector(".color-btn").click();
-    }
-  }
 });

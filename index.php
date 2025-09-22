@@ -4,6 +4,7 @@ require_once 'includes/config.php';
 require_once 'includes/header.php';
 require_once 'includes/navbar.php';
 
+
 // --- Fetch User's Wishlist (if logged in) ---
 $wishlist_product_ids = [];
 if (isset($_SESSION['user_id'])) {
@@ -25,7 +26,7 @@ $featured_products_stmt = $conn->prepare("
         p.product_name,
         p.status,
         MIN(pv.price) as starting_price,
-        (SELECT image_url FROM product_images pi JOIN product_variants pv_img ON pi.variant_id = pv_img.variant_id WHERE pv_img.product_id = p.product_id AND pi.is_thumbnail = 1 LIMIT 1) as image_url
+        (SELECT image_url FROM product_color_images pci WHERE pci.product_id = p.product_id AND pci.is_thumbnail = 1 LIMIT 1) as image_url
     FROM products p
     JOIN product_variants pv ON p.product_id = pv.product_id
     WHERE p.status IN ('New', 'Hot', 'Trending')
@@ -33,6 +34,7 @@ $featured_products_stmt = $conn->prepare("
     ORDER BY RAND()
     LIMIT 5
 ");
+
 $featured_products_stmt->execute();
 $featured_products = $featured_products_stmt->get_result();
 
@@ -43,13 +45,14 @@ $random_products_stmt = $conn->prepare("
         p.product_name,
         p.status,
         MIN(pv.price) as starting_price,
-        (SELECT image_url FROM product_images pi JOIN product_variants pv_img ON pi.variant_id = pv_img.variant_id WHERE pv_img.product_id = p.product_id AND pi.is_thumbnail = 1 LIMIT 1) as image_url
+        (SELECT image_url FROM product_color_images pci WHERE pci.product_id = p.product_id AND pci.is_thumbnail = 1 LIMIT 1) as image_url
     FROM products p
     JOIN product_variants pv ON p.product_id = pv.product_id
     GROUP BY p.product_id
     ORDER BY RAND()
     LIMIT 10
 ");
+
 $random_products_stmt->execute();
 $random_products = $random_products_stmt->get_result();
 

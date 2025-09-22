@@ -44,6 +44,3 @@ if (!isset($_GET['order_id'])) {
     <a href="../index.php" class="button" style="width: auto; margin-top: 20px; padding: 15px 30px;">Continue Shopping</a>
 </main>
 
-<?php
-require_once '../includes/footer.php';
-?>

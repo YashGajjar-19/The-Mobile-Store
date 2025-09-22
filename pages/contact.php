@@ -1,6 +1,7 @@
 <?php
 $page_title = 'Contact Us';
-require_once 'includes/header.php';
+require_once '../includes/header.php';
+require_once '../includes/navbar.php';
 ?>
 
 <main class="products-page-section">
@@ -97,11 +98,11 @@ require_once 'includes/header.php';
                 </div>
             </div>
             <div class="contact-image-column">
-                <img src="./assets/images/svg/contact.svg" alt="Contact Us Image" class="login-image">
+                <img src="../assets/images/svg/contact.svg" alt="Contact Us Image" class="login-image">
             </div>
         </div>
     </div>
 </main>
 <?php
-require_once 'includes/footer.php';
+require_once '../includes/footer.php';
 ?>

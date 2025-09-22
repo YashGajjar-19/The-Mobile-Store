@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+require_once '../includes/header.php';
 
 // Security Check
 if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
@@ -25,21 +26,6 @@ if (isset($_SESSION['user_id'])) {
     $account_link = '../user/login.php';
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | The Mobile Store</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-    <link rel="stylesheet" href="../assets/css/main.css">
-</head>
 
 <body>
     <section class="header-container" id="header-section">
@@ -78,15 +64,33 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <nav class="sidebar-nav">
             <ul class="sidebar-nav-list">
-                <li class="sidebar-nav-item"><a href="#" class="sidebar-nav-link active"><span class="material-symbols-rounded">dashboard</span><span>Dashboard</span></a></li>
+                <li class="sidebar-nav-item">
+                    <a href="#" class="sidebar-nav-link active">
+                        <span class="material-symbols-rounded">dashboard</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
 
-                <li class="sidebar-nav-item"><a href="catalog.php" class="sidebar-nav-link"><span class="material-symbols-rounded">shopping_bag</span><span>Products</span></a></li>
+                <li class="sidebar-nav-item">
+                    <a href="./orders.php" class="sidebar-nav-link">
+                        <span class="material-symbols-rounded">receipt_long</span>
+                        <span>Orders</span>
+                    </a>
+                </li>
 
-                <li class="sidebar-nav-item"><a href="./orders.php" class="sidebar-nav-link"><span class="material-symbols-rounded">receipt_long</span><span>Orders</span></a></li>
+                <li class="sidebar-nav-item">
+                    <a href="./users.php" class="sidebar-nav-link">
+                        <span class="material-symbols-rounded">group</span>
+                        <span>Users</span>
+                    </a>
+                </li>
 
-                <li class="sidebar-nav-item"><a href="./users.php" class="sidebar-nav-link"><span class="material-symbols-rounded">group</span><span>Users</span></a></li>
-
-                <li class="sidebar-nav-item" style="margin-top: auto;"><a href="../includes/auth.php?action=logout" class="sidebar-nav-link"><span class="material-symbols-rounded">logout</span><span>Logout</span></a></li>
+                <li class="sidebar-nav-item" style="margin-top: auto;">
+                    <a href="../includes/auth.php?action=logout" class="sidebar-nav-link">
+                        <span class="material-symbols-rounded">logout</span>
+                        <span>Logout</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </aside>
@@ -97,7 +101,7 @@ if (isset($_SESSION['user_id'])) {
                 <h2>Dashboard</h2>
                 <div class="title-line"></div>
             </div>
-            
+
             <a href="catalog.php" class="button">
                 <span class="material-symbols-rounded">
                     settings
@@ -108,7 +112,7 @@ if (isset($_SESSION['user_id'])) {
 
         <div class="dashboard-cards">
             <div class="summary-card">
-                <div class="card-icon"><span class="material-symbols-rounded" style="color: lightseagreen; border: 1px Solid lightseagreen;">group</span></div>
+                <div class="card-icon"><span class="material-symbols-rounded" style="color: lightgreen; border: 1px Solid lightgreen;">group</span></div>
                 <div class="card-info">
                     <p>Total Users</p>
                     <h3><?php echo $total_users; ?></h3>

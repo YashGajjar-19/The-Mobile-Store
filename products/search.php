@@ -22,20 +22,21 @@ if (isset($_SESSION['user_id'])) {
 $products_result = null;
 if (!empty($search_query)) {
     $like_query = "%" . $search_query . "%";
+    
     $products_stmt = $conn->prepare("
-        SELECT
-            p.product_id,
-            p.product_name,
-            p.status,
-            MIN(pv.price) as starting_price,
-            (SELECT image_url FROM product_images pi JOIN product_variants pv_img ON pi.variant_id = pv_img.variant_id WHERE pv_img.product_id = p.product_id AND pi.is_thumbnail = 1 LIMIT 1) as image_url
-        FROM products p
-        JOIN product_variants pv ON p.product_id = pv.product_id
-        JOIN brands b ON p.brand_id = b.brand_id
-        WHERE p.product_name LIKE ? OR b.brand_name LIKE ?
-        GROUP BY p.product_id
-        ORDER BY p.created_at DESC
-    ");
+    SELECT
+        p.product_id,
+        p.product_name,
+        p.status,
+        MIN(pv.price) as starting_price,
+        (SELECT image_url FROM product_color_images pci WHERE pci.product_id = p.product_id AND pci.is_thumbnail = 1 LIMIT 1) as image_url
+    FROM products p
+    JOIN product_variants pv ON p.product_id = pv.product_id
+    JOIN brands b ON p.brand_id = b.brand_id
+    WHERE p.product_name LIKE ? OR b.brand_name LIKE ?
+    GROUP BY p.product_id
+    ORDER BY p.created_at DESC
+");
     $products_stmt->bind_param("ss", $like_query, $like_query);
     $products_stmt->execute();
     $products_result = $products_stmt->get_result();

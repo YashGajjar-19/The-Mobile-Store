@@ -1,5 +1,6 @@
 <?php
 require_once '../includes/config.php';
+require_once '../includes/header.php';
 
 // --- Handle Edit Mode ---
 if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['product_id'])) {
@@ -40,337 +41,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['product
 
     // --- Render Edit Product Page ---
 ?>
-    <!DOCTYPE html>
-    <html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Edit Product | Admin</title>
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-        <link rel="stylesheet" href="../assets/css/main.css">
-        <style>
-            .multi-select-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-                gap: 10px;
-            }
-
-            .multi-select-grid label {
-                font-size: 0.85rem;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                background: var(--glass);
-                padding: 10px;
-                border-radius: 8px;
-                cursor: pointer;
-                transition: all 0.2s ease;
-            }
-
-            .multi-select-grid label:hover {
-                background: #fff;
-            }
-
-            .multi-select-grid input[type="checkbox"] {
-                accent-color: var(--blue);
-            }
-
-            .spec-row {
-                display: flex;
-                gap: 10px;
-                margin-bottom: 10px;
-                align-items: center;
-            }
-
-            .spec-row .form-input {
-                margin-bottom: 0;
-            }
-
-            .combinations-container .form-input input {
-                padding: 12px 15px 12px 45px;
-            }
-
-            .combinations-container .form-label {
-                white-space: nowrap;
-            }
-
-            .remove-btn {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 36px;
-                height: 36px;
-                padding: 0;
-                margin: 0;
-                border-radius: 50%;
-                background-color: rgba(246, 47, 50, 0.1);
-                color: var(--red);
-                font-size: 24px;
-                font-weight: bold;
-                border: 1px solid transparent;
-                cursor: pointer;
-                transition: all 0.2s ease;
-            }
-
-            .remove-btn:hover {
-                background-color: var(--red);
-                color: white;
-                box-shadow: var(--red-shadow);
-                transform: scale(1.1);
-            }
-
-            .form-row {
-                display: flex;
-                gap: 20px;
-                align-items: flex-end;
-            }
-
-            .form-row .form-group {
-                flex: 1;
-                margin-bottom: 20px;
-            }
-
-            .form-row .form-input {
-                margin-bottom: 0;
-            }
-        </style>
-    </head>
-
-    <body>
-        <div class="form-container">
-            <div class="form-wrapper" style="max-width: 800px;">
-                <div class="form-content-column" style="margin: auto;">
-                    <div class="form-card" style="max-width: 100%;">
-                        <div class="dashboard-header-top" style="margin-bottom: 30px;">
-                            <div class="dashboard-title-group">
-                                <h2 style="font-size: 2rem;">Edit Product</h2>
-                                <div class="title-line"></div>
-                            </div>
-                            <a href="catalog.php" class="button button-secondary" style="margin: 0; width: auto; text-decoration: none;">Back</a>
-                        </div>
-
-                        <form method="POST" action="catalog.php" class="auth-form" enctype="multipart/form-data">
-
-                            <input type="hidden" name="edit_product" value="1">
-                            <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
-
-                            <div class="form-group">
-                                <label class="form-label">Product Name</label>
-                                <div class="form-input">
-                                    <ion-icon name="phone-portrait-outline"></ion-icon>
-                                    <input type="text" name="product_name" value="<?php echo htmlspecialchars($product['product_name']); ?>" required>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Brand</label>
-                                    <div class="form-input">
-                                        <select name="brand_id" required>
-                                            <option value="">Select a Brand</option>
-                                            <?php mysqli_data_seek($brands_result, 0);
-                                            while ($brand = $brands_result->fetch_assoc()): ?>
-                                                <option value="<?php echo $brand['brand_id']; ?>"><?php echo htmlspecialchars($brand['brand_name']); ?></option>
-                                            <?php endwhile; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Category</label>
-                                    <div class="form-input">
-                                        <select name="category_id" required>
-                                            <option value="">Select a Category</option>
-                                            <?php mysqli_data_seek($categories_result, 0);
-                                            while ($category = $categories_result->fetch_assoc()): ?>
-                                                <option value="<?php echo $category['category_id']; ?>"><?php echo htmlspecialchars($category['category_name']); ?></option>
-                                            <?php endwhile; ?>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Product Status</label>
-                                    <div class="form-input">
-                                        <select name="status">
-                                            <option value="">None</option>
-                                            <option value="New">New</option>
-                                            <option value="Trending">Trending</option>
-                                            <option value="Hot">Hot</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Description</label>
-                                <div class="form-input">
-                                    <ion-icon name="document-text-outline" class="icon-textarea"></ion-icon>
-                                    <textarea name="description" rows="4" style="width:100%; padding-left:45px;"><?php echo htmlspecialchars($product['description']); ?></textarea>
-                                </div>
-                            </div>
-
-                            <div class="section-title" style="text-align: left; margin: 30px 0 20px 0;">
-                                <h4 style="margin:0;">Specifications</h4>
-                                <div class="title-line" style="margin: 10px 0 0 0;"></div>
-                            </div>
-                            <div id="specifications-container">
-                                <?php foreach ($product['specifications'] as $spec_name => $spec_value): ?>
-                                    <div class="spec-row">
-                                        <div class="form-input" style="flex: 1;"><ion-icon name="construct-outline"></ion-icon><input type="text" name="spec_name[]" placeholder="Specification Name" value="<?php echo htmlspecialchars($spec_name); ?>"></div>
-                                        <div class="form-input" style="flex: 2;"><ion-icon name="list-outline"></ion-icon><input type="text" name="spec_value[]" placeholder="Value" value="<?php echo htmlspecialchars($spec_value); ?>"></div>
-                                        <button type="button" class="remove-btn remove-spec-btn">&times;</button>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                            <button type="button" id="add-spec-btn" class="button" style="background: var(--gradient); color: var(--light); margin-top: 10px; width: auto; padding: 10px 15px; font-size: 0.9rem;">Add Specification</button>
-
-                            <hr style="margin: 30px 0; border-color: var(--glass);">
-
-                            <div class="section-title" style="text-align: left; margin-bottom: 20px;">
-                                <h4 style="margin:0;">Variants</h4>
-                                <div class="title-line" style="margin: 10px 0 0 0;"></div>
-                            </div>
-                            <div id="variants-container">
-                                <?php
-                                $variant_key = 0;
-                                foreach ($variants_by_color as $color => $combinations):
-                                ?>
-                                    <div class="variant-group" data-id="<?php echo $variant_key; ?>" style="border:1px solid var(--glass); border-radius:15px; padding:20px; margin-bottom:20px; position: relative;">
-                                        <button type="button" class="remove-btn remove-variant-btn" style="position: absolute; top: 10px; right: 10px;  max-width: 23px; max-height: 23px;">&times;</button>
-                                        <div class="form-group">
-                                            <label class="form-label">Color Name</label>
-                                            <div class="form-input">
-                                                <ion-icon name="color-palette-outline"></ion-icon>
-                                                <input type="text" name="variants[<?php echo $variant_key; ?>][color]" value="<?php echo htmlspecialchars($color); ?>" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="combinations-container" style="margin-top: 20px;">
-                                            <h6>Price & Stock for Each Combination:</h6>
-                                            <?php
-                                            $combo_key = 0;
-                                            foreach ($combinations as $combo):
-                                            ?>
-                                                <div class="form-group" style="display: flex; gap: 10px; align-items: center;">
-                                                    <label class="form-label" style="flex: 1; margin-bottom: 0;"><?php echo $combo['ram_gb'] ?>GB / <?php echo $combo['storage_gb'] < 1024 ? $combo['storage_gb'] . 'GB' : ($combo['storage_gb'] / 1024) . 'TB'; ?></label>
-                                                    <input type="hidden" name="variants[<?php echo $variant_key; ?>][combinations][<?php echo $combo_key; ?>][ram]" value="<?php echo $combo['ram_gb']; ?>">
-                                                    <input type="hidden" name="variants[<?php echo $variant_key; ?>][combinations][<?php echo $combo_key; ?>][storage]" value="<?php echo $combo['storage_gb']; ?>">
-                                                    <div class="form-input" style="flex: 0.5; margin-bottom: 0;"><ion-icon name="pricetag-outline"></ion-icon><input type="text" name="variants[<?php echo $variant_key; ?>][combinations][<?php echo $combo_key; ?>][price]" placeholder="Price" value="<?php echo $combo['price']; ?>" required></div>
-                                                    <div class="form-input" style="flex: 0.5; margin-bottom: 0;"><ion-icon name="cube-outline"></ion-icon><input type="number" name="variants[<?php echo $variant_key; ?>][combinations][<?php echo $combo_key; ?>][stock]" placeholder="Stock" value="<?php echo $combo['stock_quantity']; ?>" required></div>
-                                                </div>
-                                            <?php
-                                                $combo_key++;
-                                            endforeach;
-                                            ?>
-                                        </div>
-                                    </div>
-                                <?php
-                                    $variant_key++;
-                                endforeach;
-                                ?>
-                            </div>
-                            <button type="button" id="add-variant-btn" class="button" style="background: var(--gradient); color: var(--light); margin-top: 10px;">Add New Color Group</button>
-
-                            <div class="form-submit" style="margin-top: 20px;">
-                                <button type="submit" class="button">Update Product</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // --- SPECIFICATIONS SCRIPT ---
-                const specsContainer = document.getElementById('specifications-container');
-
-                function addSpecField(name = "", value = "") {
-                    const specHTML = `
-                        <div class="spec-row">
-                            <div class="form-input" style="flex: 1;"><ion-icon name="construct-outline"></ion-icon><input type="text" name="spec_name[]" placeholder="Specification Name" value="${name}"></div>
-                            <div class="form-input" style="flex: 2;"><ion-icon name="list-outline"></ion-icon><input type="text" name="spec_value[]" placeholder="Value" value="${value}"></div>
-                            <button type="button" class="remove-btn remove-spec-btn">&times;</button>
-                        </div>`;
-                    specsContainer.insertAdjacentHTML('beforeend', specHTML);
-                }
-
-                document.getElementById('add-spec-btn').addEventListener('click', () => addSpecField());
-                specsContainer.addEventListener('click', e => {
-                    if (e.target.classList.contains('remove-spec-btn')) {
-                        e.target.closest('.spec-row').remove();
-                    }
-                });
-
-                // --- VARIANTS SCRIPT ---
-                const variantsContainer = document.getElementById('variants-container');
-                let variantIndex = <?php echo $variant_key; ?>;
-                const ramOptions = [6, 8, 12, 16],
-                    storageOptions = [128, 256, 512, 1024, 2048];
-                document.getElementById('add-variant-btn').addEventListener('click', addVariantGroup);
-
-                function addVariantGroup() {
-                    const variantId = variantIndex++;
-                    const variantHTML = `
-                        <div class="variant-group" data-id="${variantId}" style="border:1px solid var(--glass); border-radius:15px; padding:20px; margin-bottom:20px; position: relative;">
-                            <button type="button" class="remove-btn remove-variant-btn" style="position: absolute; top: 10px; right: 10px;  max-width: 23px; max-height: 23px;">&times;</button>
-                            <div class="form-group"><label class="form-label">Color Name</label><div class="form-input"><ion-icon name="color-palette-outline"></ion-icon><input type="text" name="variants[${variantId}][color]" required></div></div>
-                            <div class="form-group"><label class="form-label">Available RAM Options</label><div class="multi-select-grid">${createCheckboxes(variantId, 'ram', ramOptions)}</div></div>
-                            <div class="form-group"><label class="form-label" style="margin-top: 12px;">Available Storage Options</label><div class="multi-select-grid">${createCheckboxes(variantId, 'storage', storageOptions)}</div></div>
-                            <button type="button" class="button generate-combinations-btn" style="width: auto; padding: 10px 15px; font-size: 0.9rem; margin-top: 25px;">Generate Price & Stock Fields</button>
-                            <div class="combinations-container" style="margin-top: 20px;"></div>
-                        </div>`;
-                    variantsContainer.insertAdjacentHTML('beforeend', variantHTML);
-                }
-
-                function createCheckboxes(id, name, options) {
-                    return options.map(val => `<label><input type="checkbox" data-name="${name}" value="${val}"> ${name === 'storage' && val >= 1024 ? val/1024 + ' TB' : val + ' GB'}</label>`).join('');
-                }
-
-                variantsContainer.addEventListener('click', function(e) {
-                    if (e.target.classList.contains('generate-combinations-btn')) {
-                        generateCombinationFields(e.target.closest('.variant-group'));
-                    }
-                    if (e.target.classList.contains('remove-variant-btn')) {
-                        e.target.closest('.variant-group').remove();
-                    }
-                });
-
-                function generateCombinationFields(group) {
-                    const container = group.querySelector('.combinations-container');
-                    const variantId = group.dataset.id;
-                    const selectedRam = Array.from(group.querySelectorAll('input[data-name="ram"]:checked')).map(cb => cb.value);
-                    const selectedStorage = Array.from(group.querySelectorAll('input[data-name="storage"]:checked')).map(cb => cb.value);
-
-                    if (selectedRam.length === 0 || selectedStorage.length === 0) {
-                        container.innerHTML = '<p style="color: var(--red);">Please select at least one RAM and one Storage option before generating fields.</p>';
-                        return;
-                    }
-
-                    container.innerHTML = '<h6>Price & Stock for Each Combination:</h6>';
-                    let comboIndex = 0;
-                    selectedRam.forEach(ram => {
-                        selectedStorage.forEach(storage => {
-                            const storageLabel = storage < 1024 ? storage + 'GB' : storage / 1024 + 'TB';
-                            const comboHTML = `
-                                <div class="form-group" style="display: flex; gap: 10px; align-items: center;">
-                                    <label class="form-label" style="flex: 1; margin-bottom: 0;">${ram}GB / ${storageLabel}</label>
-                                    <input type="hidden" name="variants[${variantId}][combinations][${comboIndex}][ram]" value="${ram}">
-                                    <input type="hidden" name="variants[${variantId}][combinations][${comboIndex}][storage]" value="${storage}">
-                                    <div class="form-input" style="flex: 0.5; margin-bottom: 0;"><ion-icon name="pricetag-outline"></ion-icon><input type="text" name="variants[${variantId}][combinations][${comboIndex}][price]" placeholder="Price" required></div>
-                                    <div class="form-input" style="flex: 0.5; margin-bottom: 0;"><ion-icon name="cube-outline"></ion-icon><input type="number" name="variants[${variantId}][combinations][${comboIndex}][stock]" placeholder="Stock" required></div>
-                                </div>`;
-                            container.insertAdjacentHTML('beforeend', comboHTML);
-                            comboIndex++;
-                        });
-                    });
-                }
-            });
-        </script>
-    </body>
-
-    </html>
 <?php
     exit();
 }
@@ -498,14 +168,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_product'])) {
     $active_tab = 'product';
     $conn->begin_transaction();
     try {
-        // --- 1. Insert the Main Product with Specifications ---
+        // --- 1. Get Brand Name for Folder Path ---
+        $brand_id = $_POST['brand_id'];
+        $brand_stmt = $conn->prepare("SELECT brand_name FROM brands WHERE brand_id = ?");
+        $brand_stmt->bind_param("i", $brand_id);
+        $brand_stmt->execute();
+        $brand_name_result = $brand_stmt->get_result()->fetch_assoc();
+        $brand_folder_name = $brand_name_result['brand_name'];
+        $brand_stmt->close();
+
+        // --- 2. Insert the Main Product with Specifications ---
         $product_name = $_POST['product_name'];
         $description = $_POST['description'];
-        $brand_id = $_POST['brand_id'];
         $category_id = $_POST['category_id'];
         $status = $_POST['status'];
 
-        // --- Handle Specifications ---
         $specifications = [];
         if (isset($_POST['spec_name']) && isset($_POST['spec_value'])) {
             for ($i = 0; $i < count($_POST['spec_name']); $i++) {
@@ -522,16 +199,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_product'])) {
         $product_id = $stmt->insert_id;
         $stmt->close();
 
-        // --- 2. Process Each Color Variant Group ---
+        // --- 3. Process Each Color Variant Group ---
         if (isset($_POST['variants'])) {
             foreach ($_POST['variants'] as $key => $variant_group) {
                 $color = $variant_group['color'];
+                $is_first_image_for_color = true;
 
-                // --- 3. Handle Image Uploads for this Color ---
-                $image_urls = [];
+                // --- 4. Handle Image Uploads for this Color ---
                 if (isset($_FILES['variants']['name'][$key]['images'])) {
                     $image_files = $_FILES['variants'];
-                    $upload_dir = "../assets/images/products/" . preg_replace('/[^a-zA-Z0-9]/', '-', $product_name) . "/";
+                    // Use the fetched brand name for the folder path
+                    $upload_dir = "../assets/images/products/" . $brand_folder_name . "/";
                     if (!is_dir($upload_dir)) {
                         mkdir($upload_dir, 0777, true);
                     }
@@ -543,29 +221,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_product'])) {
                             $new_filename = uniqid($color . '_', true) . '.' . $file_extension;
 
                             if (move_uploaded_file($tmp_name, $upload_dir . $new_filename)) {
-                                $image_urls[] = preg_replace('/[^a-zA-Z0-9]/', '-', $product_name) . "/" . $new_filename;
+                                // Save path with brand name
+                                $image_url = $brand_folder_name . "/" . $new_filename;
+                                $is_thumbnail = $is_first_image_for_color ? 1 : 0;
+
+                                $img_stmt = $conn->prepare("INSERT INTO product_color_images (product_id, color, image_url, is_thumbnail) VALUES (?, ?, ?, ?)");
+                                $img_stmt->bind_param("issi", $product_id, $color, $image_url, $is_thumbnail);
+                                $img_stmt->execute();
+                                $img_stmt->close();
+                                $is_first_image_for_color = false; // Only the first image is a thumbnail
                             }
                         }
                     }
                 }
 
-                // --- 4. Insert Each Specific Combination (RAM/Storage/Price) ---
+                // --- 5. Insert Each Specific Combination (RAM/Storage/Price) ---
                 if (isset($variant_group['combinations'])) {
                     foreach ($variant_group['combinations'] as $combo) {
                         $variant_stmt = $conn->prepare("INSERT INTO product_variants (product_id, color, storage_gb, ram_gb, price, stock_quantity) VALUES (?, ?, ?, ?, ?, ?)");
                         $variant_stmt->bind_param("isiiid", $product_id, $color, $combo['storage'], $combo['ram'], $combo['price'], $combo['stock']);
                         $variant_stmt->execute();
-                        $variant_id = $variant_stmt->insert_id;
                         $variant_stmt->close();
-
-                        // --- 5. Link Uploaded Images to this Variant ---
-                        foreach ($image_urls as $index => $url) {
-                            $is_thumbnail = ($index == 0); // Mark the first image as the thumbnail
-                            $img_stmt = $conn->prepare("INSERT INTO product_images (variant_id, image_url, is_thumbnail) VALUES (?, ?, ?)");
-                            $img_stmt->bind_param("isi", $variant_id, $url, $is_thumbnail);
-                            $img_stmt->execute();
-                            $img_stmt->close();
-                        }
                     }
                 }
             }
@@ -649,22 +325,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
 $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.brand_name FROM products p JOIN brands b ON p.brand_id = b.brand_id ORDER BY p.product_name");
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Products | Admin</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-    <link rel="stylesheet" href="../assets/css/main.css">
-</head>
-
 <body>
     <div class="form-container">
         <div class="form-wrapper" style="max-width: 1300px;">
@@ -698,49 +358,91 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                         <form method="POST" class="auth-form" enctype="multipart/form-data">
                             <input type="hidden" name="add_product" value="1">
                             <div class="section-title" style="text-align: left; margin-bottom: 20px;">
-                                <h4 style="margin:0;">1. Main Product Details</h4>
+                                <h4 style="margin:0;">
+                                    1. Main Product Details
+                                </h4>
                                 <div class="title-line" style="margin: 10px 0 0 0;"></div>
                             </div>
-                            <div class="form-group"><label class="form-label">Product Name</label>
-                                <div class="form-input"><ion-icon name="phone-portrait-outline"></ion-icon><input type="text" name="product_name" required></div>
+
+                            <div class="form-group">
+                                <label class="form-label">
+                                    Product Name
+                                </label>
+                                <div class="form-input">
+                                    <ion-icon name="phone-portrait-outline"></ion-icon><input type="text" name="product_name" required>
+                                </div>
                             </div>
-                            <div class="form-group"><label class="form-label">Brand</label>
-                                <div class="form-input"><select name="brand_id" required>
-                                        <option value="">Select a Brand</option><?php mysqli_data_seek($brands_result, 0);
-                                                                                while ($brand = $brands_result->fetch_assoc()): ?><option value="<?php echo $brand['brand_id']; ?>"><?php echo htmlspecialchars($brand['brand_name']); ?></option><?php endwhile; ?>
-                                    </select></div>
+
+                            <div class="form-row">
+                                <div class="form-group"><label class="form-label">
+                                        Brand
+                                    </label>
+                                    <div class="form-input">
+                                        <select name="brand_id" required>
+                                            <option value="">
+                                                Select a Brand
+                                            </option>
+                                            <?php mysqli_data_seek($brands_result, 0);
+                                            while ($brand = $brands_result->fetch_assoc()): ?><option value="<?php echo $brand['brand_id']; ?>"><?php echo htmlspecialchars($brand['brand_name']); ?>
+                                                </option><?php endwhile; ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Category
+                                    </label>
+                                    <div class="form-input">
+                                        <select name="category_id" required>
+                                            <option value="">
+                                                Select a Category
+                                            </option>
+                                            <?php mysqli_data_seek($categories_result, 0);
+                                            while ($category = $categories_result->fetch_assoc()): ?>
+                                                <option value="<?php echo $category['category_id']; ?>">
+                                                    <?php echo htmlspecialchars($category['category_name']); ?>
+                                                </option>
+                                            <?php endwhile; ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group"><label class="form-label">Product Status</label>
+                                    <div class="form-input"><select name="status">
+                                            <option value="">None</option>
+                                            <option value="New">New</option>
+                                            <option value="Trending">Trending</option>
+                                            <option value="Hot">Hot</option>
+                                        </select></div>
+                                </div>
                             </div>
-                            <div class="form-group"><label class="form-label">Category</label>
-                                <div class="form-input"><select name="category_id" required>
-                                        <option value="">Select a Category</option><?php mysqli_data_seek($categories_result, 0);
-                                                                                    while ($category = $categories_result->fetch_assoc()): ?><option value="<?php echo $category['category_id']; ?>"><?php echo htmlspecialchars($category['category_name']); ?></option><?php endwhile; ?>
-                                    </select></div>
-                            </div>
-                            <div class="form-group"><label class="form-label">Product Status</label>
-                                <div class="form-input"><select name="status">
-                                        <option value="">None</option>
-                                        <option value="New">New</option>
-                                        <option value="Trending">Trending</option>
-                                        <option value="Hot">Hot</option>
-                                    </select></div>
-                            </div>
+
                             <div class="form-group"><label class="form-label">Description</label>
                                 <div class="form-input"><ion-icon name="document-text-outline" class="icon-textarea"></ion-icon><textarea name="description" rows="4" style="width:100%; padding-left:45px;"></textarea></div>
                             </div>
+
                             <div class="section-title" style="text-align: left; margin: 30px 0 20px 0;">
                                 <h4 style="margin:0;">2. Product Specifications</h4>
                                 <div class="title-line" style="margin: 10px 0 0 0;"></div>
                             </div>
+
                             <div id="specifications-container"></div>
                             <button type="button" id="add-spec-btn" class="button" style="background: var(--gradient); color: var(--light); margin-top: 10px; width: auto; padding: 10px 15px; font-size: 0.9rem;">Add Custom Specification</button>
+
                             <hr style="margin: 30px 0; border-color: var(--glass);">
                             <div class="section-title" style="text-align: left; margin-bottom: 20px;">
                                 <h4 style="margin:0;">3. Color Variants & Combinations</h4>
                                 <div class="title-line" style="margin: 10px 0 0 0;"></div>
                             </div>
                             <div id="variants-container"></div>
-                            <button type="button" id="add-variant-btn" class="button" style="background: var(--gradient); color: var(--light); margin-top: 10px;">Add Color Group</button>
-                            <div class="form-submit" style="margin-top: 10px;"><button type="submit" class="button">Save Product</button></div>
+
+                            <div class="form-row">
+                                <button type="button" id="add-variant-btn" class="button" style="background: var(--gradient); color: var(--light); width: 50%;">Add Color Group</button>
+                                <div class="form-submit" style="width: 50%; margin: 0;">
+                                    <button type="submit" class="button">Save Product</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
 
@@ -764,7 +466,7 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                                 <label for="brand_logo_url" class="form-label">Brand Logo URL</label>
                                 <div class="form-input">
                                     <ion-icon name="globe-outline"></ion-icon>
-                                    <input type="text" id="brand_logo_url" name="brand_logo_url" placeholder="e.g., Apple.webp">
+                                    <input type="text" id="brand_logo_url" name="brand_logo_url" placeholder="e.g., Brand.webp">
                                 </div>
                             </div>
                             <div class="form-submit">
@@ -785,12 +487,14 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                             <div class="form-group">
                                 <label for="category_name" class="form-label">Category Name</label>
                                 <div class="form-input">
+                                    <ion-icon name="color-filter-outline"></ion-icon>
                                     <input type="text" id="category_name" name="category_name" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="description" class="form-label">Description</label>
                                 <div class="form-input">
+                                    <ion-icon name="document-text-outline" class="icon-textarea"></ion-icon>
                                     <textarea id="description" name="description" rows="4"></textarea>
                                 </div>
                             </div>
@@ -823,7 +527,7 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                                             <td><?php echo htmlspecialchars($product['product_name']); ?></td>
                                             <td><?php echo htmlspecialchars($product['brand_name']); ?></td>
                                             <td>
-                                                <a href="catalog.php?action=edit&product_id=<?php echo $product['product_id']; ?>" class="button buy-button">Edit</a>
+                                                <a href="edit-product.php?id=<?php echo $product['product_id']; ?>" class="button buy-button">Edit</a>
                                             </td>
                                         </tr>
                                     <?php endwhile; ?>
@@ -992,77 +696,6 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
             addVariantGroup();
         });
     </script>
-    <style>
-        .multi-select-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-        }
-
-        .multi-select-grid label {
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--glass);
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .multi-select-grid label:hover {
-            background: #fff;
-        }
-
-        .multi-select-grid input[type="checkbox"] {
-            accent-color: var(--blue);
-        }
-
-        .spec-row {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-
-        .spec-row .form-input {
-            margin-bottom: 0;
-        }
-
-        .combinations-container .form-input input {
-            padding: 12px 15px 12px 45px;
-        }
-
-        .combinations-container .form-label {
-            white-space: nowrap;
-        }
-
-        .remove-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            padding: 0;
-            margin: 0;
-            border-radius: 50%;
-            background-color: rgba(246, 47, 50, 0.1);
-            color: var(--red);
-            font-size: 24px;
-            font-weight: bold;
-            border: 1px solid transparent;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .remove-btn:hover {
-            background-color: var(--red);
-            color: white;
-            box-shadow: var(--red-shadow);
-            transform: scale(1.1);
-        }
-    </style>
 </body>
 
 </html>

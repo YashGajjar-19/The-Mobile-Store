@@ -1,18 +1,15 @@
 <?php
 $page_title = 'Product Details';
 require_once '../includes/header.php';
+require_once '../includes/navbar.php';
 require_once '../includes/auth.php';
 
-// Check if a brand ID is provided in the URL
+// Check if a product ID is provided in the URL
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     header("Location: ../404.php"); // Redirect if no ID
     exit();
 }
 
-if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    header("Location: index.php");
-    exit();
-}
 $product_id = $_GET['id'];
 
 // --- Fetch Product Details ---
@@ -21,7 +18,7 @@ $stmt->bind_param("i", $product_id);
 $stmt->execute();
 $product_result = $stmt->get_result();
 if ($product_result->num_rows === 0) {
-    header("Location: ../404.html");
+    header("Location: ../404.php");
     exit();
 }
 $product = $product_result->fetch_assoc();
@@ -37,8 +34,8 @@ while ($row = $variants_result->fetch_assoc()) {
     $variants[] = $row;
 }
 
-// --- Fetch All Images, Grouped by Color ---
-$images_stmt = $conn->prepare("SELECT DISTINCT pv.color, pi.image_url FROM product_images pi JOIN product_variants pv ON pi.variant_id = pv.variant_id WHERE pv.product_id = ? ORDER BY pi.image_id");
+// --- CORRECTED: Fetch All Images, Grouped by Color from the new table ---
+$images_stmt = $conn->prepare("SELECT color, image_url FROM product_color_images WHERE product_id = ? ORDER BY is_thumbnail DESC, image_id ASC");
 $images_stmt->bind_param("i", $product_id);
 $images_stmt->execute();
 $images_result = $images_stmt->get_result();
@@ -78,27 +75,17 @@ $reviews = $reviews_stmt->get_result();
                 <?php while ($review = $reviews->fetch_assoc()): ?>
                     <div class="review-card">
                         <div class="review-header">
-
                             <div class="review-avatar"><?php echo strtoupper(substr($review['full_name'], 0, 1)); ?></div>
-
                             <div class="review-author-info">
-                                <div class="author-name"><?php echo htmlspecialchars($review['full_name']); ?>
-                                </div>
-
-                                <div class="review-date"><?php echo date("F j, Y", strtotime($review['created_at'])); ?>
-                                </div>
+                                <div class="author-name"><?php echo htmlspecialchars($review['full_name']); ?></div>
+                                <div class="review-date"><?php echo date("F j, Y", strtotime($review['created_at'])); ?></div>
                             </div>
                         </div>
-
                         <div class="star-rating">
                             <?php for ($i = 1; $i <= 5; $i++): ?>
-                                <span class="material-symbols-rounded"
-                                    data-filled="<?php echo ($i <= $review['rating']) ? 'true' : 'false'; ?>">
-                                    star
-                                </span>
+                                <span class="material-symbols-rounded" data-filled="<?php echo ($i <= $review['rating']) ? 'true' : 'false'; ?>">star</span>
                             <?php endfor; ?>
                         </div>
-
                         <p class="review-comment"><?php echo nl2br(htmlspecialchars($review['comment'])); ?></p>
                     </div>
                 <?php endwhile; ?>
@@ -110,14 +97,11 @@ $reviews = $reviews_stmt->get_result();
 
     <section class="product-details">
         <p class="brand-name"><?php echo htmlspecialchars($product['brand_name']); ?></p>
-
         <h1 class="product-main-name"><?php echo htmlspecialchars($product['product_name']); ?></h1>
-
         <p class="product-price-display" id="price-display">Select a variant</p>
 
         <form id="add-to-cart-form">
             <input type="hidden" name="variant_id" id="selected-variant-id" value="">
-
             <div class="variant-options">
                 <div class="variant-options-color">
                     <div class="option-group" id="color-options">
@@ -129,21 +113,21 @@ $reviews = $reviews_stmt->get_result();
                         </div>
                     </div>
                 </div>
-
                 <div class="variant-options-grid">
                     <div class="option-group" id="ram-options" style="display: none;"><label class="form-label">RAM:</label>
                         <div class="option-choices"></div>
                     </div>
-                    <div class="option-group" id="storage-options" style="display: none;"><label class="form-label">Storage:</label>
+                    <div class="option-group" id="storage-options" style="display: none;">
+                        <label class="form-label">Storage:</label>
                         <div class="option-choices"></div>
                     </div>
-                    <div class="cart-item-quantity" style="margin-bottom: 25px;">
-                        <label for="quantity-input" class="form-label">Quantity:</label>
-                        <input id="quantity-input" class="quantity-setter" type="number" value="1" min="1" max="5" style="margin: 0px;">
+                    <div class="quantity-input-wrapper">
+                        <button type="button" class="quantity-btn" data-action="decrement">-</button>
+                        <input id="quantity-input" class="quantity-input" type="number" value="1" min="1" max="5">
+                        <button type="button" class="quantity-btn" data-action="increment">+</button>
                     </div>
                 </div>
             </div>
-
             <div class="product-actions" style="align-items: flex-end;">
                 <button type="submit" class="button" id="add-to-cart-btn" style="flex-grow: 1;">Add to Cart</button>
                 <button type="button" class="button" id="buy-now-btn" style="flex-grow: 1;">Buy Now</button>
@@ -170,12 +154,10 @@ $reviews = $reviews_stmt->get_result();
                 <div class="review-form-container" style="margin-bottom: 20px;">
                     <h3>Write a Review</h3>
                     <div class="title-line" style="margin: 5px 0 15px 0; width: 100px;"></div>
-                    <form action="../includes/submit_review.php" method="POST" class="auth-form">
+                    <form action="../handlers/review_handler.php" method="POST" class="auth-form">
                         <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
-
                         <div class="form-group">
                             <label class="form-label">Your Rating</label>
-
                             <div class="rating-input">
                                 <input type="radio" id="star5" name="rating" value="5" required><label for="star5" title="5 stars">&#9733;</label>
                                 <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">&#9733;</label>
@@ -304,11 +286,9 @@ $reviews = $reviews_stmt->get_result();
                 document.querySelectorAll('#color-options .choice-btn.active').forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
 
-                // Update RAM options
                 const availableRams = new Set(variantsData.filter(v => v.color === selectedColor).map(v => v.ram_gb));
                 updateOptions(ramOptions, availableRams, 'ram', selectedRam);
 
-                // **NEW**: Update Storage options based on selected color only
                 const availableStorages = new Set(variantsData.filter(v => v.color === selectedColor).map(v => v.storage_gb));
                 updateOptions(storageOptions, availableStorages, 'storage', selectedStorage);
 
@@ -320,11 +300,8 @@ $reviews = $reviews_stmt->get_result();
         ramOptions.addEventListener('click', e => {
             if (e.target.classList.contains('choice-btn')) {
                 selectedRam = e.target.dataset.ram;
-                // **NEW**: No need to update storage here anymore
-
                 document.querySelectorAll('#ram-options .choice-btn.active').forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
-
                 updateUI();
             }
         });
@@ -338,7 +315,6 @@ $reviews = $reviews_stmt->get_result();
             }
         });
 
-        // --- Action Button Logic ---
         function handleCartAction(redirect = false) {
             const variantId = selectedVariantIdInput.value;
             const quantity = quantityInput.value;
@@ -352,7 +328,7 @@ $reviews = $reviews_stmt->get_result();
                 return;
             }
 
-            fetch('../includes/cart_handler.php', {
+            fetch('../handlers/cart_handler.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -363,7 +339,7 @@ $reviews = $reviews_stmt->get_result();
                 .then(data => {
                     if (data.status === 'success') {
                         if (redirect) {
-                            window.location.href = 'checkout.php';
+                            window.location.href = './checkout.php'; // Corrected redirect path
                         } else {
                             showAlert('success', data.message);
                             const cartBadge = document.querySelector('.cart-badge');
@@ -385,14 +361,13 @@ $reviews = $reviews_stmt->get_result();
 
         addToCartForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            handleCartAction(false); // Add to cart, don't redirect
+            handleCartAction(false);
         });
 
         buyNowBtn.addEventListener('click', function() {
-            handleCartAction(true); // Add to cart and redirect
+            handleCartAction(true);
         });
 
-        // Initial setup
         if (colorOptions.querySelector('.color-btn')) {
             colorOptions.querySelector('.color-btn').click();
         }
