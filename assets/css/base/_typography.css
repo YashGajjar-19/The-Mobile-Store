@@ -56,9 +56,9 @@
 
 /* Header logo text */
 .logo-text {
-  font-family: var(--kumbh);
-  font-size: 25px;
-  font-weight: 700;
+  font-family: Quicksand, sans-serif;
+  font-size: 1.65rem;
+  font-weight: 800;
   background: var(--gradient);
   background-clip: text;
   -webkit-background-clip: text;

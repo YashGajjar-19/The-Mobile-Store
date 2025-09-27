@@ -1,20 +1,23 @@
 /* Browser reset/normalize */
 
-/* Font Imports */
-@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap');
-
 /* Base Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Kumbh Sans', sans-serif;
+    scroll-behavior: smooth;
 }
+
+@font-face { 
+    font-family: 'Kumbh Sans';
+    src: url('../../fonts/KumbhSans.woff2') format('woff2');
+}
+
 
 html,
 body {
     background-color: var(--body);
-    scroll-behavior: smooth;
     background-image:
         repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(75, 85, 99, 0.08) 20px, rgba(75, 85, 99, 0.08) 21px),
         repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(107, 114, 128, 0.06) 30px, rgba(107, 114, 128, 0.06) 31px),
@@ -39,7 +42,7 @@ textarea {
 
 textarea:focus {
     border: 2px solid var(--dark);
-    box-shadow: var(--dark-shadow); 
+    box-shadow: var(--dark-shadow);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 }

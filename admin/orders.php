@@ -123,21 +123,21 @@ $orders_result = $orders_stmt->get_result();
                                 <td><?php echo date('M d, Y', strtotime($order['order_date'])); ?></td>
                                 <td class="action-buttons">
                                     <?php if ($order['status'] == 'Pending'): ?>
-                                        <form action="../includes/order_status.php" method="POST">
+                                        <form action="../handlers/order_handler.php" method="POST">
                                             <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
                                             <button type="submit" name="action" value="Approved" class="button-small approve">Approve</button>
                                         </form>
-                                        <form action="../includes/order_status.php" method="POST">
+                                        <form action="../handlers/order_handler.php" method="POST">
                                             <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
                                             <button type="submit" name="action" value="Declined" class="button-small decline">Decline</button>
                                         </form>
                                     <?php elseif ($order['status'] == 'Approved'): ?>
-                                        <form action="../includes/order_status.php" method="POST">
+                                        <form action="../handlers/order_handler.php" method="POST">
                                             <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
                                             <button type="submit" name="action" value="Shipped" class="button-small shipped">Ship</button>
                                         </form>
                                     <?php elseif ($order['status'] == 'Shipped'): ?>
-                                        <form action="../includes/order_status.php" method="POST">
+                                        <form action="../handlers/order_handler.php" method="POST">
                                             <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
                                             <button type="submit" name="action" value="Delivered" class="button-small delivered">Deliver</button>
                                         </form>

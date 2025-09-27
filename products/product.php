@@ -315,7 +315,7 @@ $reviews = $reviews_stmt->get_result();
             }
         });
 
-        function handleCartAction(redirect = false) {
+        function handleCartAction() {
             const variantId = selectedVariantIdInput.value;
             const quantity = quantityInput.value;
 
@@ -338,15 +338,11 @@ $reviews = $reviews_stmt->get_result();
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        if (redirect) {
-                            window.location.href = './checkout.php'; // Corrected redirect path
-                        } else {
-                            showAlert('success', data.message);
-                            const cartBadge = document.querySelector('.cart-badge');
-                            if (cartBadge) {
-                                cartBadge.style.display = 'flex';
-                                cartBadge.textContent = data.cart_count;
-                            }
+                        showAlert('success', data.message);
+                        const cartBadge = document.querySelector('.cart-badge');
+                        if (cartBadge) {
+                            cartBadge.style.display = 'flex';
+                            cartBadge.textContent = data.cart_count;
                         }
                     } else {
                         if (data.message.includes('logged in')) {
@@ -361,11 +357,24 @@ $reviews = $reviews_stmt->get_result();
 
         addToCartForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            handleCartAction(false);
+            handleCartAction();
         });
 
         buyNowBtn.addEventListener('click', function() {
-            handleCartAction(true);
+            const variantId = selectedVariantIdInput.value;
+            const quantity = quantityInput.value;
+
+            if (!variantId) {
+                showAlert('error', 'Please select all product options.');
+                return;
+            }
+            if (quantity < 1 || quantity > 5) {
+                showAlert('error', 'Quantity must be between 1 and 5.');
+                return;
+            }
+
+            // Redirect to checkout with variant and quantity as URL parameters
+            window.location.href = `checkout.php?variant_id=${variantId}&quantity=${quantity}`;
         });
 
         if (colorOptions.querySelector('.color-btn')) {

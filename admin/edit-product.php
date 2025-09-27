@@ -68,8 +68,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
                 foreach ($images as $i => $name) {
                     if ($_FILES['new_images']['error'][$color][$i] === UPLOAD_ERR_OK) {
                         $tmp_name = $_FILES['new_images']['tmp_name'][$color][$i];
-                        $file_extension = pathinfo($name, PATHINFO_EXTENSION);
-                        $new_filename = uniqid($color . '_', true) . '.' . $file_extension;
+
+                        $safe_filename = preg_replace("/[^a-zA-Z0-9.\-_()]/", "", basename($name));
+
+                        $counter = 1;
+                        $new_filename = $safe_filename;
+                        while (file_exists($upload_dir . $new_filename)) {
+                            $filename_parts = pathinfo($safe_filename);
+                            $new_filename = $filename_parts['filename'] . '(' . $counter . ').' . $filename_parts['extension'];
+                            $counter++;
+                        }
 
                         if (move_uploaded_file($tmp_name, $upload_dir . $new_filename)) {
                             // Use brand name in the database URL
@@ -79,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['edit_product'])) {
                             $thumb_check_stmt->bind_param("is", $product_id, $color);
                             $thumb_check_stmt->execute();
                             $is_thumbnail = $thumb_check_stmt->get_result()->num_rows === 0 ? 1 : 0;
+                            $thumb_check_stmt->close(); // Close the statement after use
 
                             $img_stmt = $conn->prepare("INSERT INTO product_color_images (product_id, color, image_url, is_thumbnail) VALUES (?, ?, ?, ?)");
                             $img_stmt->bind_param("issi", $product_id, $color, $image_url, $is_thumbnail);

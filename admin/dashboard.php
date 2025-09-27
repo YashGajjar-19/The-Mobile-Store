@@ -72,6 +72,13 @@ if (isset($_SESSION['user_id'])) {
                 </li>
 
                 <li class="sidebar-nav-item">
+                    <a href="./products.php" class="sidebar-nav-link">
+                        <span class="material-symbols-rounded">inventory_2</span>
+                        <span>Products</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-nav-item">
                     <a href="./orders.php" class="sidebar-nav-link">
                         <span class="material-symbols-rounded">receipt_long</span>
                         <span>Orders</span>

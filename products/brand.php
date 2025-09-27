@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+require_once '../includes/header.php';
+require_once '../includes/navbar.php';
 
 // Check if a brand ID is provided in the URL
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -154,41 +156,6 @@ if (isset($_SESSION['user_id'])) {
 </head>
 
 <body>
-    <section class="header-container" id="header-section">
-        <header class="header">
-            <a href="../index.php" class="logo-container">
-                <img class="logo-image" src="../assets/images/Logo.png" alt="The Mobile Store">
-                <span class="logo-text">The Mobile Store</span>
-            </a>
-            <div class="nav-wrapper">
-                <nav class="navbar">
-                    <form action="search.php" method="GET" class="search-container">
-                        <input type="search" name="query" class="search-input" placeholder="Search..." required>
-                        <button type="submit" class="nav-icon search-btn" style="border:none; background:transparent; cursor:pointer;">
-                            <span class="material-symbols-rounded">search</span>
-                        </button>
-                    </form>
-                    <a href="../index.php" class="nav-icon"><span class="material-symbols-rounded">home</span></a>
-                    <a href="#" class="nav-icon"><span class="material-symbols-rounded">shopping_cart</span><span class="cart-badge">3</span></a>
-                    <a href="<?php echo $account_link; ?>" class="nav-icon"><span class="material-symbols-rounded">account_circle</span></a>
-                </nav>
-                <button class="mobile-menu-btn"><span class="material-symbols-rounded">menu</span></button>
-            </div>
-            <div class="mobile-menu">
-                <form action="search.php" method="GET" class="mobile-search-container">
-                    <input type="search" name="query" class="mobile-search-input" placeholder="Search..." required>
-                    <button type="submit" class="mobile-search-btn"><span class="material-symbols-rounded">search</span></button>
-                </form>
-                <a href="../index.php" class="mobile-nav-icon"><span class="material-symbols-rounded">home</span><span>Home</span></a>
-                <a href="#" class="mobile-nav-icon"><span class="material-symbols-rounded">shopping_cart</span><span>Cart</span><span class="cart-badge">3</span></a>
-                <a href="<?php echo $account_link; ?>" class="mobile-nav-icon"><span class="material-symbols-rounded">account_circle</span><span><?php echo $account_text; ?></span></a>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="../includes/auth.php?action=logout" class="mobile-nav-icon"><span class="material-symbols-rounded">logout</span><span>Logout</span></a>
-                <?php endif; ?>
-            </div>
-        </header>
-    </section>
-
     <main class="products-page-section" style="padding-top: 150px;">
         <div class="section-title">
             <div class="brand-logo-container">
@@ -278,39 +245,7 @@ if (isset($_SESSION['user_id'])) {
             ?>
         </div>
     </main>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <div class="footer-logo-container">
-                    <img class="logo-image" src="../assets/images/logo.png" alt="The Mobile Store">
-                    <span class="logo-text">The Mobile Store</span>
-                </div>
-                <p>Your one-stop shop for the latest mobile devices. We bring the future to your
-                    fingertips.
-                </p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="../index.php">Home</a></li>
-                    <li><a href="index.php">Products</a></li>
-                </ul>
-            </div>
-            <div class="footer-section footer-contact">
-                <a href="../contact.php">
-                    <h3>Contact Us</h3>
-                </a>
-                <p>123 Mobile Street, Tech City, 12345</p>
-                <p>Email: <a href="#">info@themobilestore.com</a></p>
-                <p>Phone: <a href="#">+91 1234567890</a></p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            &copy; 2025 The Mobile Store. All rights reserved.
-        </div>
-    </footer>
-    <script src="../assets/js/main.js"></script>
+    <?php require_once '../includes/footer.php'; ?>
 </body>
 
 </html>

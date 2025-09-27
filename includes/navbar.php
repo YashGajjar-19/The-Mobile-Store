@@ -1,5 +1,3 @@
-
-<body>
     <section class="header-container" id="header-section">
         <header class="header">
             <a href="<?php echo $base_path; ?>index.php" class="logo-container">
@@ -10,7 +8,7 @@
                 <nav class="navbar">
                     <form action="<?php echo $base_path; ?>products/search.php" method="GET" class="search-container">
                         <input type="search" name="query" class="search-input" placeholder="Search..." required>
-                        <button type="submit" class="nav-icon search-btn" style="border:none; background:transparent; cursor:pointer;" title="Search">
+                        <button type="submit" class="nav-icon search-btn" style="border:none; background: var(--glass); cursor:pointer;" title="Search">
                             <span class="material-symbols-rounded">search</span>
                         </button>
                     </form>
