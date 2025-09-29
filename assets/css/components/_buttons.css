@@ -131,9 +131,9 @@
 }
 
 .browse-more-btn {
-  width: 230px;
-  font-size: 1.3rem;
-  padding: 17px 10px;
+  width: fit-content;
+  font-size: 1.2rem;
+  padding: 22px 30px;
   border-radius: 3rem;
   text-decoration: none;
 }

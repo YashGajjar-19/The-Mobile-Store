@@ -2,7 +2,7 @@
     <div class="footer-content">
         <div class="footer-section">
             <div class="footer-logo-container">
-                <img class="logo-image" src="<?php echo $base_path; ?>assets/images/logo.png" alt="The Mobile Store">
+                <img class="logo-image" src="<?php echo $base_path; ?>assets/images/Logo.png" alt="The Mobile Store">
                 <span class="logo-text">The Mobile Store</span>
             </div>
             <p>Your one-stop shop for the latest mobile devices. We bring the future to your

@@ -173,37 +173,6 @@
     z-index: -1;
 }
 
-/* Status : New / Trending */
-.slide-status {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    padding: 6px 12px;
-    border-radius: 50px;
-    font-family: var(--kumbh);
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: white;
-    z-index: 3;
-}
-
-.slide-status.new {
-    background: var(--green);
-    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
-}
-
-.slide-status.trending {
-    background: var(--yellow);
-    box-shadow: 0 2px 8px rgba(255, 203, 34, 0.3);
-}
-
-.slide-status.hot {
-    background: var(--red);
-    box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
-}
-
 /* Navigation Dots */
 .dots-container {
     display: flex;

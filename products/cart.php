@@ -102,7 +102,7 @@ $cart_total = 0;
                 <span class="form-label">Total</span>
                 <span id="summary-total">&#8377;<?php echo number_format($cart_total); ?></span>
             </div>
-            <a href="checkout.php" class="button" id="checkout-btn" style="max-width: 100%; padding: 15px auto;" <?php if ($cart_items_result->num_rows === 0) echo 'disabled'; ?>>Proceed to Checkout</a>
+            <a href="checkout.php" class="button" id="checkout-btn" style="padding: 15px 60px; margin-left: 250px;" <?php if ($cart_items_result->num_rows === 0) echo 'disabled'; ?>>Proceed to Checkout</a>
         </div>
     </div>
 </main>

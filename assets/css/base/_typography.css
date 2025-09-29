@@ -121,7 +121,7 @@
 .slide .slide-name {
   margin-bottom: 25px;
   font-family: var(--kumbh);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 45px;
   line-height: 1.1px;
   color: var(--darker);
@@ -183,11 +183,41 @@
   }
 }
 
+/* Status : New / Trending */
+.slide-status {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: 'Kumbh Sans', sans-serif;
+  letter-spacing: 1px;
+  color: white;
+  z-index: 3;
+}
+
+.slide-status.new {
+  background: var(--green);
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.slide-status.trending {
+  background: var(--yellow);
+  box-shadow: 0 2px 8px rgba(255, 203, 34, 0.3);
+}
+
+.slide-status.hot {
+  background: var(--red);
+  box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
+}
+
 /* Product cards */
 
 /* Product name */
 .product-title {
-  font-family: var(--kumbh);
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 5px;
@@ -198,7 +228,6 @@
 
 /* Product tagline */
 .product-tagline {
-  font-family: var(--kumbh);
   font-size: 0.8rem;
   color: var(--dark);
   margin-bottom: 15px;
@@ -213,8 +242,8 @@
   background-color: transparent;
   border: none;
   padding: 0;
-  font-family: var(--kumbh);
-  font-size: 0.7rem;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-size: 0.6rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
