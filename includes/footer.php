@@ -31,21 +31,20 @@
                 <li><a href="<?php echo $base_path; ?>products/index.php">Products</a></li>
                 <li><a href="<?php echo $base_path; ?>pages/about-us.php">About Us</a></li>
                 <li><a href="<?php echo $base_path; ?>pages/contact.php">Contact</a></li>
-                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="<?php echo $base_path; ?>pages/privacy-policy.php">Privacy Policy</a></li>
             </ul>
         </div>
 
         <div class="footer-section">
             <h3>Customer Service</h3>
             <ul>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Returns & Refunds</a></li>
-                <li><a href="#">Shipping Information</a></li>
+                <li><a href="<?php echo $base_path; ?>pages/faq.php">FAQ</a></li>
+                <li><a href="<?php echo $base_path; ?>pages/returns.php">Returns & Refunds</a></li>
+                <li><a href="<?php echo $base_path; ?>pages/shipping.php">Shipping Information</a></li>
             </ul>
         </div>
 
         <div class="footer-section footer-contact">
-            <a href="<?php echo $base_path; ?>contact.php">
                 <h3>Contact Us</h3>
             </a>
             <p>123 Mobile Street, Tech City, 12345</p>

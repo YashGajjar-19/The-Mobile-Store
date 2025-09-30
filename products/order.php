@@ -2,6 +2,7 @@
 $page_title = 'Order Confirmed!';
 // Use require_once instead of include for critical files
 require_once '../includes/header.php';
+require_once '../includes/navbar.php';
 
 if (!isset($_GET['order_id'])) {
     header('Location: index.php');
@@ -44,3 +45,6 @@ if (!isset($_GET['order_id'])) {
     <a href="../index.php" class="button" style="width: auto; margin-top: 20px; padding: 15px 30px;">Continue Shopping</a>
 </main>
 
+<?php
+require_once '../includes/footer.php';
+?>

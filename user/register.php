@@ -76,7 +76,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             <div class="form-terms">
               <label>
                 <input type="checkbox" name="terms" required /> I agree to the
-                <a href="../t-c.html">Terms</a> and <a href="../t-c.html"> Conditions </a>
+                <a href="../pages/t-c.php">Terms</a> and <a href="../pages/t-c.php"> Conditions </a>
               </label>
             </div>
 

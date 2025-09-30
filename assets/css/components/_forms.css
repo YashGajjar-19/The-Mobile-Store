@@ -127,35 +127,23 @@
 }
 
 .form-input select {
-    /* Basic Appearance & Sizing */
     width: 100%;
     padding: 14px 40px 14px 15px;
-    /* Added padding for text and new arrow */
     font-family: var(--kumbh);
     font-size: 0.95rem;
     font-weight: 500;
     color: var(--dark);
     background-color: rgba(255, 255, 255, 0.7);
     cursor: pointer;
-
-    /* Border and Border Radius */
     border: 1px solid var(--glass);
     border-radius: 10px;
-    /* This matches your other input fields */
-
-    /* Remove default browser appearance */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-
-    /* Add custom dropdown arrow */
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
     background-position: right 1rem center;
     background-size: 1.2em 1.2em;
 }
 
-/* Style for when the dropdown is focused (clicked) */
 .form-input select:focus {
     outline: none;
     border-color: var(--blue);
@@ -307,7 +295,7 @@
     border-radius: 15px;
     overflow: hidden;
     box-shadow: var(--shadow);
-    max-width: 1000px;
+    width: 1000px;
     width: 90%;
     z-index: 1;
     transition: all 0.5s ease;
@@ -328,7 +316,7 @@
 }
 
 .contact-image-column .login-image {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     border-radius: 10px;
     object-fit: cover;

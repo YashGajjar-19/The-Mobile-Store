@@ -33,7 +33,7 @@ require_once '../includes/navbar.php';
     <div class="contact-form-container">
         <div class="contact-form-wrapper">
             <div class="contact-content-column">
-                <div class="form-card">
+                <div class="form-card" style="min-width: 600px;">
                     <div class="form-header">
                         <h2>Send Us a Message</h2>
                     </div>
