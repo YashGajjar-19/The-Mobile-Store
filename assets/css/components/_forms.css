@@ -384,8 +384,108 @@
 .quantity-input::-webkit-outer-spin-button,
 .quantity-input::-webkit-inner-spin-button {
     -webkit-appearance: none;
-    /* For Chrome, Safari, Edge */
     margin: 0;
+}
+
+/* Dashboard */
+.multi-select-grid label {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--glass);
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.multi-select-grid label:hover {
+    background: #fff;
+}
+
+.multi-select-grid input[type="checkbox"] {
+    accent-color: var(--blue);
+}
+
+.combinations-container .form-input input {
+    padding: 12px 15px 12px 45px;
+}
+
+.multi-select-grid label {
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--glass);
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.multi-select-grid label:hover {
+    background: #fff;
+}
+
+.multi-select-grid input[type="checkbox"] {
+    accent-color: var(--blue);
+}
+
+.combinations-container .form-input input {
+    padding: 12px 15px 12px 45px;
+}
+
+/* Review form */
+.rating-input {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+    height: 30px;
+    margin-bottom: 15px;
+}
+
+.rating-input input[type="radio"] {
+    display: none;
+}
+
+.rating-input label {
+    font-size: 2rem;
+    color: var(--glass);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.rating-input input:checked~label,
+.rating-input:not(:hover) input:checked~label,
+.rating-input label:hover,
+.rating-input label:hover~label {
+    color: var(--yellow);
+}
+
+/* Quantity  setter */
+.quantity-setter {
+    width: 50px;
+    padding: 7px;
+    text-align: center;
+    margin: 8px 0px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--glass);
+    border-radius: 6px;
+}
+
+.quantity-setter:active {
+    border-color: var(--dark);
+}
+
+.quantity-setter input {
+    width: 50px;
+    text-align: center;
+    padding: 8px;
 }
 
 /* Responsive Adjustments */

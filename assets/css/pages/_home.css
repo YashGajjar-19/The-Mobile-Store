@@ -1,18 +1,13 @@
 /* Hero Section Styles */
 .hero-section {
     position: relative;
-    background-color: var(--body);
+    background-color: transparent;
     color: var(--darkest);
     padding: auto 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 80vh;
-    background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(75, 85, 99, 0.08) 20px, rgba(75, 85, 99, 0.08) 21px),
-        repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(107, 114, 128, 0.06) 30px, rgba(107, 114, 128, 0.06) 31px),
-        repeating-linear-gradient(60deg, transparent, transparent 40px, rgba(55, 65, 81, 0.05) 40px, rgba(55, 65, 81, 0.05) 41px),
-        repeating-linear-gradient(150deg, transparent, transparent 35px, rgba(31, 41, 55, 0.04) 35px, rgba(31, 41, 55, 0.04) 36px)
 }
 
 .hero-container {
@@ -98,14 +93,12 @@
     height: 475px;
     border-radius: 16px;
     transition: transform 0.5s ease-in-out;
-    /* Changed for sliding animation */
 }
 
 /* Slide */
 .slide {
     display: flex;
     flex-shrink: 0;
-    /* Prevents slides from shrinking */
     width: 100%;
     height: 100%;
 }
@@ -211,60 +204,6 @@
 
 .dot:hover:not(.active) {
     transform: scale(1.2);
-}
-
-/* Contact Us page */
-/* Specific styles for the contact page info boxes and map */
-.contact-details-section {
-    padding: 20px;
-    max-width: 1000px;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-}
-
-.contact-info-container {
-    display: flex;
-    gap: 20px;
-    justify-content: space-evenly;
-    text-align: center;
-}
-
-.contact-info-item {
-    flex: 1 1 calc(33% - 40px);
-    min-width: 280px;
-    background-color: var(--body);
-    border-radius: 15px;
-    padding: 30px;
-    box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    transition: transform 0.3s ease;
-}
-
-.contact-info-item:hover {
-    transform: translateY(-5px);
-}
-
-.contact-info-item .icon {
-    font-size: 3rem;
-    color: var(--blue);
-}
-
-.contact-info-item h3 {
-    font-size: 1.5rem;
-    color: var(--darkest);
-    margin-bottom: 5px;
-}
-
-.contact-info-item p,
-.contact-info-item a {
-    font-size: 1rem;
-    color: var(--dark);
-    text-decoration: none;
 }
 
 /* Responsive */

@@ -22,12 +22,6 @@
 
 }
 
-.dashboard-header h1 {
-  font-family: var(--kumbh);
-  font-size: 2.5rem;
-  color: var(--darkest);
-}
-
 .dashboard-header .button {
   display: flex;
   align-items: center;
@@ -46,13 +40,6 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 30px;
-}
-
-.dashboard-title-group h2 {
-  font-family: var(--kumbh);
-  font-size: 2.5rem;
-  color: var(--darkest);
-  margin: 0;
 }
 
 .dashboard-title-group .title-line {
@@ -86,39 +73,11 @@
   font-size: 32px;
 }
 
-.card-info p {
-  font-family: var(--kumbh);
-  font-weight: 600;
-  color: var(--dark);
-  font-size: 1rem;
-  margin: 0 0 5px 0;
-}
-
-.card-info h3 {
-  font-family: var(--kumbh);
-  font-size: 2rem;
-  color: var(--darkest);
-  margin: 0;
-}
-
-.orders-card {
-  background-color: var(--body);
-  border-radius: 1rem;
-  padding: 25px;
-  box-shadow: var(--shadow);
-}
-
 .orders-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 25px;
-}
-
-.orders-header h2 {
-  font-family: var(--kumbh);
-  font-size: 1.5rem;
-  color: var(--darkest);
 }
 
 .orders-table-container {
@@ -202,24 +161,6 @@ tbody tr:hover {
   -webkit-backdrop-filter: blur(5px);
 }
 
-.action-btn {
-  font-family: var(--kumbh);
-  font-weight: 600;
-  background: var(--glass);
-  border: none;
-  padding: 8px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  color: var(--dark);
-  transition: all 0.3s ease;
-}
-
-.action-btn:hover {
-  background: var(--dark);
-  color: white;
-}
-
 /* Manage page */
 
 .tabs {
@@ -274,26 +215,6 @@ tbody tr:hover {
   gap: 10px;
 }
 
-.multi-select-grid label {
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--glass);
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.multi-select-grid label:hover {
-  background: #fff;
-}
-
-.multi-select-grid input[type="checkbox"] {
-  accent-color: var(--blue);
-}
-
 .spec-row {
   display: flex;
   gap: 10px;
@@ -305,37 +226,8 @@ tbody tr:hover {
   margin-bottom: 0;
 }
 
-.combinations-container .form-input input {
-  padding: 12px 15px 12px 45px;
-}
-
 .combinations-container .form-label {
   white-space: nowrap;
-}
-
-.remove-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  margin: 0;
-  border-radius: 50%;
-  background-color: rgba(246, 47, 50, 0.1);
-  color: var(--red);
-  font-size: 26px;
-  font-weight: bold;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.remove-btn:hover {
-  background-color: var(--red);
-  color: white;
-  box-shadow: var(--red-shadow);
-  transform: scale(1.1);
 }
 
 .multi-select-grid {
@@ -344,26 +236,6 @@ tbody tr:hover {
   gap: 10px;
 }
 
-.multi-select-grid label {
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--glass);
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.multi-select-grid label:hover {
-  background: #fff;
-}
-
-.multi-select-grid input[type="checkbox"] {
-  accent-color: var(--blue);
-}
-
 .spec-row {
   display: flex;
   gap: 10px;
@@ -373,10 +245,6 @@ tbody tr:hover {
 
 .spec-row .form-input {
   margin-bottom: 0;
-}
-
-.combinations-container .form-input input {
-  padding: 12px 15px 12px 45px;
 }
 
 .combinations-container .form-label {
@@ -392,29 +260,71 @@ tbody tr:hover {
   gap: 30px;
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .form-wrapper {
-    max-width: 100%;
-  }
-
-  .spec-row,
-  .combinations-container .form-group {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 5px;
-  }
-
-  .combinations-container .form-label {
-    text-align: left;
-  }
-
-  .form-card {
-    padding: 15px;
-  }
+/* Orders page */
+.action-buttons form {
+  display: inline-block;
+  margin-right: 5px;
 }
 
-/* assets/css/pages/_dashboard.css */
+.button-small {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  min-width: 80px;
+  text-align: center;
+}
+
+.approve {
+  background-color: var(--green);
+  box-shadow:
+    0px 0px 20px rgba(74, 255, 71, 0.25),
+    0px 5px 5px -1px rgba(58, 233, 67, 0.25),
+    inset 4px 4px 8px rgba(175, 255, 178, 0.5),
+    inset -4px -4px 8px rgba(19, 216, 45, 0.25);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.decline {
+  background-color: var(--red);
+  box-shadow:
+    0px 0px 20px rgba(255, 71, 71, 0.25),
+    0px 5px 5px -1px rgba(233, 58, 58, 0.25),
+    inset 4px 4px 8px rgba(255, 175, 175, 0.5),
+    inset -4px -4px 8px rgba(216, 19, 19, 0.35);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.shipped {
+  background-color: var(--yellow);
+  color: var(--dark);
+  box-shadow:
+    0px 0px 20px rgba(255, 255, 71, 0.25),
+    0px 5px 5px -1px rgba(233, 233, 58, 0.25),
+    inset 4px 4px 8px rgba(254, 255, 175, 0.5),
+    inset -4px -4px 8px rgba(213, 216, 19, 0.35);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.delivered {
+  background-color: var(--blue);
+  box-shadow:
+    0px 0px 20px rgba(71, 184, 255, 0.25),
+    0px 5px 5px -1px rgba(58, 125, 233, 0.25),
+    inset 4px 4px 8px rgba(175, 230, 255, 0.5),
+    inset -4px -4px 8px rgba(19, 95, 216, 0.35);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* Responsive Styles */
 @media (max-width: 480px) {
   .main-content {
     margin-left: 0;
@@ -434,10 +344,6 @@ tbody tr:hover {
     gap: 20px;
   }
 
-  .dashboard-title-group h2 {
-    font-size: 2rem;
-  }
-
   .dashboard-cards {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -445,10 +351,6 @@ tbody tr:hover {
 
   .orders-card {
     padding: 20px;
-  }
-
-  .orders-header h2 {
-    font-size: 1.25rem;
   }
 
   th,
@@ -460,10 +362,5 @@ tbody tr:hover {
   .status {
     padding: 5px 10px;
     font-size: 0.75rem;
-  }
-
-  .action-btn {
-    padding: 6px 12px;
-    font-size: 0.8rem;
   }
 }

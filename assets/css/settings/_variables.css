@@ -37,4 +37,7 @@
 
     /* Breakpoints */
     --sidebar-width: 260px;
+
+    /* Fonts */
+    --kumbh: 'Kumbh Sans' sans-serif;
 }

@@ -1,5 +1,5 @@
 <?php
-$page_title = 'Home | The Mobile Store';
+$page_title = 'Products | The Mobile Store';
 require_once '../includes/config.php';
 require_once '../includes/header.php';
 require_once '../includes/navbar.php';
@@ -97,94 +97,156 @@ $products_stmt->execute();
 $products_result = $products_stmt->get_result();
 ?>
 
-<body>
-    <div class="alert-container"></div>
-    <main class="products-page-section" style="padding-top: 80px;">
-        <div class="section-title">
-            <h2>All Products</h2>
-            <div class="title-line"></div>
-        </div>
+<!-- Alert box -->
+<div class="alert-container"></div>
 
-        <div class="filter-options-bar">
-            <form action="index.php" method="GET" class="filter-form">
-                <div class="form-group">
-                    <label class="form-label">Price Range:</label>
-                    <select name="price_range">
-                        <option value="">All Prices</option>
-                        <option value="0-50000" <?php if ($price_range == '0-50000') echo 'selected'; ?>>Under ₹50,000</option>
-                        <option value="50000-70000" <?php if ($price_range == '50000-70000') echo 'selected'; ?>>₹50,000 - ₹70,000</option>
-                        <option value="70000-100000" <?php if ($price_range == '70000-100000') echo 'selected'; ?>>₹70,000 - ₹1,00,000</option>
-                        <option value="100000-999999" <?php if ($price_range == '100000-999999') echo 'selected'; ?>>Over ₹1,00,000</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Popularity:</label>
-                    <select name="popularity">
-                        <option value="">All</option>
-                        <option value="New" <?php if ($popularity == 'New') echo 'selected'; ?>>New</option>
-                        <option value="Hot" <?php if ($popularity == 'Hot') echo 'selected'; ?>>Hot</option>
-                        <option value="Trending" <?php if ($popularity == 'Trending') echo 'selected'; ?>>Trending</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Sort By:</label>
-                    <select name="sort">
-                        <option value="default" <?php if ($sort_option == 'default') echo 'selected'; ?>>Featured</option>
-                        <option value="price_asc" <?php if ($sort_option == 'price_asc') echo 'selected'; ?>>Price: Low to High</option>
-                        <option value="price_desc" <?php if ($sort_option == 'price_desc') echo 'selected'; ?>>Price: High to Low</option>
-                    </select>
-                </div>
-                <button type="submit" class="button" style="width: 100px; margin: 0; padding: 12px 20px;">Apply</button>
-                <a href="index.php" class="button button-secondary" style="width: 100px; margin: 0; padding: 12px 20px; text-decoration: none;">Reset</a>
-            </form>
-        </div>
+<main class="products-page-section" style="padding-top: 80px;">
+    <!-- Header -->
+    <div class="section-title">
+        <h2>All Products</h2>
+        <div class="title-line"></div>
+    </div>
 
-        <div class="products-grid">
-            <?php if ($products_result->num_rows > 0): ?>
-                <?php while ($product = $products_result->fetch_assoc()): ?>
-                    <div class="product-card">
-                        <?php $is_wishlisted = in_array($product['product_id'], $wishlist_product_ids); ?>
-                        <button class="wishlist-btn <?php if ($is_wishlisted) echo 'active'; ?>" data-product-id="<?php echo $product['product_id']; ?>">
-                            <span class="material-symbols-rounded">favorite</span>
-                        </button>
+    <!-- Filter bar -->
+    <div class="filter-options-bar">
+        <!-- Filter form -->
+        <form action="index.php" method="GET" class="filter-form">
+            <!-- Price range -->
+            <div class="form-group">
+                <label class="form-label">Price Range:</label>
+                <select name="price_range">
+                    <option value="">All Prices</option>
 
-                        <?php if ($product['status']): ?>
-                            <div class="product-badge <?php echo strtolower(htmlspecialchars($product['status'])); ?>"><?php echo htmlspecialchars($product['status']); ?></div>
-                        <?php endif; ?>
+                    <option value="0-50000" <?php if ($price_range == '0-50000') echo 'selected'; ?>>
+                        Under ₹50,000
+                    </option>
 
-                        <h3 class="product-title"><?php echo htmlspecialchars($product['product_name']); ?></h3>
+                    <option value="50000-70000" <?php if ($price_range == '50000-70000') echo 'selected'; ?>>
+                        ₹50,000 - ₹70,000
+                    </option>
 
-                        <div class="product-image-container">
-                            <img src="../assets/images/products/<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>">
-                        </div>
+                    <option value="70000-100000" <?php if ($price_range == '70000-100000') echo 'selected'; ?>>
+                        ₹70,000 - ₹1,00,000
+                    </option>
 
-                        <div class="product-info-bottom">
-                            <div class="product-price">From &#8377;<?php echo number_format($product['starting_price']); ?></div>
-                            <a href="../products/product.php?id=<?php echo $product['product_id']; ?>" class="button buy-button">View</a>
-                        </div>
+                    <option value="100000-999999" <?php if ($price_range == '100000-999999') echo 'selected'; ?>>
+                        Over ₹1,00,000
+                    </option>
+                </select>
+            </div>
+
+            <!-- Popularity -->
+            <div class="form-group">
+                <label class="form-label">Popularity:</label>
+                <select name="popularity">
+                    <option value="">All</option>
+
+                    <option value="New" <?php if ($popularity == 'New') echo 'selected'; ?>>
+                        New
+                    </option>
+
+                    <option value="Hot" <?php if ($popularity == 'Hot') echo 'selected'; ?>>
+                        Hot
+                    </option>
+
+                    <option value="Trending" <?php if ($popularity == 'Trending') echo 'selected'; ?>>
+                        Trending
+                    </option>
+                </select>
+            </div>
+
+            <!-- Sort By -->
+            <div class="form-group">
+                <label class="form-label">Sort By:</label>
+                <select name="sort">
+                    <option value="default" <?php if ($sort_option == 'default') echo 'selected'; ?>>
+                        Featured
+                    </option>
+
+                    <option value="price_asc" <?php if ($sort_option == 'price_asc') echo 'selected'; ?>>
+                        Price: Low to High
+                    </option>
+
+                    <option value="price_desc" <?php if ($sort_option == 'price_desc') echo 'selected'; ?>>
+                        Price: High to Low
+                    </option>
+                </select>
+            </div>
+
+            <!-- Buttons -->
+            <button type="submit" class="button" style="width: 100px; margin: 0; padding: 12px 20px;">
+                Apply
+            </button>
+            <a href="index.php" class="button button-secondary" style="width: 100px; margin: 0; padding: 12px 20px; text-decoration: none;">
+                Reset
+            </a>
+        </form>
+    </div>
+
+    <!-- Products -->
+    <div class="products-grid">
+        <?php if ($products_result->num_rows > 0): ?>
+            <?php while ($product = $products_result->fetch_assoc()): ?>
+                <!-- Product cards -->
+                <div class="product-card">
+                    <!-- Wishlist -->
+                    <?php $is_wishlisted = in_array($product['product_id'], $wishlist_product_ids); ?>
+                    <button class="wishlist-btn <?php if ($is_wishlisted) echo 'active'; ?>" data-product-id="<?php echo $product['product_id']; ?>">
+                        <span class="material-symbols-rounded">favorite</span>
+                    </button>
+
+                    <!-- Product status -->
+                    <?php if ($product['status']): ?>
+                        <div class="product-badge <?php echo strtolower(htmlspecialchars($product['status'])); ?>"><?php echo htmlspecialchars($product['status']); ?></div>
+                    <?php endif; ?>
+
+                    <!-- Product details -->
+                    <!-- Product name -->
+                    <h3 class="product-title"><?php echo htmlspecialchars($product['product_name']); ?></h3>
+
+                    <!--Product iamge -->
+                    <div class="product-image-container">
+                        <img src="../assets/images/products/<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>">
                     </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <p style="text-align: center; grid-column: 1 / -1; padding: 40px;">No products match your criteria.</p>
-            <?php endif; ?>
-        </div>
 
-        <div class="pagination">
-            <?php
-            if ($total_pages > 1):
-                $query_params = http_build_query(array_merge($_GET, ['page' => '']));
-                for ($i = 1; $i <= $total_pages; $i++):
-            ?>
-                    <a href="?<?php echo $query_params . $i; ?>" class="<?php if ($i == $current_page) echo 'active'; ?>"><?php echo $i; ?></a>
-            <?php
-                endfor;
-            endif;
-            ?>
-        </div>
-    </main>
-    <?php
-    require_once '../includes/footer.php';
-    ?>
-</body>
+                    <!-- Product price and view button -->
+                    <div class="product-info-bottom">
+                        <!-- Price -->
+                        <div class="product-price">
+                            From &#8377;<?php echo number_format($product['starting_price']); ?>
+                        </div>
+                        <!-- Button -->
+                        <a href="../products/product.php?id=<?php echo $product['product_id']; ?>" class="button buy-button">
+                            View
+                        </a>
+                    </div>
+                </div>
+            <?php endwhile; ?>
+            <!-- Card ends -->
 
-</html>
+            <!-- If no products found -->
+        <?php else: ?>
+            <p style="text-align: center; grid-column: 1 / -1; padding: 40px;">
+                No products match your criteria.
+            </p>
+        <?php endif; ?>
+    </div>
+    <!-- Product grid ends -->
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <?php
+        if ($total_pages > 1):
+            $query_params = http_build_query(array_merge($_GET, ['page' => '']));
+            for ($i = 1; $i <= $total_pages; $i++):
+        ?>
+                <a href="?<?php echo $query_params . $i; ?>" class="<?php if ($i == $current_page) echo 'active'; ?>"><?php echo $i; ?></a>
+        <?php
+            endfor;
+        endif;
+        ?>
+    </div>
+    
+</main>
+
+<?php require_once '../includes/footer.php'; ?>

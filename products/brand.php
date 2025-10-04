@@ -1,5 +1,6 @@
 <?php
 session_start();
+$page_title = 'Brands | The Mobile Store';
 require_once '../includes/config.php';
 require_once '../includes/header.php';
 require_once '../includes/navbar.php';
@@ -17,7 +18,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 $brand_id = $_GET['id'];
 
-// --- Fetch Brand Details ---
+// Fetch Brand Details 
 $brand_stmt = $conn->prepare("SELECT brand_name, brand_logo_url FROM brands WHERE brand_id = ?");
 $brand_stmt->bind_param("i", $brand_id);
 $brand_stmt->execute();
@@ -29,7 +30,7 @@ if ($brand_result->num_rows === 0) {
 $brand = $brand_result->fetch_assoc();
 $brand_stmt->close();
 
-// --- Fetch User's Wishlist ---
+// Fetch User's Wishlist
 $wishlist_product_ids = [];
 if (isset($_SESSION['user_id'])) {
     $wishlist_stmt = $conn->prepare("SELECT product_id FROM wishlist WHERE user_id = ?");
@@ -42,17 +43,17 @@ if (isset($_SESSION['user_id'])) {
     $wishlist_stmt->close();
 }
 
-// --- Pagination Configuration ---
+// Pagination Configuration
 $products_per_page = 12;
 $current_page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($current_page - 1) * $products_per_page;
 
-// --- Initialize Filter and Sort Variables ---
+// Initialize Filter and Sort Variables
 $sort_option = isset($_GET['sort']) ? $_GET['sort'] : 'default';
 $price_range = isset($_GET['price_range']) ? $_GET['price_range'] : '';
 $popularity = isset($_GET['popularity']) ? $_GET['popularity'] : '';
 
-// --- Build the SQL Query for fetching products ---
+// Build the SQL Query for fetching products
 $base_sql = "
     FROM products p
     JOIN product_variants pv ON p.product_id = pv.product_id
@@ -80,7 +81,7 @@ if (!empty($price_range)) {
 }
 $having_sql = count($having_clauses) > 0 ? " HAVING " . implode(' AND ', $having_clauses) : "";
 
-// --- Get Total Product Count for Pagination ---
+// Get Total Product Count for Pagination
 $count_sql = "SELECT COUNT(DISTINCT p.product_id) as total " . $base_sql . $where_sql . $having_sql;
 $count_stmt = $conn->prepare($count_sql);
 if (!empty($types)) {
@@ -90,7 +91,7 @@ $count_stmt->execute();
 $total_products = $count_stmt->get_result()->fetch_assoc()['total'];
 $total_pages = ceil($total_products / $products_per_page);
 
-// --- Get Products for the Current Page ---
+// Get Products for the Current Page
 $products_sql = "
     SELECT p.product_id, p.product_name, p.status, MIN(pv.price) as starting_price,
     (SELECT image_url FROM product_color_images pci WHERE pci.product_id = p.product_id AND pci.is_thumbnail = 1 LIMIT 1) as image_url
@@ -127,125 +128,161 @@ if (isset($_SESSION['user_id'])) {
     $account_text = 'Login / Register';
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($brand['brand_name']); ?> Products | The Mobile Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <style>
-        .brand-logo-container {
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 10px;
-        }
+<main class="products-page-section" style="padding-top: 150px;">
+    <!-- Header -->
+    <div class="section-title">
+        <div class="brand-logo-container">
+            <img src="../assets/images/brands-logo/<?php echo htmlspecialchars($brand['brand_logo_url']); ?>" alt="<?php echo htmlspecialchars($brand['brand_name']); ?> Logo">
+        </div>
+        <div class="title-line" style="margin-top: 45px;"></div>
+    </div>
 
-        .brand-logo-container img {
-            max-width: 250px;
-            max-height: 150px;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-        }
-    </style>
-</head>
+    <!-- Filter bar -->
+    <div class="filter-options-bar">
+        <!-- Filter form -->
+        <form action="brand.php" method="GET" class="filter-form">
+            <input type="hidden" name="id" value="<?php echo $brand_id; ?>">
 
-<body>
-    <main class="products-page-section" style="padding-top: 150px;">
-        <div class="section-title">
-            <div class="brand-logo-container">
-                <img src="../assets/images/brands-logo/<?php echo htmlspecialchars($brand['brand_logo_url']); ?>" alt="<?php echo htmlspecialchars($brand['brand_name']); ?> Logo">
+            <!-- Price -->
+            <div class="form-group">
+                <label class="form-label">Price Range:</label>
+                <select name="price_range">
+                    <option value="">All Prices</option>
+
+                    <option value="0-50000" <?php if ($price_range == '0-50000') echo 'selected'; ?>>
+                        Under ₹50,000
+                    </option>
+
+                    <option value="50000-70000" <?php if ($price_range == '50000-70000') echo 'selected'; ?>>
+                        ₹50,000 - ₹70,000
+                    </option>
+
+                    <option value="70000-100000" <?php if ($price_range == '70000-100000') echo 'selected'; ?>>
+                        ₹70,000 - ₹1,00,000
+                    </option>
+
+                    <option value="100000-999999" <?php if ($price_range == '100000-999999') echo 'selected'; ?>>
+                        Over ₹1,00,000
+                    </option>
+                </select>
             </div>
-            <div class="title-line" style="margin-top: 45px;"></div>
-        </div>
 
-        <div class="filter-options-bar">
-            <form action="brand.php" method="GET" class="filter-form">
-                <input type="hidden" name="id" value="<?php echo $brand_id; ?>">
-                <div class="form-group">
-                    <label class="form-label">Price Range:</label>
-                    <select name="price_range">
-                        <option value="">All Prices</option>
-                        <option value="0-50000" <?php if ($price_range == '0-50000') echo 'selected'; ?>>Under ₹50,000</option>
-                        <option value="50000-70000" <?php if ($price_range == '50000-70000') echo 'selected'; ?>>₹50,000 - ₹70,000</option>
-                        <option value="70000-100000" <?php if ($price_range == '70000-100000') echo 'selected'; ?>>₹70,000 - ₹1,00,000</option>
-                        <option value="100000-999999" <?php if ($price_range == '100000-999999') echo 'selected'; ?>>Over ₹1,00,000</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Popularity:</label>
-                    <select name="popularity">
-                        <option value="">All</option>
-                        <option value="New" <?php if ($popularity == 'New') echo 'selected'; ?>>New</option>
-                        <option value="Hot" <?php if ($popularity == 'Hot') echo 'selected'; ?>>Hot</option>
-                        <option value="Trending" <?php if ($popularity == 'Trending') echo 'selected'; ?>>Trending</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Sort By:</label>
-                    <select name="sort">
-                        <option value="default" <?php if ($sort_option == 'default') echo 'selected'; ?>>Featured</option>
-                        <option value="price_asc" <?php if ($sort_option == 'price_asc') echo 'selected'; ?>>Price: Low to High</option>
-                        <option value="price_desc" <?php if ($sort_option == 'price_desc') echo 'selected'; ?>>Price: High to Low</option>
-                    </select>
-                </div>
-                <button type="submit" class="button" style="width: 100px; margin: 0; padding: 12px 20px;">Apply</button>
-                <a href="brand.php?id=<?php echo $brand_id; ?>" class="button button-secondary" style="width: 100px; margin: 0; padding: 12px 20px; text-decoration: none;">Reset</a>
-            </form>
-        </div>
+            <!-- Status -->
+            <div class="form-group">
+                <label class="form-label">Popularity:</label>
+                <select name="popularity">
+                    <option value="">All</option>
 
-        <div class="alert-container"></div>
-        <div class="products-grid">
-            <?php if ($products_result->num_rows > 0): ?>
-                <?php while ($product = $products_result->fetch_assoc()): ?>
-                    <div class="product-card">
-                        <?php $is_wishlisted = in_array($product['product_id'], $wishlist_product_ids); ?>
-                        <button class="wishlist-btn <?php if ($is_wishlisted) echo 'active'; ?>" data-product-id="<?php echo $product['product_id']; ?>">
-                            <span class="material-symbols-rounded">favorite</span>
-                        </button>
-                        <?php if ($product['status']): ?>
-                            <div class="product-badge <?php echo strtolower(htmlspecialchars($product['status'])); ?>"><?php echo htmlspecialchars($product['status']); ?></div>
-                        <?php endif; ?>
-                        <h3 class="product-title"><?php echo htmlspecialchars($product['product_name']); ?></h3>
-                        <div class="product-image-container">
-                            <a href="product.php?id=<?php echo $product['product_id']; ?>">
-                                <img src="../assets/images/products/<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>">
-                            </a>
-                        </div>
-                        <div class="product-info-bottom">
-                            <div class="product-price">From &#8377;<?php echo number_format($product['starting_price']); ?></div>
-                            <a href="product.php?id=<?php echo $product['product_id']; ?>" class="button buy-button">View</a>
-                        </div>
+                    <option value="New" <?php if ($popularity == 'New') echo 'selected'; ?>>New</option>
+
+                    <option value="Hot" <?php if ($popularity == 'Hot') echo 'selected'; ?>>Hot</option>
+
+                    <option value="Trending" <?php if ($popularity == 'Trending') echo 'selected'; ?>>Trending</option>
+                </select>
+            </div>
+
+            <!-- Price - High-Low, Low-High -->
+            <div class="form-group">
+                <label class="form-label">Sort By:</label>
+                <select name="sort">
+                    <option value="default" <?php if ($sort_option == 'default') echo 'selected'; ?>>
+                        Featured
+                    </option>
+
+                    <option value="price_asc" <?php if ($sort_option == 'price_asc') echo 'selected'; ?>>
+                        Price: Low to High
+                    </option>
+
+                    <option value="price_desc" <?php if ($sort_option == 'price_desc') echo 'selected'; ?>>
+                        Price: High to Low
+                    </option>
+                </select>
+            </div>
+
+            <!-- Buttons -->
+            <button type="submit" class="button" style="width: 100px; margin: 0; padding: 12px 20px;">Apply</button>
+
+            <a href="brand.php?id=<?php echo $brand_id; ?>" class="button button-secondary" style="width: 100px; margin: 0; padding: 12px 20px; text-decoration: none;">
+                Reset
+            </a>
+        </form>
+        <!-- Form ends -->
+    </div>
+
+    <!-- Alert box -->
+    <div class="alert-container"></div>
+
+    <!-- Products -->
+    <div class="products-grid">
+        <?php if ($products_result->num_rows > 0): ?>
+            <?php while ($product = $products_result->fetch_assoc()): ?>
+
+                <!-- Product cards -->
+                <div class="product-card">
+
+                    <!-- Wishlist items -->
+                    <?php $is_wishlisted = in_array($product['product_id'], $wishlist_product_ids); ?>
+                    <button class="wishlist-btn <?php if ($is_wishlisted) echo 'active'; ?>" data-product-id="<?php echo $product['product_id']; ?>">
+                        <span class="material-symbols-rounded">favorite</span>
+                    </button>
+
+                    <!-- Product status -->
+                    <?php if ($product['status']): ?>
+                        <div class="product-badge <?php echo strtolower(htmlspecialchars($product['status'])); ?>"><?php echo htmlspecialchars($product['status']); ?></div>
+                    <?php endif; ?>
+
+                    <!-- Product name -->
+                    <h3 class="product-title"><?php echo htmlspecialchars($product['product_name']); ?></h3>
+
+                    <!-- Product image -->
+                    <div class="product-image-container">
+                        <a href="product.php?id=<?php echo $product['product_id']; ?>">
+                            <img src="../assets/images/products/<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>">
+                        </a>
                     </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <p style="text-align: center; grid-column: 1 / -1; padding: 40px;">No products found for this brand matching your criteria.</p>
-            <?php endif; ?>
-        </div>
 
-        <div class="pagination">
-            <?php
-            if ($total_pages > 1):
-                // Build query string while excluding 'page'
-                $query_params = $_GET;
-                unset($query_params['page']);
-                $query_string = http_build_query($query_params);
+                    <!-- Product price and view product button -->
+                    <div class="product-info-bottom">
+                        <div class="product-price">
+                            From &#8377;<?php echo number_format($product['starting_price']); ?>
+                        </div>
+                        <a href="product.php?id=<?php echo $product['product_id']; ?>" class="button buy-button">View</a>
+                    </div>
 
-                for ($i = 1; $i <= $total_pages; $i++):
-            ?>
-                    <a href="?<?php echo $query_string . '&page=' . $i; ?>" class="<?php if ($i == $current_page) echo 'active'; ?>"><?php echo $i; ?></a>
-            <?php
-                endfor;
-            endif;
-            ?>
-        </div>
-    </main>
-    <?php require_once '../includes/footer.php'; ?>
-</body>
+                </div>
+            <?php endwhile; ?>
+            <!-- Product card ends -->
 
-</html>
+            <!-- Error if no product found -->
+        <?php else: ?>
+            <p style="text-align: center; grid-column: 1 / -1; padding: 40px;">
+                No products found for this brand matching your criteria.
+            </p>
+        <?php endif; ?>
+    </div>
+    <!-- Product grid ends -->
+
+    <!-- Pagination -->
+    <div class="pagination">
+        <?php
+        if ($total_pages > 1):
+            // Build query string while excluding 'page'
+            $query_params = $_GET;
+            unset($query_params['page']);
+            $query_string = http_build_query($query_params);
+
+            for ($i = 1; $i <= $total_pages; $i++):
+        ?>
+                <a href="?<?php echo $query_string . '&page=' . $i; ?>" class="<?php if ($i == $current_page) echo 'active'; ?>">
+                    <?php echo $i; ?>
+                </a>
+        <?php
+            endfor;
+        endif;
+        ?>
+    </div>
+    <!-- Pagination ends -->
+</main>
+
+<?php require_once '../includes/footer.php'; ?>

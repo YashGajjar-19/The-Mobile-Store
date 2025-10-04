@@ -125,6 +125,13 @@
   margin-bottom: 30px;
 }
 
+.orders-card {
+  background-color: var(--body);
+  border-radius: 1rem;
+  padding: 25px;
+  box-shadow: var(--shadow);
+}
+
 .summary-card {
   background-color: var(--body);
   border-radius: 1rem;

@@ -1,5 +1,5 @@
 <?php
-$page_title = 'Checkout';
+$page_title = 'Checkout | The Mobile Store';
 require_once '../includes/header.php';
 require_once '../includes/navbar.php';
 
@@ -69,6 +69,8 @@ $saved_address = $user_data['address'] ?? '';
 ?>
 
 <main class="form-container" style="min-height: 100vh; margin-top: 60px; margin-bottom: 20px;">
+
+    <!-- Alert box -->
     <div class="alert-container" style="position: fixed; top: 100px; right: 20px; z-index: 1050; width: 300px;">
         <?php
         if (isset($_SESSION['error_message'])) {
@@ -78,77 +80,135 @@ $saved_address = $user_data['address'] ?? '';
         ?>
     </div>
 
+    <!-- Form wrapper -->
     <div class="form-wrapper" style="max-width: 1300px;">
+        <!-- Content column -->
         <div class="form-content-column" style="width: 60%;">
+            <!-- Form card -->
             <div class="form-card" style="max-width: 100%; padding: 10px;">
+                <!-- Header -->
                 <div class="section-title" style="text-align: left;">
                     <h2 style="margin-top:0;">Checkout</h2>
                     <div class="title-line" style="margin: 10px 0 20px 0;"></div>
                 </div>
 
+                <!-- Main form -->
                 <form id="checkout-form" action="../handlers/order_handler.php" method="POST" class="auth-form" style="margin:0;">
+
+                    <!-- Stores the quantity of the product to be purchased, retrieved from the 'quantity' GET parameter, as a hidden input for form submission. -->
                     <?php if ($is_buy_now && !empty($items_to_display)): ?>
                         <input type="hidden" name="buy_now_variant_id" value="<?php echo htmlspecialchars($_GET['variant_id']); ?>">
                         <input type="hidden" name="buy_now_quantity" value="<?php echo htmlspecialchars($_GET['quantity']); ?>">
                     <?php endif; ?>
 
+                    <!-- Order summary -->
                     <div class="order-summary">
+                        <!-- Cart items list -->
                         <div id="cart-items-list">
                             <?php if (!empty($items_to_display)): ?>
                                 <?php foreach ($items_to_display as $item): ?>
+                                    <!-- Summary items -->
                                     <div class="summary-item" data-item-id="<?php echo $item['cart_item_id']; ?>">
+                                        <!-- Product image -->
                                         <img src="../assets/images/products/<?php echo htmlspecialchars($item['image_url']); ?>" class="summary-item-img">
-                                        <div class="summary-item-details">
-                                            <h4><?php echo htmlspecialchars($item['product_name']); ?></h4>
-                                            <p>&#8377;<?php echo number_format($item['price']); ?> each</p>
-                                        </div>
-                                        <div class="summary-item-quantity">
-                                            <span>Qty: <?php echo $item['quantity']; ?></span>
-                                        </div>
-                                        <div class="summary-item-price">&#8377;<?php echo number_format($item['price'] * $item['quantity']); ?></div>
 
+                                        <!-- Summary details -->
+                                        <div class="summary-item-details">
+                                            <!-- Product name -->
+                                            <h4>
+                                                <?php echo htmlspecialchars($item['product_name']); ?>
+                                            </h4>
+
+                                            <!-- Product price -->
+                                            <p>
+                                                &#8377;<?php echo number_format($item['price']); ?> each
+                                            </p>
+                                        </div>
+
+                                        <!-- Item quantity -->
+                                        <div class="summary-item-quantity">
+                                            <span>
+                                                Qty: <?php echo $item['quantity']; ?>
+                                            </span>
+                                        </div>
+
+                                        <!-- Item price -->
+                                        <div class="summary-item-price">
+                                            &#8377;<?php echo number_format($item['price'] * $item['quantity']); ?>
+                                        </div>
+
+                                        <!-- Remove button -->
                                         <?php if (!$is_buy_now): ?>
                                             <button type="button" class="remove-item-btn" data-item-id="<?php echo $item['cart_item_id']; ?>" title="Remove item">
                                                 <span class="material-symbols-rounded">delete</span>
                                             </button>
                                         <?php endif; ?>
                                     </div>
+                                    <!-- Summary ends -->
                                 <?php endforeach; ?>
+
+                                <!-- If no items are there -->
                             <?php else: ?>
-                                <p style="text-align: center; padding: 50px;">Your cart is empty.</p>
+                                <p style="text-align: center; padding: 50px;">
+                                    Your cart is empty.
+                                </p>
                             <?php endif; ?>
                         </div>
+                        <!-- Cart list ends -->
+
+                        <!-- Total -->
                         <div class="summary-total">
-                            <span id="cart-total">Total: &#8377;<?php echo number_format($cart_total); ?></span>
+                            <span id="cart-total">
+                                Total: &#8377;<?php echo number_format($cart_total); ?>
+                            </span>
                         </div>
                     </div>
+                    <!-- Order summary ends -->
 
+                    <!-- Payment details -->
                     <div class="payment-details">
+                        <!-- Shipping adress -->
                         <div class="form-group">
                             <label class="form-label">Shipping Address</label>
+                            <!-- Address setter -->
                             <div class="form-input">
                                 <ion-icon name="create-outline" style="top: 25px;" role="img" class="md hydrated"></ion-icon>
-                                <textarea name="shipping_address" rows="4" placeholder="Enter your full shipping address" required style="min-height: 120px; width: 100%; padding: 15px 15px 15px 45px; border: 1px solid var(--glass); border-radius: 10px; font-size: 0.95rem;"><?php echo htmlspecialchars($saved_address); ?></textarea>
+                                <textarea name="shipping_address" rows="4" placeholder="Enter your full shipping address" required style="min-height: 120px; width: 100%; padding: 15px 15px 15px 45px; border: 1px solid var(--glass); border-radius: 10px; font-size: 0.95rem;">
+                                    <?php echo htmlspecialchars($saved_address); ?>
+                                </textarea>
                             </div>
                         </div>
 
+                        <!-- Payment method -->
                         <label class="form-label" style=" margin: 20px 0;">Payment Method</label>
-
+                        <!-- Payment options -->
                         <div id="payment-options">
                             <div class="payment-option">
                                 <input type="radio" name="payment_method" value="COD" id="cod-payment" checked>
                                 <label for="cod-payment" style="flex-grow: 1; cursor:pointer;">Cash on Delivery (COD)</label>
                             </div>
                         </div>
-                        <button type="submit" id="place-order-btn" class="button" style="width: 100%; margin-top: 20px;" <?php if (empty($items_to_display)) echo 'disabled'; ?>>Place Order</button>
+
+                        <!-- Place order button -->
+                        <button type="submit" id="place-order-btn" class="button" style="width: 100%; margin-top: 20px;" <?php if (empty($items_to_display)) echo 'disabled'; ?>>
+                            Place Order
+                        </button>
                     </div>
+                    <!-- Payment details ends -->
                 </form>
+                <!-- Main form ends -->
             </div>
+            <!-- Form cards ends -->
         </div>
+        <!-- Content column ends -->
+
+        <!-- Image column -->
         <div class="form-image-column" style="max-width: 50%;">
             <img src="../assets/images/svg/checkout.svg" alt="Checkout Image" class="login-image" style="max-width: 80%;">
         </div>
+
     </div>
+    <!-- Form wrapper ends -->
 </main>
 
 <script>

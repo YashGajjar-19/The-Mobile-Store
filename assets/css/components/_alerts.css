@@ -1,4 +1,4 @@
-/* Alert System - Matched to Site Aesthetics */
+/* Alert System */
 .alert,
 .form-alert {
   padding: 1rem 1.25rem;
@@ -21,8 +21,8 @@
   position: fixed;
   top: 110px;
   right: 25px;
-  z-index: 1001;
   width: 320px;
+  z-index: 1001;
 }
 
 /* Alert Icons */
@@ -96,13 +96,4 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* Alert container for floating alerts */
-.alert-container {
-  position: fixed;
-  top: 25px;
-  right: 25px;
-  width: 320px;
-  z-index: 1000;
 }

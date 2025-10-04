@@ -1,5 +1,5 @@
 <?php
-$page_title = 'Cart';
+$page_title = 'Cart | The Mobile Store';
 require_once '../includes/header.php';
 require_once '../includes/navbar.php';
 
@@ -36,17 +36,22 @@ $cart_total = 0;
 ?>
 
 <main class="cart-container two-column-layout">
+    <!-- Image column -->
     <div class="form-image-column">
         <img src="../assets/images/svg/cart.svg" alt="Contact Us Image" class="login-image" style="width: 80%;">
     </div>
 
+    <!-- Content column -->
     <div class="form-content-column" style="padding: 30px;">
+        <!-- Header -->
         <div class="section-title">
             <h2>Your Cart</h2>
             <div class="title-line"></div>
         </div>
+
         <hr>
 
+        <!-- Cart items list -->
         <div class="cart-items-list">
             <?php if ($cart_items_result->num_rows > 0): ?>
                 <?php while ($item = $cart_items_result->fetch_assoc()): ?>
@@ -54,57 +59,111 @@ $cart_total = 0;
                     $subtotal = $item['price'] * $item['quantity'];
                     $cart_total += $subtotal;
                     ?>
+
+                    <!-- Cart items detail -->
                     <div class="cart-item" data-cart-item-id="<?php echo $item['cart_item_id']; ?>">
+                        <!-- Cart item image -->
                         <img src="../assets/images/products/<?php echo htmlspecialchars($item['image_url']); ?>" alt="<?php echo htmlspecialchars($item['product_name']); ?>" class="cart-item-img">
 
+                        <!-- Cart item detail-->
                         <div class="cart-item-details">
-                            <h3><?php echo htmlspecialchars($item['product_name']); ?></h3>
-                            <p><?php echo htmlspecialchars($item['color']) . ', ' . htmlspecialchars($item['ram_gb']) . 'GB RAM, ' . htmlspecialchars($item['storage_gb']) . 'GB'; ?></p>
-                            <div class="cart-item-price">Price: &#8377;<?php echo number_format($item['price']); ?></div>
+                            <!-- Product name -->
+                            <h3>
+                                <?php echo htmlspecialchars($item['product_name']); ?>
+                            </h3>
+                            <!-- Product variant -->
+                            <p>
+                                <?php echo htmlspecialchars($item['color']) . ', ' . htmlspecialchars($item['ram_gb']) . 'GB RAM, ' . htmlspecialchars($item['storage_gb']) . 'GB'; ?>
+                            </p>
+                            <!-- Product price -->
+                            <div class="cart-item-price">
+                                Price: &#8377;<?php echo number_format($item['price']); ?>
+                            </div>
                         </div>
 
+                        <!-- Quantity -->
                         <div class="cart-item-quantity">
                             <label class="form-label">Quantity:</label>
+
+                            <!-- Quantity setter -->
                             <div class="quantity-input-wrapper">
-                                <button type="button" class="quantity-btn" data-action="decrement" data-item-id="<?php echo $item['cart_item_id']; ?>">-</button>
+                                <!-- Minus -->
+                                <button type="button" class="quantity-btn" data-action="decrement" data-item-id="<?php echo $item['cart_item_id']; ?>">
+                                    -
+                                </button>
+
+                                <!-- Quantity number -->
                                 <input type="number" class="quantity-input" value="<?php echo $item['quantity']; ?>" min="1" max="5" data-item-id="<?php echo $item['cart_item_id']; ?>">
-                                <button type="button" class="quantity-btn" data-action="increment" data-item-id="<?php echo $item['cart_item_id']; ?>">+</button>
+
+                                <!-- Plus -->
+                                <button type="button" class="quantity-btn" data-action="increment" data-item-id="<?php echo $item['cart_item_id']; ?>">
+                                    +
+                                </button>
                             </div>
-                            <div class="cart-item-subtotal">Subtotal: &#8377;<span><?php echo number_format($subtotal); ?></span></div>
+
+                            <!-- Subtotal of all itesms -->
+                            <div class="cart-item-subtotal">
+                                Subtotal: &#8377;
+                                <span><?php echo number_format($subtotal); ?></span>
+                            </div>
                         </div>
+
+                        <!-- Remove item button -->
                         <button class="remove-item-btn" data-item-id="<?php echo $item['cart_item_id']; ?>" title="Remove item">
                             <span class="material-symbols-rounded">delete</span>
                         </button>
                     </div>
+                    <!-- Cart items detail ends -->
                 <?php endwhile; ?>
+
+                <!-- If no items in the cart -->
             <?php else: ?>
-                <p style="text-align: center; padding: 50px;">Your cart is empty.</p>
+                <p style="text-align: center; padding: 50px;">
+                    Your cart is empty.
+                </p>
             <?php endif; ?>
         </div>
+        <!-- Cart list ends -->
 
+        <!-- Bill details -->
         <div class="section-title">
+            <!-- Header -->
             <h2>Bill Details</h2>
             <div class="title-line"></div>
         </div>
+
         <hr>
 
+        <!-- Bill total -->
         <div class="cart-summary">
+            <!-- Subtotal -->
             <div class="summary-row">
                 <span class="form-label">Subtotal</span>
                 <span id="summary-subtotal">&#8377;<?php echo number_format($cart_total); ?></span>
             </div>
+
+            <!-- Shipping charge -->
             <div class="summary-row">
                 <span class="form-label">Shipping</span>
                 <span>FREE</span>
             </div>
+
             <hr>
+
+            <!-- Total -->
             <div class="summary-row total">
                 <span class="form-label">Total</span>
                 <span id="summary-total">&#8377;<?php echo number_format($cart_total); ?></span>
             </div>
-            <a href="checkout.php" class="button" id="checkout-btn" style="padding: 15px 60px; margin-left: 250px;" <?php if ($cart_items_result->num_rows === 0) echo 'disabled'; ?>>Proceed to Checkout</a>
+
+            <!-- Checkout button -->
+            <a href="checkout.php" class="button" id="checkout-btn" style="padding: 15px 60px; margin-left: 250px;" <?php if ($cart_items_result->num_rows === 0) echo 'disabled'; ?>>
+                Proceed to Checkout
+            </a>
         </div>
+        <!-- Summary ends -->
     </div>
+    <!-- Form ends -->
 </main>
 
 <script>

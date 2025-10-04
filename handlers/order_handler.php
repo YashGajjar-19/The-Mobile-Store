@@ -1,17 +1,58 @@
 <?php
 session_start();
-require_once '../includes/config.php'; // Adjust path if needed
-
-// Redirect user if not logged in
-if (!isset($_SESSION['user_id'])) {
-    $_SESSION['error_message'] = "You must be logged in to place an order.";
-    header('Location: ../user/login.php');
-    exit();
-}
+require_once '../includes/config.php';
 
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: ../products/checkout.php');
+    exit();
+}
+
+// --- ADMIN ORDER STATUS UPDATE HANDLING ---
+if (isset($_POST['action']) && isset($_POST['order_id'])) {
+    // Security check - only admins can update order status
+    if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
+        $_SESSION['error_message'] = "Unauthorized access.";
+        header('Location: ../user/login.php');
+        exit();
+    }
+
+    $order_id = (int)$_POST['order_id'];
+    $action = $_POST['action'];
+
+    // Validate allowed status transitions
+    $allowed_actions = ['Approved', 'Declined', 'Shipped', 'Delivered'];
+    if (!in_array($action, $allowed_actions)) {
+        $_SESSION['error_message'] = "Invalid action.";
+        header('Location: ../admin/orders.php');
+        exit();
+    }
+
+    try {
+        // Update order status
+        $update_stmt = $conn->prepare("UPDATE orders SET status = ? WHERE order_id = ?");        $update_stmt->bind_param("si", $action, $order_id);
+
+        if (!$update_stmt->execute()) {
+            throw new Exception("Failed to update order status: " . $update_stmt->error);
+        }
+
+        $update_stmt->close();
+
+        $_SESSION['success_message'] = "Order #" . $order_id . " status updated to " . $action . ".";
+        header('Location: ../admin/orders.php');
+        exit();
+    } catch (Exception $e) {
+        $_SESSION['error_message'] = "An error occurred: " . $e->getMessage();
+        header('Location: ../admin/orders.php');
+        exit();
+    }
+}
+
+// --- CUSTOMER ORDER CREATION HANDLING (ORIGINAL CODE) ---
+// Redirect user if not logged in
+if (!isset($_SESSION['user_id'])) {
+    $_SESSION['error_message'] = "You must be logged in to place an order.";
+    header('Location: ../user/login.php');
     exit();
 }
 
@@ -83,9 +124,9 @@ try {
 
     // --- Create the Order (Using YOUR column names) ---
     $order_stmt = $conn->prepare("
-        INSERT INTO orders (user_id, total_amount, shipping_address, payment_method, order_status) 
-        VALUES (?, ?, ?, ?, 'Pending')
-    ");
+    INSERT INTO orders (user_id, total_amount, shipping_address, payment_method, status) 
+    VALUES (?, ?, ?, ?, 'Pending')
+");
     $order_stmt->bind_param("idss", $user_id, $total_amount, $shipping_address, $payment_method);
     if (!$order_stmt->execute()) {
         throw new Exception("Failed to create order: " . $order_stmt->error);

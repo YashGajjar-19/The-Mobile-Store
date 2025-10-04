@@ -1,12 +1,8 @@
 /* Shop By Brand Section */
 .shop-by-brand {
     padding: 2rem 0;
-    background-color: var(--body);
-    background-image:
-            repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(75, 85, 99, 0.08) 20px, rgba(75, 85, 99, 0.08) 21px),
-            repeating-linear-gradient(90deg, transparent, transparent 30px, rgba(107, 114, 128, 0.06) 30px, rgba(107, 114, 128, 0.06) 31px),
-            repeating-linear-gradient(60deg, transparent, transparent 40px, rgba(55, 65, 81, 0.05) 40px, rgba(55, 65, 81, 0.05) 41px),
-            repeating-linear-gradient(150deg, transparent, transparent 35px, rgba(31, 41, 55, 0.04) 35px, rgba(31, 41, 55, 0.04) 36px)
+    background-color: transparent;
+
 }
 
 .brands-grid {
@@ -16,6 +12,22 @@
     max-width: 1000px;
     margin: 2rem auto;
     padding: 0 15px;
+}
+
+.brand-logo-container {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.brand-logo-container img {
+    max-width: 250px;
+    max-height: 150px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
 }
 
 /* Responsive */

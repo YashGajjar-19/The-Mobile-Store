@@ -1,20 +1,8 @@
 <?php
 $error = isset($_GET['error']) ? $_GET['error'] : '';
+$page_title = 'Register | The Mobile Store';
+require_once '../includes/header.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Register | The Mobile Store</title>
-
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-  <link rel="stylesheet" href="../assets/css/main.css" />
-</head>
 
 <body>
   <div class="form-container">

@@ -9,19 +9,6 @@
     position: relative;
 }
 
-/* --- Back Button --- */
-.back-button {
-    position: absolute;
-    top: -30px;
-    left: 95%;
-    width: auto;
-    padding: 8px 15px 8px 10px;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
 .product-images {
     display: flex;
     flex-direction: column;
@@ -230,7 +217,7 @@
     width: 30%;
 }
 
-/* STYLES FOR REVIEWS SECTION */
+/* Review section  */
 .reviews-section {
     margin-top: 40px;
     padding-top: 30px;
@@ -299,35 +286,6 @@
     border-radius: 16px;
     box-shadow: var(--shadow);
     border: 1px solid var(--dark);
-
-}
-
-.rating-input {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 5px;
-    height: 30px;
-    margin-bottom: 15px;
-}
-
-.rating-input input[type="radio"] {
-    display: none;
-}
-
-.rating-input label {
-    font-size: 2rem;
-    color: var(--glass);
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.rating-input input:checked~label,
-.rating-input:not(:hover) input:checked~label,
-.rating-input label:hover,
-.rating-input label:hover~label {
-    color: var(--yellow);
 }
 
 /* Cart Page */
@@ -338,28 +296,6 @@
     justify-content: center;
     align-items: center;
     margin: auto;
-}
-
-.quantity-setter {
-    width: 50px;
-    padding: 7px;
-    text-align: center;
-    margin: 8px 0px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid var(--glass);
-    border-radius: 6px;
-}
-
-.quantity-setter:active {
-    border-color: var(--dark);
-}
-
-.quantity-setter input {
-    width: 50px;
-    text-align: center;
-    padding: 8px;
 }
 
 .summary-row {
@@ -407,17 +343,6 @@
     flex-grow: 0.5;
 }
 
-.cart-item-details h3 {
-    margin: 0 0 5px 0;
-    font-size: 1.2rem;
-}
-
-.cart-item-details p {
-    margin: 0;
-    color: var(--dark);
-    font-size: 0.75rem;
-}
-
 .cart-item-price,
 .cart-item-subtotal {
     font-weight: 600;
@@ -432,11 +357,6 @@
 
 .cart-summary {
     margin-bottom: 30px;
-}
-
-.cart-summary h2 {
-    font-size: 1.8rem;
-    margin: 0 0 10px 0;
 }
 
 /* Checkout Page */
@@ -490,11 +410,6 @@
     flex-grow: 1;
 }
 
-.summary-item-details h4 {
-    margin: 0;
-    font-size: 1.1rem;
-}
-
 .summary-item-price {
     font-weight: 600;
     font-size: 1.1rem;
@@ -507,22 +422,6 @@
     text-align: right;
     font-size: 1.8rem;
     font-weight: bold;
-}
-
-.remove-item-btn {
-    background: none;
-    cursor: pointer;
-    color: var(--red);
-    border: 2px solid var(--red);
-    border-radius: 50%;
-    padding: 5px;
-    margin: auto;
-}
-
-.remove-item-btn .material-symbols-rounded {
-    margin: auto;
-    padding: auto;
-    font-size: 1.2rem;
 }
 
 .payment-option {
@@ -550,6 +449,155 @@
 
 .payment-option.selected .payment-option-content {
     display: block;
+}
+
+/* Order confirmation */
+.confirmation-container {
+    max-width: 800px;
+    margin: 100px auto 50px;
+    padding: 60px;
+    text-align: center;
+    background: var(--body);
+    border-radius: 15px;
+    box-shadow: var(--dark-shadow);
+}
+
+.confirmation-container .material-symbols-rounded {
+    font-size: 80px;
+    color: var(--green);
+}
+
+.confirmation-container h1 {
+    font-size: 2.5rem;
+    margin: 20px 0 10px;
+}
+
+.confirmation-container p {
+    font-size: 1.1rem;
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+/* Invoice Styles */
+.invoice-container {
+    max-width: 850px;
+    margin: 100px auto;
+    padding: 3rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+    color: var(--darker);
+    border-top: 5px solid var(--lightblue);
+}
+
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.invoice-logo {
+    width: 140px;
+    margin-top: -10px;
+}
+
+.invoice-header h1 {
+    font-size: 2.25rem;
+    color: var(--darkest);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.invoice-details h2 {
+    font-size: 0.85rem;
+    color: var(--darkest);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.invoice-details p {
+    margin: 0;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.invoice-details {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.invoice-content {
+    display: inline-block;
+}
+
+.invoice-table {
+    width: 100%;
+    line-height: inherit;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.invoice-table td,
+.invoice-table th {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.invoice-table thead {
+    background-color: var(--background);
+}
+
+.invoice-table thead th {
+    color: var(--darkest);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.invoice-table tbody td {
+    border-bottom: 1px solid #e2e8f0;
+    color: var(--dark);
+}
+
+.invoice-table tbody tr td:first-child {
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.invoice-table tfoot td {
+    border-top: 2px solid #e2e8f0;
+}
+
+.invoice-table tfoot .total-label {
+    font-weight: 700;
+    text-align: right;
+    font-size: 1rem;
+    color: var(--darkest);
+}
+
+.invoice-table tfoot .total-amount {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--blue);
+    text-align: right;
+}
+
+.invoice-footer {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--dark);
+        border-top: 1px solid #e2e8f0;
 }
 
 @media (max-width: 992px) {

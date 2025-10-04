@@ -1,7 +1,7 @@
 <?php
 session_start();
-// The path to config.php is correct because this file is in the same directory.
 require_once '../includes/config.php';
+require_once '../includes/header.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and validate input
@@ -13,14 +13,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check for empty fields
     if (empty($name) || empty($email) || empty($subject) || empty($message)) {
         // Redirect back with an error message
-        header("Location: ../contact.php?status=error&msg=emptyfields");
+        header("Location: ../pages/contact.php?status=error&msg=emptyfields");
         exit();
     }
 
     // Validate email format
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         // Redirect back with an error message
-        header("Location: ../contact.php?status=error&msg=invalidemail");
+        header("Location: ../pages/contact.php?status=error&msg=invalidemail");
         exit();
     }
 
@@ -31,18 +31,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Execute the statement and redirect based on the result
     if ($stmt->execute()) {
         // On success, redirect to the contact page with a success message
-        header("Location: ../contact.php?status=success");
+        $stmt->close();
+        $conn->close();
+        header("Location: ../pages/contact.php?status=success");
         exit();
     } else {
         // On failure, redirect with a database error message
-        header("Location: ../contact.php?status=error&msg=dberror");
+        $stmt->close();
+        $conn->close();
+        header("Location: ../pages/contact.php?status=error&msg=dberror");
         exit();
     }
-
-    $stmt->close();
-    $conn->close();
 } else {
     // If the page is accessed directly, not via POST, redirect to the contact page
-    header("Location: ../contact.php");
+    header("Location: ../pages/contact.php");
     exit();
 }

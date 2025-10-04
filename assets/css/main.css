@@ -4,7 +4,6 @@
 /* 2. BASE */
 @import url('base/_reset.css');
 @import url('base/_typography.css');
-@import url('base/_icons.css');
 
 /* 3. LAYOUT */
 @import url('layout/_header.css');
@@ -23,3 +22,4 @@
 @import url('pages/_products.css');
 @import url('pages/_dashboard.css');
 @import url('pages/_brands.css');
+@import url('pages/_other.css');

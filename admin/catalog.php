@@ -1,12 +1,9 @@
 <?php
-// --- SETUP --- //
-// Includes the database configuration and the standard page header.
 require_once '../includes/config.php';
 require_once '../includes/header.php';
 
 // --- EDIT PRODUCT MODE --- //
-// Checks if the page was loaded with an 'edit' action and a product ID.
-// This block handles fetching all the data needed to populate the edit form.
+
 if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['product_id'])) {
     $product_id = $_GET['product_id'];
 

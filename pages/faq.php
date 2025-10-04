@@ -1,22 +1,29 @@
 <?php
-$page_title = 'Frequently Asked Questions';
+$page_title = 'FAQ | The Mobile Store';
 require_once '../includes/header.php';
 require_once '../includes/navbar.php';
 ?>
 
 <main class="products-page-section">
+    <!-- Header -->
     <div class="section-title" style="padding-top: 95px;">
         <h2>Frequently Asked Questions</h2>
         <div class="title-line" style="margin-top: 10px; margin-bottom: 20px;"></div>
     </div>
 
+    <!-- Form container -->
     <div class="contact-form-container">
+        <!-- Form wrapper -->
         <div class="contact-form-wrapper">
             <div class="contact-image-column" style="padding: 0;">
                 <img src="../assets/images/svg/faq.svg" alt="FAQ Image" class="login-image" style="width: 70%;">
             </div>
+
+            <!-- Content column -->
             <div class="contact-content-column">
+                <!-- Form card -->
                 <div class="form-card" style="padding: 20px; min-width: 600px;">
+
                     <div class="faq-item" style="margin-bottom: 20px;">
                         <h3 style="font-size: 1.3rem; margin-bottom: 10px;">What payment methods do you accept?</h3>
                         <p style="text-align: justify; line-height: 1.6;">
@@ -44,10 +51,15 @@ require_once '../includes/navbar.php';
                             We offer a 7-day return policy for all our products. If you are not satisfied with your purchase, you can return it for a full refund or exchange.
                         </p>
                     </div>
+
                 </div>
+                <!-- Form cards ends here -->
             </div>
+            <!-- Content column ends here -->
         </div>
+        <!-- Form wrapper ends here -->
     </div>
+    <!-- Form container -->
 </main>
 
 <?php

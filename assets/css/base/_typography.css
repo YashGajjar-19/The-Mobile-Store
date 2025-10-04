@@ -56,9 +56,8 @@
 
 /* Header logo text */
 .logo-text {
-  font-family: Quicksand, sans-serif;
   font-size: 1.65rem;
-  font-weight: 800;
+  font-weight: 900;
   background: var(--gradient);
   background-clip: text;
   -webkit-background-clip: text;
@@ -71,8 +70,6 @@
 }
 
 /* Sliders Title */
-
-/* title part */
 .feature-title {
   position: relative;
   text-align: center;
@@ -163,7 +160,7 @@
   font-size: 35px;
   font-weight: 600px;
   text-shadow: 0 2px 4px rgba(0, 120, 240, 0.15);
-  background: var(--text-gradient); 
+  background: var(--text-gradient);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
@@ -183,7 +180,7 @@
   }
 }
 
-/* Status : New / Trending */
+/* Slider status : New/Trending/Hot */
 .slide-status {
   position: absolute;
   top: 20px;
@@ -235,7 +232,7 @@
   text-align: left;
 }
 
-/* Badge(Hot, New, Trending..) */
+/* Badge : New/Trending/Hot */
 .product-badge {
   margin-bottom: 0.37rem;
   color: var(--yellow);
@@ -260,7 +257,7 @@
   color: var(--yellow);
 }
 
-.product-badge.hot { 
+.product-badge.hot {
   color: var(--red);
 }
 
@@ -320,7 +317,62 @@
   text-decoration: underline;
 }
 
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: var(--dark);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
 /* Dashboard */
+.dashboard-header h1 {
+  font-family: var(--kumbh);
+  font-size: 2.5rem;
+  color: var(--darkest);
+}
+
+.dashboard-title-group h2 {
+  font-family: var(--kumbh);
+  font-size: 2.5rem;
+  color: var(--darkest);
+  margin: 0;
+}
+
+.card-info p {
+  font-family: var(--kumbh);
+  font-weight: 600;
+  color: var(--dark);
+  font-size: 1rem;
+  margin: 0 0 5px 0;
+}
+
+.card-info h3 {
+  font-family: var(--kumbh);
+  font-size: 2rem;
+  color: var(--darkest);
+  margin: 0;
+}
+
+.orders-header h2 {
+  font-family: var(--kumbh);
+  font-size: 1.5rem;
+  color: var(--darkest);
+}
 
 /* Recent orders section */
 .recent-orders h3 {
@@ -349,6 +401,43 @@
   background-clip: text;
   color: transparent;
   margin: 10px 0 0;
+}
+
+/* Other pages */
+.contact-info-item h3 {
+  font-size: 1.5rem;
+  color: var(--darkest);
+  margin-bottom: 5px;
+}
+
+.contact-info-item p,
+.contact-info-item a {
+  font-size: 1rem;
+  color: var(--dark);
+  text-decoration: none;
+}
+
+/* Cart page */
+.cart-item-details h3 {
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+}
+
+.cart-item-details p {
+  margin: 0;
+  color: var(--dark);
+  font-size: 0.75rem;
+}
+
+.cart-summary h2 {
+  font-size: 1.8rem;
+  margin: 0 0 10px 0;
+}
+
+/* Checkout page */
+.summary-item-details h4 {
+  margin: 0;
+  font-size: 1.1rem;
 }
 
 /* Responsive Adjustments */
@@ -402,5 +491,13 @@
     font-size: 0.6rem;
     font-weight: 600;
     margin: 0;
+  }
+
+  .dashboard-title-group h2 {
+    font-size: 2rem;
+  }
+
+  .orders-header h2 {
+    font-size: 1.25rem;
   }
 }

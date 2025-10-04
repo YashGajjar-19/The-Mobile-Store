@@ -8,7 +8,7 @@
   background-size: 250% auto;
   color: white;
   font-family: var(--kumbh);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -117,9 +117,9 @@
 }
 
 .wishlist-btn.active .material-symbols-rounded {
-    font-variation-settings: "FILL" 1;
-    color: var(--red);
-    animation: normal 0.3s ease;
+  font-variation-settings: "FILL" 1;
+  color: var(--red);
+  animation: normal 0.3s ease;
 }
 
 /* Browse more button */
@@ -152,7 +152,7 @@
   z-index: initial;
 }
 
-/* Improved Remove Item Button (for Cart & Checkout) */
+/* Remove button */
 .remove-item-btn {
   border: none;
   cursor: pointer;
@@ -172,7 +172,99 @@
 .remove-item-btn .material-symbols-rounded {
   font-size: 1.5rem;
   display: block;
-  /* Helps with alignment */
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  display: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 0.1px solid var(--lightest);
+  background: var(--glass);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: var(--shadow);
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-btn .material-symbols-rounded {
+  font-size: 1.5rem;
+  color: var(--darkest);
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-btn:hover {
+  background: var(--lightest);
+}
+
+.mobile-menu-btn:hover .material-symbols-rounded {
+  color: var(--blue);
+}
+
+/* Search Button */
+.search-btn {
+  cursor: pointer;
+}
+
+/* Dashboard */
+.action-btn {
+  font-family: var(--kumbh);
+  font-weight: 600;
+  background: var(--glass);
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--dark);
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  background: var(--dark);
+  color: white;
+}
+
+.remove-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  margin: 0;
+  border-radius: 50%;
+  background-color: rgba(246, 47, 50, 0.1);
+  color: var(--red);
+  font-size: 26px;
+  font-weight: bold;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.remove-btn:hover {
+  background-color: var(--red);
+  color: white;
+  box-shadow: var(--red-shadow);
+  transform: scale(1.1);
+}
+
+/* --- Back Button --- */
+.back-button {
+  position: absolute;
+  top: -30px;
+  left: 95%;
+  width: auto;
+  padding: 8px 15px 8px 10px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 /* Responsive */
@@ -229,5 +321,20 @@
 
   .wishlist-btn .material-symbols-rounded {
     font-size: 11px;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    width: 50px;
+    height: 50px;
+  }
+
+  .mobile-menu-btn .material-symbols-rounded {
+    font-size: 1.3rem;
+  }
+
+  .action-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
   }
 }
