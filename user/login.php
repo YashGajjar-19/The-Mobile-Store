@@ -76,7 +76,7 @@ if (isset($_SESSION['user_id'])) {
                                 <input type="checkbox" name="remember"> Remember me
                             </label>
 
-                            <a href="" class="forgot-password">Forgot password?</a>
+                            <a href="forgot-password.php">Forgot Password?</a>
                         </div>
 
                         <!-- Form submission -->
