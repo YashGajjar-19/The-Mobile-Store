@@ -9,6 +9,7 @@
     max-width: 1250px;
     background: var(--background);
     border-radius: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.100);
     box-shadow: var(--light-shadow);
     flex-wrap: wrap;
 }
@@ -49,29 +50,31 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     margin-top: 50px;
 }
 
 .pagination a {
     color: var(--dark);
-    padding: 10px 15px;
+    padding: 9px 15px;
     text-decoration: none;
-    border-radius: 10px;
-    background-color: var(--glass);
+    background-color: var(--body);
     transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.400);
     font-weight: 600;
+    border-radius: 50%;
 }
 
 .pagination a:hover {
-    background-color: var(--blue);
+    background: var(--gradient);
     color: white;
-    box-shadow: var(--blue-shadow);
+    box-shadow: var(--light-shadow);
 }
 
 .pagination a.active {
     background: var(--gradient);
     color: white;
-    box-shadow: var(--shadow);
+    box-shadow: var(--dark-shadow);
     cursor: default;
+padding: 9px 15px;
 }
