@@ -154,59 +154,12 @@ $brands_result = $conn->query("SELECT * FROM brands ORDER BY brand_name");
 $categories_result = $conn->query("SELECT * FROM categories ORDER BY category_name");
 ?>
 
-<style>
-    /* Additional styles for this specific page */
-    .image-gallery {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        margin-top: 15px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid var(--glass);
-    }
-
-    .image-thumbnail {
-        position: relative;
-    }
-
-    .image-thumbnail img {
-        width: 120px;
-        height: 120px;
-        object-fit: contain;
-        border-radius: 10px;
-        border: 2px solid var(--glass);
-        background: white;
-    }
-
-    .delete-image-label {
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        background: rgba(255, 255, 255, 0.8);
-        border-radius: 50%;
-        width: 24px;
-        height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    }
-
-    .delete-image-label input {
-        display: none;
-    }
-
-    .delete-image-label .material-symbols-rounded {
-        font-size: 16px;
-        color: var(--red);
-    }
-</style>
-
 <body class="admin-page">
 
     <div class="form-container">
         <div class="form-wrapper">
             <div class="form-content-column">
+
                 <!-- Header -->
                 <div class="dashboard-header-top" style="margin: 20px;">
                     <div class="dashboard-title-group">
@@ -218,18 +171,23 @@ $categories_result = $conn->query("SELECT * FROM categories ORDER BY category_na
 
                 <!-- Display Messages -->
                 <?php if ($message): ?>
-                    <div class="alert alert-<?php echo $message_type; ?>" style="max-width: 1100px;"><?php echo $message; ?></div>
+                <div class="alert alert-<?php echo $message_type; ?>" style="max-width: 1100px;">
+                    <?php echo $message; ?>
+                </div>
                 <?php endif; ?>
 
                 <!-- Edit Product Form -->
-                <form action="edit-product.php?id=<?php echo $product_id; ?>" method="POST" enctype="multipart/form-data" class="auth-form" style="margin: 0;">
+                <form action="edit-product.php?id=<?php echo $product_id; ?>" method="POST"
+                    enctype="multipart/form-data" class="auth-form" style="margin: 0;">
                     <input type="hidden" name="edit_product" value="1">
                     <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
 
                     <div class="edit-product-container">
                         <div class="form-card" style="min-width: 100%;">
                             <h3 style="margin-bottom: 15px" ;>Product Information</h3>
+
                             <hr>
+
                             <div class=" form-group" style="margin-top: 15px;">
                                 <label class=" form-label">
                                     Product Name
@@ -237,7 +195,8 @@ $categories_result = $conn->query("SELECT * FROM categories ORDER BY category_na
 
                                 <div class="form-input">
                                     <ion-icon name="phone-portrait-outline"></ion-icon>
-                                    <input type="text" name="product_name" value="<?php echo htmlspecialchars($product['product_name']); ?>" required>
+                                    <input type="text" name="product_name"
+                                        value="<?php echo htmlspecialchars($product['product_name']); ?>" required>
                                 </div>
                             </div>
 
@@ -248,11 +207,13 @@ $categories_result = $conn->query("SELECT * FROM categories ORDER BY category_na
 
                                 <div class="form-input">
                                     <ion-icon name="document-text-outline" class="icon-textarea"></ion-icon>
-                                    <textarea name="description" rows="8"><?php echo htmlspecialchars($product['description']); ?></textarea>
+                                    <textarea name="description"
+                                        rows="8"><?php echo htmlspecialchars($product['description']); ?></textarea>
                                 </div>
                             </div>
 
                             <div class="form-row">
+
                                 <div class="form-group">
                                     <label class="form-label">
                                         Brand
@@ -269,9 +230,11 @@ $categories_result = $conn->query("SELECT * FROM categories ORDER BY category_na
                                 </div>
 
                                 <div class="form-group">
+
                                     <label class="form-label">
                                         Category
                                     </label>
+
                                     <div class="form-input">
                                         <select name="category_id" required>
                                             <?php mysqli_data_seek($categories_result, 0);
@@ -283,15 +246,31 @@ $categories_result = $conn->query("SELECT * FROM categories ORDER BY category_na
                                 </div>
 
                                 <div class="form-group">
+
                                     <label class="form-label">
                                         Status
                                     </label>
+
                                     <div class="form-input">
                                         <select name="status">
-                                            <option value="" <?php if (empty($product['status'])) echo 'selected'; ?>>None</option>
-                                            <option value="New" <?php if ($product['status'] == 'New') echo 'selected'; ?>>New</option>
-                                            <option value="Hot" <?php if ($product['status'] == 'Hot') echo 'selected'; ?>>Hot</option>
-                                            <option value="Trending" <?php if ($product['status'] == 'Trending') echo 'selected'; ?>>Trending</option>
+                                            <option value="" <?php if (empty($product['status'])) echo 'selected' ; ?>>
+                                                None
+                                            </option>
+
+                                            <option value="New" <?php if ($product['status']=='New' ) echo 'selected' ;
+                                                ?>>
+                                                New
+                                            </option>
+
+                                            <option value="Hot" <?php if ($product['status']=='Hot' ) echo 'selected' ;
+                                                ?>>
+                                                Hot
+                                            </option>
+
+                                            <option value="Trending" <?php if ($product['status']=='Trending' )
+                                                echo 'selected' ; ?>>
+                                                Trending
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -300,54 +279,97 @@ $categories_result = $conn->query("SELECT * FROM categories ORDER BY category_na
 
                         <div class="variants-images-column">
                             <h3>Variants & Images</h3>
+
                             <hr style="margin: 15px 0 30px 0;">
 
                             <?php foreach ($data_by_color as $color => $data): ?>
-                                <div class="variant-group" style="border:1px solid var(--glass); padding: 20px; margin-bottom: 20px; border-radius: 12px;">
-                                    <h4 style="margin-bottom: 15px;">Color: <?php echo htmlspecialchars($color); ?></h4>
+                            <div class="variant-group"
+                                style="border:1px solid var(--glass); padding: 20px; margin-bottom: 20px; border-radius: 12px;">
 
-                                    <label class="form-label">Image Gallery</label>
-                                    <div class="image-gallery">
-                                        <?php if (!empty($data['images'])): ?>
-                                            <?php foreach ($data['images'] as $image): ?>
-                                                <div class="image-thumbnail">
-                                                    <img src="../assets/images/products/<?php echo htmlspecialchars($image['image_url']); ?>" alt="Product Image">
-                                                    <label class="delete-image-label" title="Mark for deletion">
-                                                        <input type="checkbox" name="delete_images[]" value="<?php echo $image['image_id']; ?>">
-                                                        <span class="material-symbols-rounded">delete</span>
-                                                    </label>
-                                                </div>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <p>No images for this color.</p>
-                                        <?php endif; ?>
+                                <h4 style="margin-bottom: 15px;">
+                                    Color:
+                                    <?php echo htmlspecialchars($color); ?>
+                                </h4>
+
+                                <label class="form-label">Image Gallery</label>
+
+                                <div class="image-gallery">
+                                    <?php if (!empty($data['images'])): ?>
+                                    <?php foreach ($data['images'] as $image): ?>
+                                    <div class="image-thumbnail">
+                                        <img src="../assets/images/products/<?php echo htmlspecialchars($image['image_url']); ?>"
+                                            alt="Product Image">
+                                        <label class="delete-image-label" title="Mark for deletion">
+                                            <input type="checkbox" name="delete_images[]"
+                                                value="<?php echo $image['image_id']; ?>">
+                                            <span class="material-symbols-rounded">delete</span>
+                                        </label>
                                     </div>
+                                    <?php endforeach; ?>
 
-                                    <div class="form-group"><label class="form-label">Upload New Images for this Color</label>
-                                        <div class="form-input"><ion-icon name="images-outline"></ion-icon><input type="file" name="new_images[<?php echo htmlspecialchars($color); ?>][]" multiple accept="image/*" style="padding-left: 45px;"></div>
-                                    </div>
-
-                                    <hr style="margin: 20px 0;">
-
-                                    <?php if (!empty($data['variants'])): ?>
-                                        <?php foreach ($data['variants'] as $variant): ?>
-                                            <div class="form-row" style="margin-left: 0px; align-items: center;">
-                                                <div style="flex: 1; font-weight: 500;">
-                                                    <?php echo htmlspecialchars($variant['ram_gb']); ?>GB RAM / <?php echo htmlspecialchars($variant['storage_gb']); ?>GB
-                                                </div>
-                                                <div class="form-group" style="flex: 1;"><label class="form-label" style="display:none;">Price</label>
-                                                    <div class="form-input"><ion-icon name="pricetag-outline"></ion-icon><input type="text" name="variants[<?php echo $variant['variant_id']; ?>][price]" value="<?php echo htmlspecialchars($variant['price']); ?>" required></div>
-                                                </div>
-                                                <div class="form-group" style="flex: 1;"><label class="form-label" style="display:none;">Stock</label>
-                                                    <div class="form-input"><ion-icon name="cube-outline"></ion-icon><input type="number" name="variants[<?php echo $variant['variant_id']; ?>][stock]" value="<?php echo htmlspecialchars($variant['stock_quantity']); ?>" required></div>
-                                                </div>
-                                            </div>
-                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                    <p>No images for this color.</p>
                                     <?php endif; ?>
                                 </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        Upload New Images for this Color
+                                    </label>
+
+                                    <div class="form-input">
+                                        <ion-icon name="images-outline"></ion-icon>
+                                        <input type="file" name="new_images[<?php echo htmlspecialchars($color); ?>][]"
+                                            multiple accept="image/*" style="padding-left: 45px;">
+                                    </div>
+                                </div>
+
+                                <hr style="margin: 20px 0;">
+
+                                <?php if (!empty($data['variants'])): ?>
+                                <?php foreach ($data['variants'] as $variant): ?>
+                                <div class="form-row" style="margin-left: 0px; align-items: center;">
+                                    <div style="flex: 1; font-weight: 500;">
+                                        <?php echo htmlspecialchars($variant['ram_gb']); ?>
+                                        GB RAM /
+                                        <?php echo htmlspecialchars($variant['storage_gb']); ?>
+                                        GB
+                                    </div>
+
+                                    <div class="form-group" style="flex: 1;">
+                                        <label class="form-label" style="display:none;">Price</label>
+
+                                        <div class="form-input">
+                                            <ion-icon name="pricetag-outline"></ion-icon>
+                                            <input type="text"
+                                                name="variants[<?php echo $variant['variant_id']; ?>][price]"
+                                                value="<?php echo htmlspecialchars($variant['price']); ?>" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="flex: 1;"><label class="form-label"
+                                            style="display:none;">Stock</label>
+                                        <div class="form-input">
+                                            <ion-icon name="cube-outline"></ion-icon>
+                                            <input type="number"
+                                                name="variants[<?php echo $variant['variant_id']; ?>][stock]"
+                                                value="<?php echo htmlspecialchars($variant['stock_quantity']); ?>"
+                                                required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php endforeach; ?>
+                                <?php endif; ?>
+                            </div>
+
                             <?php endforeach; ?>
                         </div>
-                        <div class="form-submit" style="margin-top: 30px;"><button type="submit" class="button">Save All Changes</button></div>
+
+                        <div class="form-submit" style="margin-top: 30px;">
+                            <button type="submit" class="button">
+                                Save All Changes
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

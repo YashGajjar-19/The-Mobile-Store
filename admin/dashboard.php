@@ -29,16 +29,19 @@ if (isset($_SESSION['user_id'])) {
 
 <body>
     <section class="header-container" id="header-section">
+
         <header class="header admin-header">
             <a href="../index.php" class="logo-container">
                 <img class="logo-image" src="../assets/images/Logo.png" alt="The Mobile Store">
                 <span class="logo-text">The Mobile Store</span>
             </a>
+
             <div class="nav-wrapper">
                 <nav class="navbar">
                     <a href="../index.php" class="nav-icon" title="View Storefront">
                         <span class="material-symbols-rounded">storefront</span>
                     </a>
+
                     <a href="messages.php" class="nav-icon" title="View Messages">
                         <span class="material-symbols-rounded">notifications_active
                         </span>
@@ -46,10 +49,12 @@ if (isset($_SESSION['user_id'])) {
                             <span class="cart-badge"><?php echo $message_count; ?></span>
                         <?php endif; ?>
                     </a>
+
                     <a href="<?php echo $account_link; ?>" class="nav-icon" title="My Account">
                         <span class="material-symbols-rounded">account_circle</span>
                     </a>
                 </nav>
+
                 <button class="mobile-menu-btn" id="sidebar-toggle-mobile">
                     <span class="material-symbols-rounded">menu</span>
                 </button>
@@ -62,6 +67,7 @@ if (isset($_SESSION['user_id'])) {
             <img class="sidebar-logo-image" src="../assets/images/svg/admin.svg" alt="Admin Profile">
             <span class="sidebar-logo-text"><?php echo htmlspecialchars($_SESSION['full_name']); ?></span>
         </div>
+
         <nav class="sidebar-nav">
             <ul class="sidebar-nav-list">
                 <li class="sidebar-nav-item">
@@ -103,6 +109,7 @@ if (isset($_SESSION['user_id'])) {
     </aside>
 
     <main class="main-content">
+
         <div class="dashboard-header-top">
             <div class="dashboard-title-group">
                 <h2>Dashboard</h2>
@@ -118,15 +125,22 @@ if (isset($_SESSION['user_id'])) {
         </div>
 
         <div class="dashboard-cards">
+
             <div class="summary-card">
-                <div class="card-icon"><span class="material-symbols-rounded" style="color: lightgreen; border: 1px Solid lightgreen;">group</span></div>
+                <div class="card-icon">
+                    <span class="material-symbols-rounded" style="color: lightgreen; border: 1px Solid lightgreen;">group</span>
+                </div>
+
                 <div class="card-info">
                     <p>Total Users</p>
                     <h3><?php echo $total_users; ?></h3>
                 </div>
             </div>
             <div class="summary-card">
-                <div class="card-icon"><span class="material-symbols-rounded" style="color: yellow; border: 1px Solid yellow;">receipt_long</span></div>
+                <div class="card-icon">
+                    <span class="material-symbols-rounded" style="color: yellow; border: 1px Solid yellow;">receipt_long</span>
+                </div>
+
                 <div class=" card-info">
                     <p>Total Orders</p>
                     <h3><?php echo $total_orders; ?></h3>
@@ -138,6 +152,7 @@ if (isset($_SESSION['user_id'])) {
             <div class="orders-header">
                 <h2>Recent Products</h2><a href="products.php" class="button buy-button">View All</a>
             </div>
+
             <div class="orders-table-container">
                 <table>
                     <thead>
@@ -146,6 +161,7 @@ if (isset($_SESSION['user_id'])) {
                             <th>Brand</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         <?php while ($product = $recent_products->fetch_assoc()): ?>
                             <tr>
@@ -159,10 +175,12 @@ if (isset($_SESSION['user_id'])) {
         </div>
 
         <div class="orders-card" style="margin-top:30px;">
+
             <div class="orders-header">
                 <h2>Recent Orders</h2>
                 <a href="orders.php" class="button buy-button">View All</a>
             </div>
+
             <div class="orders-table-container">
                 <table>
                     <thead>
@@ -173,13 +191,27 @@ if (isset($_SESSION['user_id'])) {
                             <th>Status</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         <?php while ($order = $recent_orders->fetch_assoc()): ?>
                             <tr>
-                                <td>#<?php echo $order['order_id']; ?></td>
-                                <td><?php echo htmlspecialchars($order['full_name']); ?></td>
-                                <td>&#8377;<?php echo number_format($order['total_amount']); ?></td>
-                                <td><span class="status <?php echo strtolower(htmlspecialchars($order['status'])); ?>"><?php echo htmlspecialchars($order['status']); ?></span></td>
+                                <td>
+                                    #<?php echo $order['order_id']; ?>
+                                </td>
+
+                                <td>
+                                    <?php echo htmlspecialchars($order['full_name']); ?>
+                                </td>
+
+                                <td>
+                                    &#8377;<?php echo number_format($order['total_amount']); ?>
+                                </td>
+
+                                <td>
+                                    <span class="status <?php echo strtolower(htmlspecialchars($order['status'])); ?>">
+                                        <?php echo htmlspecialchars($order['status']); ?>
+                                    </span>
+                                </td>
                             </tr>
                         <?php endwhile; ?>
                     </tbody>
@@ -188,9 +220,12 @@ if (isset($_SESSION['user_id'])) {
         </div>
 
         <div class="orders-card" style="margin-top:30px;">
+
             <div class="orders-header">
-                <h2>Recent Users</h2><a href="users.php" class="button buy-button">View All</a>
+                <h2>Recent Users</h2>
+                <a href="users.php" class="button buy-button">View All</a>
             </div>
+
             <div class="orders-table-container">
                 <table>
                     <thead>
@@ -200,6 +235,7 @@ if (isset($_SESSION['user_id'])) {
                             <th>Date Registered</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         <?php while ($user = $recent_users->fetch_assoc()): ?>
                             <tr>

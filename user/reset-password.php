@@ -35,27 +35,33 @@ if ($token) {
     $error_message = 'No permission to access this page. Please verify first.';
 }
 
-// Invalidate the token after checking it once, successful or not
-unset($_SESSION['reset_token']);
+// The line `unset($_SESSION['reset_token']);` has been removed from here.
 ?>
 
 <body>
     <div class="form-container">
         <div class="form-wrapper">
             <div class="form-image-column">
-                <img src="../assets/images/svg/forgot.svg" alt="Reset Password Image" class="login-image" style="width: 80%;">
+                <img src="../assets/images/svg/register.svg" alt="Reset Password Image" class="login-image">
             </div>
-            <div class=" form-content-column">
+            <div class="form-content-column">
                 <div class="form-card">
                     <div class="form-header">
                         <h2 class="form-header">Reset Your Password</h2>
                     </div>
 
-                    <?php if ($is_token_valid): ?>
+                    <?php
+                    // Display success message if account is found
+                    if (isset($_GET['status']) && $_GET['status'] == 'found' && $is_token_valid) {
+                        echo '<div class="alert alert-success">Account verified successfully. You can now reset your password.</div>';
+                    }
+                    ?>
+
+                    <?php if ($is_token_valid) : ?>
                         <p class="form-header" style="margin-top: -1rem; margin-bottom: 1rem;">Enter and confirm your new password below.</p>
                         <?php
                         if (isset($_GET['status']) && $_GET['status'] == 'mismatch') {
-                            echo '<div class="alert alert-error">Passwords do not match. Please try again.</div>';
+                            echo '<div class="alert alert-danger">Passwords do not match. Please try again.</div>';
                         }
                         ?>
                         <form id="reset-password-form" action="../handlers/password_reset_handler.php" method="POST" class="auth-form">
@@ -82,7 +88,7 @@ unset($_SESSION['reset_token']);
                                 <button type="submit" class="button">Update Password</button>
                             </div>
                         </form>
-                    <?php else: ?>
+                    <?php else : ?>
                         <div class="alert alert-danger"><?php echo $error_message; ?></div>
                         <div class="form-submit">
                             <a href="forgot-password.php" class="button" style="text-align: center;">Start Over</a>

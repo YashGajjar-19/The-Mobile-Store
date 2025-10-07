@@ -150,7 +150,7 @@ tbody tr:hover {
   -webkit-backdrop-filter: blur(5px);
 }
 
-.status.rejected {
+.status.declined {
   background-color: var(--red);
   box-shadow:
     0px 0px 20px rgba(255, 71, 71, 0.25),
@@ -293,7 +293,7 @@ tbody tr:hover {
 .decline {
   background-color: var(--red);
   box-shadow:
-    0px 0px 20px rgba(255, 71, 71, 0.25),
+    0px 0px 20px rgba(255, 10, 10, 0.25),
     0px 5px 5px -1px rgba(233, 58, 58, 0.25),
     inset 4px 4px 8px rgba(255, 175, 175, 0.5),
     inset -4px -4px 8px rgba(216, 19, 19, 0.35);
@@ -303,7 +303,6 @@ tbody tr:hover {
 
 .shipped {
   background-color: var(--yellow);
-  color: var(--dark);
   box-shadow:
     0px 0px 20px rgba(255, 255, 71, 0.25),
     0px 5px 5px -1px rgba(233, 233, 58, 0.25),
@@ -322,6 +321,104 @@ tbody tr:hover {
     inset -4px -4px 8px rgba(19, 95, 216, 0.35);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+}
+
+/* Edit page */
+/* Additional styles for this specific page */
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--glass);
+}
+
+.image-thumbnail {
+  position: relative;
+}
+
+.image-thumbnail img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 2px solid var(--glass);
+  background: white;
+}
+
+.delete-image-label {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.delete-image-label input {
+  display: none;
+}
+
+.delete-image-label .material-symbols-rounded {
+  font-size: 16px;
+  color: var(--red);
+}
+
+/* Message page */
+.message-card {
+  background-color: var(--body);
+  border-radius: 1rem;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  border-left: 5px solid var(--blue);
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--glass);
+}
+
+.message-sender h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--darkest);
+}
+
+.message-sender a {
+  font-size: 0.9rem;
+  color: var(--dark);
+  text-decoration: none;
+}
+
+.message-sender a:hover {
+  text-decoration: underline;
+}
+
+.message-date {
+  font-size: 0.85rem;
+  color: var(--dark);
+  font-weight: 500;
+}
+
+.message-subject {
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.message-body {
+  line-height: 1.6;
 }
 
 /* Responsive Styles */

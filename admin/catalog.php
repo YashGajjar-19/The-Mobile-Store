@@ -252,6 +252,7 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
 
             <div class="form-content-column" style="margin: auto;">
                 <div class="form-card" style="max-width: 100%;">
+
                     <div class="dashboard-header-top" style="margin-bottom: 30px;">
                         <div class="dashboard-title-group">
                             <h2 style="font-size: 2rem;">Manage Products</h2>
@@ -261,14 +262,21 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                     </div>
 
                     <div class="tabs">
-                        <button class="tab-link active" onclick="openTab(event, 'products')">Add Product</button>
-                        <button class="tab-link" onclick="openTab(event, 'edit_product')">Edit Products</button>
+                        <button class="tab-link active" onclick="openTab(event, 'products')">
+                            Add Product
+                        </button>
+
+                        <button class="tab-link" onclick="openTab(event, 'edit_product')">
+                            Edit Products
+                        </button>
                     </div>
 
                     <div id="products" class="tab-content active">
+
                         <div class=" form-header">
                             <h2>Add New Product</h2>
                         </div>
+
                         <?php if ($message && $active_tab === 'product'): ?>
                             <div class="alert alert-<?php echo $message_type; ?>">
                                 <?php echo $message; ?>
@@ -287,6 +295,7 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
 
                             <div class="form-group">
                                 <label class="form-label">Product Name</label>
+
                                 <div class="form-input">
                                     <ion-icon name="phone-portrait-outline"></ion-icon>
                                     <input type="text" name="product_name" required>
@@ -296,6 +305,7 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                             <div class="form-row">
                                 <div class="form-group">
                                     <label class="form-label">Brand</label>
+
                                     <div class="form-input">
                                         <select name="brand_id" required>
                                             <option value="">Select a Brand</option>
@@ -311,6 +321,7 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
 
                                 <div class="form-group">
                                     <label class="form-label">Category</label>
+
                                     <div class="form-input">
                                         <select name="category_id" required>
                                             <option value="">Select a Category</option>
@@ -326,6 +337,7 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
 
                                 <div class="form-group">
                                     <label class="form-label">Product Status</label>
+
                                     <div class="form-input">
                                         <select name="status">
                                             <option value="">None</option>
@@ -339,6 +351,7 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
 
                             <div class="form-group">
                                 <label class="form-label">Description</label>
+
                                 <div class="form-input">
                                     <ion-icon name="document-text-outline" class="icon-textarea"></ion-icon>
                                     <textarea name="description" rows="4" style="width:100%; padding-left:45px;"></textarea>
@@ -351,6 +364,7 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                             </div>
 
                             <div id="specifications-container"></div>
+
                             <button type="button" id="add-spec-btn" class="button" style="background: var(--gradient); color: var(--light); margin-top: 10px; width: auto; padding: 10px 15px; font-size: 0.9rem;">
                                 Add Custom Specification
                             </button>
@@ -365,6 +379,7 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                             <div id="variants-container"></div>
 
                             <div class="form-row">
+
                                 <button type="button" id="add-variant-btn" class="button" style="background: var(--gradient); color: var(--light); width: 50%;">
                                     Add Color Group
                                 </button>
@@ -377,9 +392,11 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                     </div>
 
                     <div id="edit_product" class="tab-content">
+
                         <div class="form-header">
                             <h2>Edit Product</h2>
                         </div>
+
                         <?php if ($message && $active_tab === 'edit_product'): ?>
                             <div class="alert alert-<?php echo $message_type; ?>">
                                 <?php echo $message; ?>
@@ -387,7 +404,6 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                         <?php endif; ?>
 
                         <div class="orders-table-container">
-
                             <table>
                                 <thead>
                                     <tr>
@@ -420,13 +436,6 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
 
     <script>
         // TABS SCRIPT
-
-        /**
-         * Manages the tabbed interface.
-         * Hides all tab content and then shows only the one that was clicked.
-         * @param {Event} evt - The click event.
-         * @param {string} tabName - The ID of the tab content to display.
-         */
         function openTab(evt, tabName) {
             // First, hide all the tab content sections.
             var i, tabcontent, tablinks;
@@ -458,7 +467,7 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
             }
 
 
-            // --- SPECIFICATIONS SCRIPT --- //
+            // SPECIFICATIONS SCRIPT //
 
             const specsContainer = document.getElementById('specifications-container');
             // A list of common specs to add to the form by default.
@@ -521,13 +530,18 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
             function addVariantGroup() {
                 const variantId = variantIndex++;
                 const variantHTML = `
+                
                 <div class="variant-group" data-id="${variantId}" style="border:1px solid var(--glass); border-radius:15px; padding:20px; margin-bottom:20px; position: relative;">
-                    <button type="button" class="remove-btn remove-variant-btn" style="position: absolute; top: 10px; right: 10px;  max-width: 23px; max-height: 23px;">&times;</button>
+
+                    <button type="button" class="remove-btn remove-variant-btn" style="position: absolute; top: 10px; right: 10px;  max-width: 23px; max-height: 23px;">
+                        &times;
+                    </button>
                     
                     <div class="form-group">
                     <label class="form-label">Color Name</label>
                         <div class="form-input">
                             <ion-icon name="color-palette-outline"></ion-icon>
+                           
                             <input type="text" name="variants[${variantId}][color]" required>
                         </div>
                     </div>
@@ -535,7 +549,9 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                     <div class="form-group">
                     <label class="form-label">Images for this Color</label>
                         <div class="form-input">
-                            <ion-icon name="images-outline"></ion-icon><input type="file" name="variants[${variantId}][images][]" multiple accept="image/*" style="padding-left: 45px;">
+                            <ion-icon name="images-outline"></ion-icon>
+                            
+                            <input type="file" name="variants[${variantId}][images][]" multiple accept="image/*" style="padding-left: 45px;">
                         </div>
                     </div>
                     
@@ -549,7 +565,10 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                     <div class="multi-select-grid">${createCheckboxes(variantId, 'storage', storageOptions)}</div>
                     
                     </div>
-                    <button type="button" class="button generate-combinations-btn" style="width: auto; padding: 10px 15px; font-size: 0.9rem; margin-top: 25px;">Generate Price & Stock Fields</button>
+                   
+                    <button type="button" class="button generate-combinations-btn" style="width: auto; padding: 10px 15px; font-size: 0.9rem; margin-top: 25px;">
+                        Generate Price & Stock Fields
+                    </button>
                     
                     <div class="combinations-container" style="margin-top: 20px;"></div>
                 </div>`;
@@ -606,12 +625,15 @@ $all_products_result = $conn->query("SELECT p.product_id, p.product_name, b.bran
                         const comboHTML = `
                         <div class="form-group" style="display: flex; gap: 10px; align-items: center;">
                             <label class="form-label" style="flex: 1; margin-bottom: 0;">${ram}GB / ${storageLabel}</label>
+                            
                             <input type="hidden" name="variants[${variantId}][combinations][${comboIndex}][ram]" value="${ram}">
                             <input type="hidden" name="variants[${variantId}][combinations][${comboIndex}][storage]" value="${storage}">
+                            
                             <div class="form-input" style="flex: 0.5; margin-bottom: 0;">
                                 <ion-icon name="pricetag-outline"></ion-icon>
                                 <input type="text" name="variants[${variantId}][combinations][${comboIndex}][price]" placeholder="Price" required>
                             </div>
+                            
                             <div class="form-input" style="flex: 0.5; margin-bottom: 0;">
                                 <ion-icon name="cube-outline"></ion-icon>
                                 <input type="number" name="variants[${variantId}][combinations][${comboIndex}][stock]" placeholder="Stock" required>

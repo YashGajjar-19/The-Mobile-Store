@@ -7,22 +7,34 @@ require_once '../includes/header.php';
 <body>
     <div class="form-container">
         <div class="form-wrapper">
+
             <div class="form-image-column">
                 <img src="../assets/images/svg/forgot.svg" alt="Forgot Password Image" class="login-image" style="width: 80%;">
             </div>
+
             <div class="form-content-column">
                 <div class="form-card">
+                    <!-- Header -->
                     <div class="form-header">
-                        <h2 class="form-header">Forgot Password</h2>
-                        <p class="form-header">Enter your email and phone to verify your account</p>
+                        <h2 class="form-header">
+                            Forgot Password
+                        </h2>
+
+                        <p class="form-header">
+                            Enter your email and phone to verify your account
+                        </p>
                     </div>
 
                     <?php
                     if (isset($_GET['error'])) {
                         if ($_GET['error'] == 'notfound') {
-                            echo '<div class="alert alert-error">No account found with that email and phone number.</div>';
+                            echo '<div class="alert alert-error">
+                                No account found with that email and phone number.
+                            </div>';
                         } else {
-                            echo '<div class="alert alert-error">An unknown error occurred. Please try again.</div>';
+                            echo '<div class="alert alert-error">
+                            An unknown error occurred. Please try again.
+                            </div>';
                         }
                     }
                     ?>

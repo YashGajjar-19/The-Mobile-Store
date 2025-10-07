@@ -111,6 +111,7 @@ $stmt_wishlist->close();
 
                 <div class="form-group">
                     <label for="full_name" class="form-label">Full Name</label>
+                    
                     <div class="form-input">
                         <ion-icon name="person-outline"></ion-icon>
                         <input type="text" id="full_name" name="full_name" value="<?php echo htmlspecialchars($user_data['full_name']); ?>" required>
@@ -119,6 +120,7 @@ $stmt_wishlist->close();
 
                 <div class="form-group">
                     <label for="email" class="form-label">Email</label>
+                    
                     <div class="form-input">
                         <ion-icon name="mail-outline"></ion-icon>
                         <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user_data['email']); ?>" required>
@@ -127,6 +129,7 @@ $stmt_wishlist->close();
 
                 <div class="form-group">
                     <label for="phone_number" class="form-label">Phone Number</label>
+                    
                     <div class="form-input">
                         <ion-icon name="call-outline"></ion-icon>
                         <input type="tel" id="phone_number" name="phone_number" value="<?php echo htmlspecialchars($user_data['phone_number']); ?>">
@@ -135,6 +138,7 @@ $stmt_wishlist->close();
 
                 <div class="form-group">
                     <label for="address" class="form-label">Address</label>
+                    
                     <div class="form-input">
                         <ion-icon name="location-outline" class="icon-textarea"></ion-icon>
                         <textarea id="address" name="address" rows="3" style="width: 100%; padding: 10px 15px 10px 45px; line-height: 1.2rem;"><?php echo htmlspecialchars($user_data['address']); ?></textarea>
@@ -142,7 +146,9 @@ $stmt_wishlist->close();
                 </div>
 
                 <div class="form-submit">
-                    <button type="submit" class="button" style="width: 100%;">Save Changes</button>
+                    <button type="submit" class="button" style="width: 100%;">
+                        Save Changes
+                    </button>
                 </div>
             </form>
         </div>

@@ -25,12 +25,15 @@ $orders_result = $orders_stmt->get_result();
 
 <body class="admin-page">
     <main class="main-content" style="margin-left: 50px; margin-top: 50px;">
+
         <div class="dashboard-header-top">
             <div class="dashboard-title-group">
                 <h2>All Orders</h2>
                 <div class="title-line"></div>
             </div>
+
             <a href="dashboard.php" class="button">Back to Dashboard</a>
+
         </div>
 
         <div class="orders-card">
@@ -50,31 +53,59 @@ $orders_result = $orders_stmt->get_result();
                     <tbody>
                         <?php while ($order = $orders_result->fetch_assoc()): ?>
                             <tr>
-                                <td>#<?php echo $order['order_id']; ?></td>
-                                <td><?php echo htmlspecialchars($order['full_name']); ?></td>
-                                <td>&#8377;<?php echo number_format($order['total_amount']); ?></td>
-                                <td><span class="status <?php echo strtolower(htmlspecialchars($order['status'])); ?>"><?php echo htmlspecialchars($order['status']); ?></span></td>
-                                <td><?php echo date('M d, Y', strtotime($order['order_date'])); ?></td>
+                                <td>
+                                    #<?php echo $order['order_id']; ?>
+                                </td>
+
+                                <td>
+                                    <?php echo htmlspecialchars($order['full_name']); ?>
+                                </td>
+
+                                <td>
+                                    &#8377;<?php echo number_format($order['total_amount']); ?>
+                                </td>
+
+                                <td>
+                                    <span class="status <?php echo strtolower(htmlspecialchars($order['status'])); ?>">
+                                        <?php echo htmlspecialchars($order['status']); ?>
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <?php echo date('M d, Y', strtotime($order['order_date'])); ?>
+                                </td>
+
                                 <td class="action-buttons">
+
                                     <?php if ($order['status'] == 'Pending'): ?>
                                         <form action="../handlers/order_handler.php" method="POST">
                                             <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
-                                            <button type="submit" name="action" value="Approved" class="button-small approve">Approve</button>
+                                            <button type="submit" name="action" value="Approved" class="button-small approve">
+                                                Approve
+                                            </button>
                                         </form>
-
+                                        
                                         <form action="../handlers/order_handler.php" method="POST">
                                             <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
-                                            <button type="submit" name="action" value="Declined" class="button-small decline">Decline</button>
+                                            <button type="submit" name="action" value="Declined" class="button-small decline">
+                                                Decline
+                                            </button>
                                         </form>
+
                                     <?php elseif ($order['status'] == 'Approved'): ?>
                                         <form action="../handlers/order_handler.php" method="POST">
                                             <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
-                                            <button type="submit" name="action" value="Shipped" class="button-small shipped">Ship</button>
+                                            <button type="submit" name="action" value="Shipped" class="button-small shipped">
+                                                Ship
+                                            </button>
                                         </form>
+
                                     <?php elseif ($order['status'] == 'Shipped'): ?>
                                         <form action="../handlers/order_handler.php" method="POST">
                                             <input type="hidden" name="order_id" value="<?php echo $order['order_id']; ?>">
-                                            <button type="submit" name="action" value="Delivered" class="button-small delivered">Deliver</button>
+                                            <button type="submit" name="action" value="Delivered" class="button-small delivered">
+                                                Deliver
+                                            </button>
                                         </form>
                                     <?php else: ?>
                                         -

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../includes/config.php';
+require_once '../includes/header.php';
 
 // Security Check
 if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
@@ -20,15 +21,6 @@ $products_stmt = $conn->prepare("
 $products_stmt->execute();
 $products_result = $products_stmt->get_result();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Products | Admin</title>
-    <link rel="stylesheet" href="../assets/css/main.css">
-</head>
 
 <body class="admin-page">
     <main class="main-content" style="margin-left: 50px; margin-top: 50px;">

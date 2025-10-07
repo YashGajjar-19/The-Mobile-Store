@@ -100,12 +100,6 @@ $cart_total = 0;
                                     +
                                 </button>
                             </div>
-
-                            <!-- Subtotal of all itesms -->
-                            <div class="cart-item-subtotal">
-                                Subtotal: &#8377;
-                                <span><?php echo number_format($subtotal); ?></span>
-                            </div>
                         </div>
 
                         <!-- Remove item button -->

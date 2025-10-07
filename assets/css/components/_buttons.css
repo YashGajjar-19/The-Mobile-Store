@@ -156,11 +156,13 @@
 .remove-item-btn {
   border: none;
   cursor: pointer;
-  color: var(--dark);
+  background: rgba(255, 220, 220, 0.459);
+  color: var(--red);
+  border: 1px solid rgba(148, 0, 0, 0.322);
   opacity: 0.6;
   transition: all 0.2s ease;
-  padding: 5px;
-  margin-left: 10px;
+  padding: 9px;
+  border-radius: 50px;
 }
 
 .remove-item-btn:hover {
@@ -170,7 +172,7 @@
 }
 
 .remove-item-btn .material-symbols-rounded {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   display: block;
 }
 

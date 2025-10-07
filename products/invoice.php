@@ -53,15 +53,18 @@ $order_items_result = $stmt_items->get_result();
 ?>
 
 <div class="invoice-container">
+    <!-- Header -->
     <div class="invoice-header">
         <img src="../assets/images/Logo.png" alt="The Mobile Store" class="invoice-logo">
         <h1>Invoice</h1>
     </div>
 
+    <!-- Bill details -->
     <div class="invoice-details">
         <div class="invoice-content">
-            <h2>Billed To:</h2>
-            
+            <h2>
+                Billed To:
+            </h2>
             <p>
                 <?php echo nl2br(htmlspecialchars(trim($order['shipping_address']))); ?>
             </p>
@@ -69,11 +72,9 @@ $order_items_result = $stmt_items->get_result();
         
         <div style="text-align: right;">
             <h2>Invoice Details:</h2>
-
             <p>
                 <strong>Invoice #:</strong>
-                INV-
-                <?php echo str_pad(htmlspecialchars($order['order_id']), 4, '0', STR_PAD_LEFT); ?>
+                INV- <?php echo str_pad(htmlspecialchars($order['order_id']), 4, '0', STR_PAD_LEFT); ?>
             </p>
 
             <p>
@@ -97,6 +98,7 @@ $order_items_result = $stmt_items->get_result();
                 <th style="text-align: right;">Total</th>
             </tr>
         </thead>
+        
         <tbody>
             <?php if ($order_items_result->num_rows > 0): ?>
                 <?php while ($item = $order_items_result->fetch_assoc()): ?>
@@ -107,29 +109,54 @@ $order_items_result = $stmt_items->get_result();
                             echo htmlspecialchars($product_name);
                             ?>
                         </td>
-                        <td><?php echo htmlspecialchars($item['quantity']); ?></td>
-                        <td>&#8377;<?php echo htmlspecialchars(number_format($item['price_per_item'], 2)); ?></td>
-                        <td style="text-align: right;">&#8377;<?php echo htmlspecialchars(number_format($item['quantity'] * $item['price_per_item'], 2)); ?></td>
+        
+                        <td>
+                            <?php echo htmlspecialchars($item['quantity']); ?>
+                        </td>
+        
+                        <td>
+                            &#8377;
+                            <?php echo htmlspecialchars(number_format($item['price_per_item'], 2)); ?>
+                        </td>
+                        
+                        <td style="text-align: right;">
+                            &#8377;
+                            <?php echo htmlspecialchars(number_format($item['quantity'] * $item['price_per_item'], 2)); ?>
+                        </td>
                     </tr>
                 <?php endwhile; ?>
-            <?php else: ?>
+            
+                <?php else: ?>
                 <tr>
-                    <td colspan="4" style="text-align: center;">No items found for this order.</td>
+                    <td colspan="4" style="text-align: center;">
+                        No items found for this order.
+                    </td>
                 </tr>
             <?php endif; ?>
         </tbody>
+
         <tfoot>
             <tr>
                 <td colspan="2"></td>
-                <td class="total-label">Grand Total</td>
-                <td class="total-amount">&#8377;<?php echo htmlspecialchars(number_format($order['total_amount'], 2)); ?></td>
+                <td class="total-label">
+                    Grand Total
+                </td>
+                <td class="total-amount">
+                    &#8377;
+                    <?php echo htmlspecialchars(number_format($order['total_amount'], 2)); ?>
+                </td>
             </tr>
         </tfoot>
     </table>
 
     <div class="invoice-footer">
-        <p>Thank you for shopping with The Mobile Store!</p>
-        <p>This is a computer-generated invoice and does not require a signature.</p>
+        <p>
+            Thank you for shopping with The Mobile Store!
+        </p>
+        
+        <p>
+            This is a computer-generated invoice and does not require a signature.
+        </p>
     </div>
 </div>
 
