@@ -111,7 +111,7 @@ $stmt_wishlist->close();
 
                 <div class="form-group">
                     <label for="full_name" class="form-label">Full Name</label>
-                    
+
                     <div class="form-input">
                         <ion-icon name="person-outline"></ion-icon>
                         <input type="text" id="full_name" name="full_name" value="<?php echo htmlspecialchars($user_data['full_name']); ?>" required>
@@ -120,7 +120,7 @@ $stmt_wishlist->close();
 
                 <div class="form-group">
                     <label for="email" class="form-label">Email</label>
-                    
+
                     <div class="form-input">
                         <ion-icon name="mail-outline"></ion-icon>
                         <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user_data['email']); ?>" required>
@@ -129,7 +129,7 @@ $stmt_wishlist->close();
 
                 <div class="form-group">
                     <label for="phone_number" class="form-label">Phone Number</label>
-                    
+
                     <div class="form-input">
                         <ion-icon name="call-outline"></ion-icon>
                         <input type="tel" id="phone_number" name="phone_number" value="<?php echo htmlspecialchars($user_data['phone_number']); ?>">
@@ -138,7 +138,7 @@ $stmt_wishlist->close();
 
                 <div class="form-group">
                     <label for="address" class="form-label">Address</label>
-                    
+
                     <div class="form-input">
                         <ion-icon name="location-outline" class="icon-textarea"></ion-icon>
                         <textarea id="address" name="address" rows="3" style="width: 100%; padding: 10px 15px 10px 45px; line-height: 1.2rem;"><?php echo htmlspecialchars($user_data['address']); ?></textarea>
@@ -167,6 +167,7 @@ $stmt_wishlist->close();
                             <th>Date</th>
                             <th>Status</th>
                             <th>Total</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
 
@@ -178,11 +179,16 @@ $stmt_wishlist->close();
                                     <td><?php echo date('M d, Y', strtotime($order['order_date'])); ?></td>
                                     <td><span class="status <?php echo strtolower($order['status']); ?>"><?php echo htmlspecialchars($order['status']); ?></span></td>
                                     <td>&#8377;<?php echo number_format($order['total_amount'], 2); ?></td>
+                                    <td>
+                                        <a href="../products/invoice.php?order_id=<?php echo $order['order_id']; ?>" class="button buy-button" target="_blank">
+                                            See Invoice
+                                        </a>
+                                    </td>
                                 </tr>
                             <?php endwhile; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="4">You have not placed any orders yet.</td>
+                                <td colspan="5">You have not placed any orders yet.</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>

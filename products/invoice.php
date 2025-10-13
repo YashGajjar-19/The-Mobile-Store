@@ -13,7 +13,7 @@ if (!isset($_GET['order_id']) || empty($_GET['order_id'])) {
 
 $order_id = $_GET['order_id'];
 
-// Fetch the main order details
+// Fetch the main order details - FIXED: Changed 'id' to 'order_id'
 $order_query = "SELECT * FROM `orders` WHERE `order_id` = ?";
 $stmt = $conn->prepare($order_query);
 
@@ -53,13 +53,11 @@ $order_items_result = $stmt_items->get_result();
 ?>
 
 <div class="invoice-container">
-    <!-- Header -->
     <div class="invoice-header">
         <img src="../assets/images/Logo.png" alt="The Mobile Store" class="invoice-logo">
         <h1>Invoice</h1>
     </div>
 
-    <!-- Bill details -->
     <div class="invoice-details">
         <div class="invoice-content">
             <h2>
@@ -69,12 +67,12 @@ $order_items_result = $stmt_items->get_result();
                 <?php echo nl2br(htmlspecialchars(trim($order['shipping_address']))); ?>
             </p>
         </div>
-        
+
         <div style="text-align: right;">
             <h2>Invoice Details:</h2>
             <p>
                 <strong>Invoice #:</strong>
-                INV- <?php echo str_pad(htmlspecialchars($order['order_id']), 4, '0', STR_PAD_LEFT); ?>
+                INV-<?php echo str_pad(htmlspecialchars($order['order_id']), 4, '0', STR_PAD_LEFT); ?>
             </p>
 
             <p>
@@ -98,7 +96,7 @@ $order_items_result = $stmt_items->get_result();
                 <th style="text-align: right;">Total</th>
             </tr>
         </thead>
-        
+
         <tbody>
             <?php if ($order_items_result->num_rows > 0): ?>
                 <?php while ($item = $order_items_result->fetch_assoc()): ?>
@@ -109,24 +107,24 @@ $order_items_result = $stmt_items->get_result();
                             echo htmlspecialchars($product_name);
                             ?>
                         </td>
-        
+
                         <td>
                             <?php echo htmlspecialchars($item['quantity']); ?>
                         </td>
-        
+
                         <td>
                             &#8377;
                             <?php echo htmlspecialchars(number_format($item['price_per_item'], 2)); ?>
                         </td>
-                        
+
                         <td style="text-align: right;">
                             &#8377;
                             <?php echo htmlspecialchars(number_format($item['quantity'] * $item['price_per_item'], 2)); ?>
                         </td>
                     </tr>
                 <?php endwhile; ?>
-            
-                <?php else: ?>
+
+            <?php else: ?>
                 <tr>
                     <td colspan="4" style="text-align: center;">
                         No items found for this order.
@@ -153,11 +151,11 @@ $order_items_result = $stmt_items->get_result();
         <p>
             Thank you for shopping with The Mobile Store!
         </p>
-        
+
         <p>
             This is a computer-generated invoice and does not require a signature.
         </p>
     </div>
 </div>
 
-<?php require_once '../includes/footer.php'; ?>
+<?php require_once '../includes/footer.php'; ?> 

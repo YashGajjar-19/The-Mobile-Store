@@ -619,6 +619,16 @@
         border-top: 1px solid #e2e8f0;
 }
 
+.order-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
 @media (max-width: 992px) {
     .product-page-container {
         grid-template-columns: 1fr;
