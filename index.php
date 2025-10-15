@@ -161,8 +161,12 @@ if (isset($_SESSION['user_id'])) {
             <?php while ($product = $random_products->fetch_assoc()): ?>
                 <div class="product-card">
                     <?php $is_wishlisted = in_array($product['product_id'], $wishlist_product_ids); ?>
-                    <button class="wishlist-btn <?php if ($is_wishlisted) echo 'active'; ?>" data-product-id="<?php echo $product['product_id']; ?>">
-                        <span class="material-symbols-rounded">favorite</span>
+                    <button class="wishlist-btn <?php echo $is_wishlisted ? 'active' : ''; ?>"
+                        data-product-id="<?php echo $product['product_id']; ?>"
+                        data-in-wishlist="<?php echo $is_wishlisted ? 'true' : 'false'; ?>">
+                        <span class="material-symbols-rounded">
+                            <?php echo $is_wishlisted ? 'favorite' : 'favorite'; ?>
+                        </span>
                     </button>
 
                     <?php if ($product['status']): ?>

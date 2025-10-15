@@ -4,11 +4,14 @@ require_once '../includes/config.php';
 require_once '../includes/header.php';
 require_once '../includes/navbar.php';
 
-// --- Fetch User's Wishlist ---
+$user_id = $_SESSION['user_id'] ?? null;
 $wishlist_product_ids = [];
-if (isset($_SESSION['user_id'])) {
+
+// --- EFFICIENT WISHLIST CHECK ---
+// Fetch all of the user's wishlist items at once before the loop
+if ($user_id) {
     $wishlist_stmt = $conn->prepare("SELECT product_id FROM wishlist WHERE user_id = ?");
-    $wishlist_stmt->bind_param("i", $_SESSION['user_id']);
+    $wishlist_stmt->bind_param("i", $user_id);
     $wishlist_stmt->execute();
     $wishlist_result = $wishlist_stmt->get_result();
     while ($row = $wishlist_result->fetch_assoc()) {
@@ -191,8 +194,12 @@ $products_result = $products_stmt->get_result();
                 <div class="product-card">
                     <!-- Wishlist -->
                     <?php $is_wishlisted = in_array($product['product_id'], $wishlist_product_ids); ?>
-                    <button class="wishlist-btn <?php if ($is_wishlisted) echo 'active'; ?>" data-product-id="<?php echo $product['product_id']; ?>">
-                        <span class="material-symbols-rounded">favorite</span>
+                    <button class="wishlist-btn <?php echo $is_wishlisted ? 'active' : ''; ?>"
+                        data-product-id="<?php echo $product['product_id']; ?>"
+                        data-in-wishlist="<?php echo $is_wishlisted ? 'true' : 'false'; ?>">
+                        <span class="material-symbols-rounded">
+                            <?php echo $is_wishlisted ? 'favorite' : 'favorite'; ?>
+                        </span>
                     </button>
 
                     <!-- Product status -->
@@ -246,7 +253,7 @@ $products_result = $products_stmt->get_result();
         endif;
         ?>
     </div>
-    
+
 </main>
 
 <?php require_once '../includes/footer.php'; ?>
