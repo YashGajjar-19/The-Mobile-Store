@@ -56,9 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeWishlist();
 });
 
-// =================================================================
-// ===== WISHLIST FUNCTIONALITY ====================================
-// =================================================================
+// WISHLIST FUNCTIONALITY
 
 function initializeWishlist() {
   const wishlistButtons = document.querySelectorAll('.wishlist-btn');
@@ -99,7 +97,7 @@ async function toggleWishlistItem(productId, button) {
     console.log('Sending wishlist request...');
 
     // FIXED PATH: Use the correct relative path
-    const response = await fetch('./handlers/wishlist_handler.php', {
+    const response = await fetch(`${BASE_URL}handlers/wishlist_handler.php`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -128,16 +126,16 @@ async function toggleWishlistItem(productId, button) {
     if (data.status === 'added') {
       button.classList.add('active');
       button.dataset.inWishlist = 'true';
-      showAlert('success', '✓ Added to wishlist!');
+      showAlert('success', 'Added to wishlist!');
     } else if (data.status === 'removed') {
       button.classList.remove('active');
       button.dataset.inWishlist = 'false';
-      showAlert('success', 'Removed from wishlist');
+      showAlert('error', 'Removed from wishlist');
     } else if (data.status === 'error') {
       if (data.message.includes('logged in')) {
         showAlert('error', 'Please login to use wishlist');
         setTimeout(() => {
-          window.location.href = './user/index.php';
+          window.location.href = '/user/index.php';
         }, 1500);
       } else {
         showAlert('error', data.message);
@@ -150,7 +148,7 @@ async function toggleWishlistItem(productId, button) {
     if (error.message.includes('logged in')) {
       showAlert('error', 'Please login to use wishlist');
       setTimeout(() => {
-        window.location.href = './user/index.php';
+        window.location.href = '/user/index.php';
       }, 1500);
     } else if (error.message.includes('404') || error.message.includes('file path')) {
       showAlert('error', 'Wishlist service unavailable. Please try again later.');
@@ -166,9 +164,7 @@ async function toggleWishlistItem(productId, button) {
   }
 }
 
-// =================================================================
-// ===== ALERT SYSTEM - USING YOUR EXISTING CSS ===================
-// =================================================================
+// ALERT SYSTEM - USING YOUR EXISTING CSS 
 
 function showAlert(type, message) {
   // Use your existing alert container
