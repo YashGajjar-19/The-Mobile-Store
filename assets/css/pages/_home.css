@@ -41,6 +41,20 @@
     height: auto;
     border-radius: 15px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+
 }
 
 /* Text Styling */
@@ -51,11 +65,16 @@
 }
 
 .hero-headline {
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-size: 3rem;
+    font-weight: 800;
     line-height: 1.2;
     margin-bottom: 20px;
-    color: var(--darkest);
+    background: var(--text-gradient);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease;
+
 }
 
 .hero-subheadline {
@@ -78,11 +97,14 @@
     box-shadow: var(--light-shadow);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .slider-wrapper:hover {
-    box-shadow: var(--dark-shadow);
+    box-shadow: var(--glass-shadow);
+    transform: translateY(-5px) scale(1.01);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
 }
 
 /* Slider Container */

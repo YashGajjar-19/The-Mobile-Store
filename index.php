@@ -172,12 +172,14 @@ if (isset($_SESSION['user_id'])) {
                     <?php if ($product['status']): ?>
                         <div class="product-badge <?php echo strtolower(htmlspecialchars($product['status'])); ?>"><?php echo htmlspecialchars($product['status']); ?></div>
                     <?php endif; ?>
-                    <h3 class="product-title"><?php echo htmlspecialchars($product['product_name']); ?></h3>
                     <div class="product-image-container">
                         <a href="./products/product.php?id=<?php echo $product['product_id']; ?>">
                             <img src="./assets/images/products/<?php echo htmlspecialchars($product['image_url']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>">
                         </a>
                     </div>
+                    
+                    <h3 class="product-title"><?php echo htmlspecialchars($product['product_name']); ?></h3>
+
                     <div class="product-info-bottom">
                         <div class="product-price">From &#8377;<?php echo number_format($product['starting_price']); ?></div>
                         <a href="./products/product.php?id=<?php echo $product['product_id']; ?>" class="button buy-button">View</a>
@@ -191,6 +193,10 @@ if (isset($_SESSION['user_id'])) {
     </section>
 
     <?php require_once 'includes/footer.php'; ?>
+
+    <button id="scrollToTop" class="scroll-to-top" title="Go to top">
+        <span class="material-symbols-rounded">arrow_upward</span>
+    </button>
 
     <script src="./assets/js/main.js"></script>
 </body>

@@ -140,6 +140,15 @@
     font-size: 0.7rem;
     font-weight: 600;
     font-family: 'Montserrat', sans-serif;
+    animation: pulse-badge 2s infinite;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+@keyframes pulse-badge {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 78, 224, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 78, 224, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 78, 224, 0); }
+
 }
 
 
